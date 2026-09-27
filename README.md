@@ -3,7 +3,7 @@
 Proyecto de Aula I — Maestría en Recursos Digitales Aplicados a la Educación
 Universidad de Cartagena
 
-**Ver el portafolio:** https://mirash18.github.io/portafolio-electronico/
+**Ver el portafolio:** https://mirash1826.github.io/portafolio-electronico/
 
 ## Trabajo de grado
 
