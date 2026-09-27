@@ -1,0 +1,684 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Portafolio Aula Digital Naturales</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap">
+<style>
+:root{
+  --bg:#f2f5f1; --surface:#ffffff; --ink:#16241d; --muted:#51625a; --line:#d5ddd6;
+  --brand:#1f5a40; --brand-ink:#ffffff; --gold:#b07d16; --gold-soft:#f5e9c8; --tint:#e4eee7;
+  --focus:#0b6bcb;
+  --f-display:'Bricolage Grotesque','Segoe UI',system-ui,sans-serif;
+  --f-body:'Source Sans 3','Segoe UI',system-ui,sans-serif;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg:#0f1a15; --surface:#16251e; --ink:#e8f0ea; --muted:#a3b5aa; --line:#2b4136;
+    --brand:#6fc79b; --brand-ink:#0d1a13; --gold:#e0b04a; --gold-soft:#3a3016; --tint:#1c3026;
+    --focus:#7db8ff;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#0f1a15; --surface:#16251e; --ink:#e8f0ea; --muted:#a3b5aa; --line:#2b4136;
+  --brand:#6fc79b; --brand-ink:#0d1a13; --gold:#e0b04a; --gold-soft:#3a3016; --tint:#1c3026;
+  --focus:#7db8ff;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:17px;line-height:1.6;margin:0}
+h1,h2,h3,h4{font-family:var(--f-display);line-height:1.15;text-wrap:balance;margin:0}
+p{margin:0}
+a{color:var(--brand)}
+:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+.wrap{max-width:1080px;margin:0 auto;padding-inline:16px}
+
+/* Header + menu */
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;background:var(--brand);color:var(--brand-ink)}
+.bar{display:flex;align-items:center;gap:12px;padding-block:8px}
+.brand{display:flex;align-items:center;gap:10px;background:none;border:0;color:inherit;font:inherit;cursor:pointer;padding:0;text-align:left}
+.brand img{width:38px;height:38px;border-radius:50%;background:#fff;padding:2px}
+.brand b{font-family:var(--f-display);font-size:1rem;line-height:1.1;display:block}
+.brand span{font-size:.75rem;opacity:.85;display:block}
+.burger{margin-left:auto;background:transparent;border:1.5px solid currentColor;color:inherit;border-radius:8px;padding:6px 12px;font:600 .9rem var(--f-body);cursor:pointer}
+nav.menu{display:none;flex-direction:column;width:100%;padding-bottom:10px}
+nav.menu.open{display:flex}
+.bar{flex-wrap:wrap}
+.m-item{position:relative}
+.m-btn{width:100%;text-align:left;background:none;border:0;color:inherit;font:700 1rem var(--f-display);padding:10px 4px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(255,255,255,.18)}
+.m-btn::after{content:"\25BE";font-size:.8em;opacity:.8}
+.drop{display:none;flex-direction:column;padding:0 0 6px 12px}
+.m-item.open .drop{display:flex}
+.drop button{background:none;border:0;color:inherit;text-align:left;font:400 .95rem var(--f-body);padding:6px 4px;cursor:pointer;border-radius:6px}
+.drop button:hover,.drop button[aria-current="page"]{background:rgba(255,255,255,.16)}
+@media (min-width:860px){
+  .burger{display:none}
+  nav.menu{display:flex;flex-direction:row;width:auto;margin-left:auto;padding:0;gap:2px}
+  .m-btn{border:0;padding:10px 12px;border-radius:8px;width:auto;gap:6px}
+  .m-btn:hover,.m-item.open .m-btn{background:rgba(255,255,255,.16)}
+  .drop{position:absolute;right:0;top:100%;min-width:250px;background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:6px;box-shadow:0 12px 30px rgba(0,0,0,.22)}
+  .drop button:hover,.drop button[aria-current="page"]{background:var(--tint)}
+}
+
+/* Views */
+main{padding-block:28px 56px}
+.view{display:none}
+.view.active{display:block}
+.eyebrow{font:600 .78rem var(--f-body);letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}
+.page-title{font-size:clamp(1.8rem,4.5vw,2.7rem);font-weight:800;margin:6px 0 8px}
+.lead{color:var(--muted);max-width:68ch;margin-bottom:24px}
+.prose{max-width:68ch}
+.prose p+p{margin-top:1em}
+.chip{display:inline-block;font:600 .78rem var(--f-body);padding:3px 10px;border-radius:99px;background:var(--gold-soft);color:var(--ink);border:1px solid var(--gold)}
+.btn{font:700 .95rem var(--f-body);background:var(--brand);color:var(--brand-ink);border:0;border-radius:8px;padding:10px 18px;cursor:pointer}
+.btn.alt{background:transparent;color:var(--brand);border:1.5px solid var(--brand)}
+.btn:disabled{opacity:.5;cursor:default}
+
+/* Home */
+.hero{display:grid;gap:28px;grid-template-columns:1fr;align-items:center;padding-block:8px 28px}
+@media (min-width:860px){.hero{grid-template-columns:200px 1fr}}
+.hero .crest{width:min(200px,60%);height:auto;margin:0 auto}@media (min-width:860px){.hero .crest{width:100%}}
+.hero h1{font-size:clamp(1.55rem,3.6vw,2.4rem);font-weight:800}
+.inst{color:var(--muted);margin-bottom:10px;font-size:.98rem}
+.people{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));margin-top:22px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px}
+.card h3{font-size:1rem;margin-bottom:8px;color:var(--brand)}
+.card ul{margin:0;padding:0;list-style:none;display:grid;gap:4px}
+.gallery{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));margin-top:26px}
+.gallery figure{margin:0;border-radius:12px;overflow:hidden;border:1px solid var(--line);background:var(--surface)}
+.gallery svg{display:block;width:100%;height:auto}
+.gallery figure{display:flex;flex-direction:column}
+.gallery img{display:block;width:100%;height:auto;aspect-ratio:16/10;object-fit:cover}
+.gallery figcaption{margin-top:auto}
+.gallery figcaption{padding:8px 12px;font-size:.88rem;color:var(--muted)}
+.logo-row{margin-top:26px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo-row img{height:64px;background:#fff;border-radius:8px;padding:4px}
+.enter{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));margin-top:26px}
+.enter button{text-align:left;background:var(--tint);border:1px solid var(--line);color:var(--ink);border-radius:12px;padding:14px;cursor:pointer;font:inherit}
+.enter button b{display:block;font-family:var(--f-display);font-size:1.1rem;color:var(--brand)}
+.enter button span{font-size:.88rem;color:var(--muted)}
+
+/* Avatars */
+.avatars{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+.av{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px;display:grid;gap:12px}
+.av-img{width:100%;height:auto;display:block;border-radius:10px;aspect-ratio:1/1;object-fit:cover}
+.av.talking .av-img{animation:bob 1.6s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+@media (prefers-reduced-motion:reduce){.av.talking .av-img{animation:none}}
+.av-stage{background:var(--tint);border-radius:12px;display:grid;place-items:center;padding:8px}
+.av-stage svg{width:min(220px,70%);height:auto}
+.av .mouth-open{opacity:0;transform-origin:100px 143px}
+.av.talking .mouth-open{opacity:1;animation:talk .28s ease-in-out infinite alternate}
+.av.talking .mouth-shut{opacity:0}
+.av.talking .head{animation:nod 1.4s ease-in-out infinite}
+@keyframes talk{from{transform:scaleY(.35)}to{transform:scaleY(1.1)}}
+@keyframes nod{0%,100%{transform:translateY(0)}50%{transform:translateY(-2px)}}
+@media (prefers-reduced-motion:reduce){.av.talking .mouth-open,.av.talking .head{animation:none}}
+.sub{min-height:5.2em;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:.95rem}
+.sub mark{background:var(--gold-soft);color:var(--ink);border-radius:3px;padding:0 2px}
+.controls{display:flex;gap:10px;flex-wrap:wrap}
+.av h3{font-size:1.15rem}
+.note{font-size:.88rem;color:var(--muted)}
+
+/* Poster */
+.poster{background:var(--brand);color:var(--brand-ink);border-radius:16px;padding:clamp(18px,4vw,36px);display:grid;gap:20px}
+.poster h2{font-size:clamp(1.3rem,3vw,1.9rem);font-weight:800}
+.poster .sub-t{opacity:.9;font-size:.95rem}
+.p-grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.p-box{background:var(--surface);color:var(--ink);border-radius:12px;padding:16px}
+.p-box h3{font-size:1rem;color:var(--brand);margin-bottom:8px;display:flex;gap:8px;align-items:center}
+.p-box p,.p-box li{font-size:.95rem}
+.p-box ul{margin:0;padding-left:1.1em;display:grid;gap:6px}
+.stat{font:800 2.6rem var(--f-display);color:var(--gold);line-height:1}
+.p-obj{background:var(--gold-soft);color:var(--ink);border-radius:12px;padding:16px}
+.p-obj h3{font-size:1rem;margin-bottom:8px}
+.p-obj ol{margin:0;padding-left:1.2em;display:grid;gap:6px;font-size:.95rem}
+.bar-chart{display:grid;gap:6px;margin-top:10px}
+.bar-row{display:grid;grid-template-columns:110px 1fr 40px;gap:8px;align-items:center;font-size:.85rem}
+.track{height:12px;background:var(--tint);border-radius:6px;overflow:hidden}
+.fill{display:block;height:100%;background:var(--brand)}
+.fill.g{background:var(--gold)}
+.bar-row b{font-variant-numeric:tabular-nums;text-align:right}
+
+/* E-book */
+.ebook{display:grid;gap:16px;grid-template-columns:1fr}
+@media (min-width:860px){.ebook{grid-template-columns:230px 1fr}}
+.toc{display:flex;flex-wrap:wrap;gap:6px}
+@media (min-width:860px){.toc{flex-direction:column;flex-wrap:nowrap;position:sticky;top:90px;align-self:start}}
+.toc button{text-align:left;background:var(--surface);border:1px solid var(--line);color:var(--ink);border-radius:8px;padding:8px 12px;cursor:pointer;font:600 .9rem var(--f-body)}
+.toc button[aria-current="true"]{background:var(--brand);color:var(--brand-ink);border-color:var(--brand)}
+.page{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:clamp(18px,4vw,36px)}
+.page h2{font-size:1.7rem;margin-bottom:14px}
+.page h3{font-size:1.15rem;margin:22px 0 8px;color:var(--brand)}
+.page p{max-width:68ch;text-align:left}
+.page p+p{margin-top:.9em}
+.pager{display:flex;justify-content:space-between;gap:10px;margin-top:16px}
+.cover{background:var(--brand);color:var(--brand-ink);border-radius:12px;padding:24px;margin-bottom:18px}
+.cover h2{margin:0;font-size:1.4rem}
+.cover p{opacity:.9;font-size:.95rem;margin-top:8px}
+
+/* Design sections */
+.grid2{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;min-width:560px;font-size:.95rem}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{background:var(--tint);font-family:var(--f-display);font-size:.9rem}
+tr:last-child td{border-bottom:0}
+.flow{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));counter-reset:f}
+.flow .step{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;position:relative}
+.flow .step::before{counter-increment:f;content:counter(f);position:absolute;top:-12px;left:14px;background:var(--gold);color:#fff;font:800 .9rem var(--f-display);width:26px;height:26px;border-radius:50%;display:grid;place-items:center}
+.step h3{font-size:1.05rem;margin:4px 0 8px;color:var(--brand)}
+.step ul{margin:8px 0 0;padding-left:1.1em;font-size:.93rem}
+.step .goal{font-size:.9rem;color:var(--muted);font-style:italic}
+.video{aspect-ratio:16/9;max-width:100%;background:linear-gradient(135deg,var(--brand),#0f3323);border-radius:14px;display:grid;place-items:center;color:#fff;text-align:center;padding:16px}
+.video svg{width:64px;height:64px}
+.todo{border:1.5px dashed var(--gold);background:var(--gold-soft);color:var(--ink);border-radius:10px;padding:10px 14px;font-size:.92rem}
+
+/* Credits */
+.refs{display:grid;gap:12px;max-width:80ch}
+.refs p{padding-left:2.2em;text-indent:-2.2em;font-size:.95rem;overflow-wrap:anywhere}
+.cc{display:flex;gap:16px;align-items:center;flex-wrap:wrap;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px}
+.cc .badge{font:800 1rem var(--f-display);background:var(--ink);color:var(--bg);border-radius:8px;padding:10px 12px;letter-spacing:.06em}
+.tree{list-style:none;margin:0;padding:0}
+.tree ul{list-style:none;margin:6px 0 6px 12px;padding-left:16px;border-left:2px solid var(--line);display:grid;gap:4px}
+.tree>li{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 16px;margin-bottom:10px}
+.tree>li>button{font:700 1.05rem var(--f-display);color:var(--brand)}
+.tree button{background:none;border:0;cursor:pointer;color:var(--ink);font:inherit;padding:2px 4px;text-align:left;text-decoration:underline;text-decoration-color:var(--line);text-underline-offset:3px}
+.tree button:hover{text-decoration-color:var(--brand)}
+footer.foot{border-top:1px solid var(--line);padding-block:22px;color:var(--muted);font-size:.88rem}
+</style></head><body>
+
+<header class="top">
+  <div class="wrap">
+    <div class="bar">
+      <button class="brand" data-go="inicio" aria-label="Ir al inicio">
+        <img src="img/escudo-universidad.jpg" alt="Escudo de la Universidad de Cartagena">
+        <span><b>Portafolio electrónico</b><span>Universidad de Cartagena</span></span>
+      </button>
+      <button class="burger" id="burger" aria-expanded="false" aria-controls="menu">Menú</button>
+      <nav class="menu" id="menu" aria-label="Menú principal">
+        <div class="m-item"><button class="m-btn" aria-haspopup="true">Identificando</button>
+          <div class="drop"><button data-go="avatar">Avatar</button><button data-go="poster">Póster digital</button></div></div>
+        <div class="m-item"><button class="m-btn" aria-haspopup="true">Referenciando</button>
+          <div class="drop"><button data-go="ebook">E-book</button></div></div>
+        <div class="m-item"><button class="m-btn" aria-haspopup="true">Diseñando</button>
+          <div class="drop"><button data-go="unidad">Unidad didáctica</button><button data-go="infografia">Infografía: propuesta metodológica</button><button data-go="disenoinst">Diseño instruccional</button><button data-go="producto">Producto final</button><button data-go="video">Video tutorial</button></div></div>
+        <div class="m-item"><button class="m-btn" aria-haspopup="true">Créditos</button>
+          <div class="drop"><button data-go="referencias">Referencias bibliográficas</button><button data-go="agradecimientos">Agradecimientos</button><button data-go="licencia">Licenciamiento</button><button data-go="mapa">Mapa de navegación</button></div></div>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+<!-- INICIO -->
+<section class="view active" id="v-inicio">
+  <div class="hero">
+    <img class="crest" src="img/escudo-universidad.jpg" alt="Escudo de la Universidad de Cartagena">
+    <div>
+      <div class="eyebrow">Proyecto de Aula I · Portafolio electrónico</div>
+      <h1 style="margin:8px 0 12px">Fortalecimiento del rendimiento académico en Ciencias Naturales mediante una estrategia pedagógica mediada por Google Classroom en estudiantes de grado noveno de la Institución Educativa Municipal Misael Pastrana Borrero en Saladoblanco, Huila</h1>
+      <p class="inst">Facultad de Ciencias Sociales y Educación · Maestría en Recursos Digitales Aplicados a la Educación · Universidad de Cartagena</p>
+    </div>
+  </div>
+
+  <div class="people">
+    <div class="card"><h3>Estudiantes</h3>
+      <ul><li>Dora Magally Barragán Polanco</li><li>Jhorman Leonardo Gutiérrez Rojas</li><li>Luz Stefanny Martínez Castillo</li><li>Vanesa Sofía Timaná Hurtado</li></ul></div>
+    <div class="card"><h3>Docente tutora de la asignatura</h3>
+      <p>Zohami Judith Ardila Ramos</p>
+      <p class="note" style="margin-top:6px">Proyecto de Aula I</p></div>
+    <div class="card"><h3>Director del trabajo de grado</h3>
+      <p id="dir-name">Por definir</p></div>
+  </div>
+
+  <div class="gallery" aria-label="Imágenes alusivas al portafolio">
+    <figure data-slot="hero-1">
+      <img src="img/aula-classroom.jpg" alt="Aula virtual: estudiantes trabajando en Google Classroom">
+      <figcaption>Aula virtual en Google Classroom</figcaption>
+    </figure>
+    <figure data-slot="hero-2">
+      <img src="img/laboratorio.jpg" style="width:100%;height:auto;border-radius:12px;display:block" alt="Laboratorio de ciencias naturales"/>
+      <figcaption>Pensamiento científico en Ciencias Naturales</figcaption>
+    </figure>
+    <figure data-slot="hero-3">
+      <img src="img/paisaje-huila.jpg" style="width:100%;height:auto;border-radius:12px;display:block" alt="Paisaje del Huila con montañas y vegetación"/>
+      <figcaption>Saladoblanco, Huila</figcaption>
+    </figure>
+  </div>
+
+  <div class="logo-row">
+    <img src="img/logo-maestria.png" alt="Maestría en Recursos Digitales Aplicados a la Educación">
+    <p class="note">Saladoblanco, Huila, Colombia · 8 de junio de 2026</p>
+  </div>
+
+  <div class="enter">
+    <button data-go="avatar"><b>Identificando</b><span>Avatares y póster digital</span></button>
+    <button data-go="ebook"><b>Referenciando</b><span>E-book del Capítulo 1</span></button>
+    <button data-go="unidad"><b>Diseñando</b><span>Unidad, infografía, diseño instruccional, producto y video</span></button>
+    <button data-go="referencias"><b>Créditos</b><span>Referencias, agradecimientos, licencia y mapa</span></button>
+  </div>
+</section>
+
+<!-- AVATAR -->
+<section class="view" id="v-avatar">
+  <div class="eyebrow">Identificando</div>
+  <h1 class="page-title">Avatares</h1>
+  <p class="lead">Dos avatares con voz presentan el trabajo de grado. Pulsa «Escuchar» para activar la voz; el texto aparece debajo mientras habla.</p>
+  <div class="avatars">
+    <article class="av" id="av1">
+      <h3>Avatar 1 · El trabajo de grado</h3>
+      <div class="av-stage" data-face="1"></div>
+      <div class="sub" id="sub1" aria-live="polite"></div>
+      <div class="controls"><button class="btn" data-speak="1">Escuchar</button><button class="btn alt" data-stop="1">Detener</button></div>
+    </article>
+    <article class="av" id="av2">
+      <h3>Avatar 2 · El problema</h3>
+      <div class="av-stage" data-face="2"></div>
+      <div class="sub" id="sub2" aria-live="polite"></div>
+      <div class="controls"><button class="btn" data-speak="2">Escuchar</button><button class="btn alt" data-stop="2">Detener</button></div>
+    </article>
+  </div>
+  <p class="note" id="tts-note" style="margin-top:14px" hidden>Este navegador no tiene voz integrada. Puedes leer el guion en el recuadro de cada avatar.</p>
+</section>
+
+<!-- POSTER -->
+<section class="view" id="v-poster">
+  <div class="eyebrow">Identificando</div>
+  <h1 class="page-title">Póster digital</h1>
+  <p class="lead">Justificación y objetivos del trabajo de grado en una sola vista.</p>
+  <div class="poster">
+    <div>
+      <div class="eyebrow" style="color:var(--gold-soft)">Proyecto de grado · Maestría en Recursos Digitales Aplicados a la Educación</div>
+      <h2 style="margin-top:8px">Fortalecimiento del rendimiento académico en Ciencias Naturales con una estrategia mediada por Google Classroom</h2>
+      <p class="sub-t" style="margin-top:8px">Grado noveno · I.E.M. Misael Pastrana Borrero · Saladoblanco, Huila</p>
+    </div>
+    <div class="p-grid">
+      <div class="p-box">
+        <h3>El problema en el aula</h3>
+        <div class="stat">72 %</div>
+        <p>de los 25 estudiantes de noveno (18) tuvo desempeño básico o bajo en Ciencias Naturales en 2024.</p>
+        <div class="bar-chart" role="img" aria-label="Estudiantes de noveno: 18 con desempeño básico o bajo y 7 en otros niveles">
+          <div class="bar-row"><span>Básico o bajo</span><span class="track"><span class="fill g" style="width:72%"></span></span><b>18</b></div>
+          <div class="bar-row"><span>Otros niveles</span><span class="track"><span class="fill" style="width:28%"></span></span><b>7</b></div>
+        </div>
+      </div>
+      <div class="p-box">
+        <h3>Por qué importa</h3>
+        <ul>
+          <li><b>Científica:</b> genera evidencia contextualizada sobre factores pedagógicos y mediaciones tecnológicas.</li>
+          <li><b>Teórica:</b> se apoya en el aprendizaje significativo (Ausubel) y la mediación social (Vygotsky).</li>
+          <li><b>Social:</b> el grado noveno es la transición a la media y exige competencias científicas sólidas.</li>
+        </ul>
+      </div>
+      <div class="p-box">
+        <h3>Por qué Google Classroom</h3>
+        <ul>
+          <li>Organiza recursos y actividades en un solo lugar.</li>
+          <li>Mantiene comunicación y retroalimentación permanentes.</li>
+          <li>Permite seguimiento del proceso y aprendizaje autónomo.</li>
+          <li>Funciona como mediación didáctica, no como fin en sí mismo.</li>
+        </ul>
+      </div>
+      <div class="p-box">
+        <h3>Valor del estudio</h3>
+        <ul>
+          <li><b>Práctico:</b> orienta el diseño de estrategias ajustadas al contexto.</li>
+          <li><b>Metodológico:</b> aporta un proceso replicable en contextos similares.</li>
+          <li><b>Institucional:</b> apoya el mejoramiento continuo de la enseñanza.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="p-obj">
+      <h3>Objetivo general</h3>
+      <p style="font-size:.95rem;margin-bottom:12px">Fortalecer el rendimiento académico en Ciencias Naturales mediante una estrategia pedagógica mediada por Google Classroom en los estudiantes de grado noveno.</p>
+      <h3>Objetivos específicos</h3>
+      <ol>
+        <li>Diagnosticar el nivel actual de rendimiento académico en Ciencias Naturales.</li>
+        <li>Diseñar la estrategia pedagógica mediada por Google Classroom.</li>
+        <li>Implementar la estrategia con los estudiantes de grado noveno.</li>
+        <li>Evaluar el impacto de la estrategia en el rendimiento académico.</li>
+      </ol>
+    </div>
+    <p class="sub-t">Autoras y autor: Barragán Polanco · Gutiérrez Rojas · Martínez Castillo · Timaná Hurtado · Docente tutora: Zohami Judith Ardila Ramos</p>
+  </div>
+</section>
+
+<!-- EBOOK -->
+<section class="view" id="v-ebook">
+  <div class="eyebrow">Referenciando</div>
+  <h1 class="page-title">E-book: Capítulo 1</h1>
+  <p class="lead">Planteamiento y formulación del problema. Elige un apartado o avanza con los botones.</p>
+  <div class="ebook">
+    <div class="toc" id="toc" role="tablist" aria-label="Contenido del e-book"></div>
+    <div>
+      <div class="page" id="ebpage" aria-live="polite"></div>
+      <div class="pager"><button class="btn alt" id="ebprev">Anterior</button><button class="btn" id="ebnext">Siguiente</button></div>
+    </div>
+  </div>
+  <template id="ebdata"><section data-title="Introducción"><p>En la actualidad, la educación enfrenta el desafío de responder a las necesidades de aprendizaje de estudiantes que se desenvuelven en contextos cada vez más mediados por la tecnología, la información digital y nuevas formas de comunicación. En el área de Ciencias Naturales, este reto adquiere especial importancia, debido a que el aprendizaje científico exige desarrollar competencias relacionadas con la observación, la explicación de fenómenos, la interpretación de datos, la formulación de hipótesis, el análisis crítico y la aplicación del conocimiento a situaciones reales. No obstante, en muchos contextos escolares persisten dificultades asociadas al bajo rendimiento académico, la limitada motivación hacia el aprendizaje de las ciencias, la escasa apropiación de conceptos básicos y la falta de estrategias didácticas que articulen los contenidos curriculares con recursos dinámicos, interactivos y contextualizados.</p>
+<p>Los resultados de evaluaciones nacionales e internacionales han evidenciado la necesidad de fortalecer los procesos de enseñanza y aprendizaje en Ciencias Naturales. La OCDE, a través de PISA 2022, señala que los estudiantes colombianos obtuvieron desempeños por debajo del promedio de los países miembros de la organización en matemáticas, lectura y ciencias, lo cual permite reconocer la urgencia de implementar estrategias pedagógicas orientadas al mejoramiento de las competencias científicas (OECD, 2023). De igual manera, los informes del ICFES sobre la prueba Saber 11 muestran que el área de Ciencias Naturales continúa siendo un campo clave para analizar brechas de aprendizaje, niveles de desempeño y oportunidades de mejoramiento institucional (ICFES, 2024).</p>
+<p>En este sentido, los recursos educativos digitales constituyen una alternativa pedagógica pertinente cuando son seleccionados, organizados y aplicados con intencionalidad formativa. De acuerdo con el Ministerio de Educación Nacional, los Recursos Educativos Digitales Abiertos (REDA) son materiales con finalidad educativa, disponibles en entornos digitales, que pueden ser usados, adaptados y reutilizados para favorecer el aprendizaje (Ministerio de Educación Nacional, 2021). Por tanto, su implementación no debe entenderse como una simple incorporación instrumental de tecnología, sino como una mediación didáctica que permite diversificar las formas de enseñar, evaluar, retroalimentar y acompañar a los estudiantes.</p>
+<p>Google Classroom, como entorno virtual de aprendizaje, ofrece posibilidades para organizar contenidos, asignar actividades, compartir materiales, realizar seguimiento, promover la comunicación entre docentes y estudiantes, entregar retroalimentación y sistematizar evidencias del proceso académico (Google, s. f.). Estas características permiten fortalecer la gestión del aula y ampliar las oportunidades de aprendizaje más allá del espacio presencial, siempre que su uso esté articulado con objetivos claros, criterios de evaluación, recursos pertinentes y acompañamiento docente permanente.</p>
+<p>Desde esta perspectiva, investigar el rendimiento académico en Ciencias Naturales mediante recursos educativos digitales mediadas por Google Classroom resulta relevante porque permite analizar cómo una estrategia pedagógica apoyada en tecnología puede contribuir al fortalecimiento de los aprendizajes, la motivación, la participación y el desempeño académico de los estudiantes. Asimismo, posibilita generar una propuesta didáctica contextualizada, alineada con los Derechos Básicos de Aprendizaje, los estándares de competencias y las necesidades reales de la comunidad educativa.</p></section>
+<section data-title="Planteamiento"><p>En el contexto educativo contemporáneo, el rendimiento académico en Ciencias Naturales constituye un indicador relevante para valorar la calidad de los procesos de enseñanza y aprendizaje, debido a que esta área favorece el desarrollo del pensamiento científico, la comprensión de fenómenos naturales, la interpretación de evidencias y la aplicación del conocimiento en situaciones de la vida cotidiana. Asimismo, favorece la formación de ciudadanos capaces de analizar críticamente la información, resolver problemas y participar de manera responsable en una sociedad cada vez más influenciada por los avances científicos y tecnológicos. No obstante, en diversos sistemas educativos persisten dificultades asociadas al bajo desempeño en ciencias, lo cual evidencia la necesidad de fortalecer las estrategias pedagógicas implementadas en el aula y promover experiencias de aprendizaje más activas, contextualizadas y significativas.</p>
+<p>En el plano internacional, los resultados del Programa para la Evaluación Internacional de los Estudiantes (PISA) 2022 evidencian que una proporción significativa de estudiantes aún no alcanza los niveles básicos de competencia científica. De acuerdo con la Organización para la Cooperación y el Desarrollo Económicos (OCDE, 2023), el 24% de los estudiantes de los países miembros se ubicó por debajo del nivel 2 de desempeño en ciencias, considerado el umbral mínimo para aplicar conocimientos científicos en situaciones cotidianas. Estos resultados permiten reconocer que las dificultades en el aprendizaje de las ciencias no son exclusivas de contextos locales, sino que forman parte de un desafío educativo más amplio, relacionado con la comprensión, el análisis y la aplicación del conocimiento científico.</p>
+<p>En este escenario, organismos internacionales como la Organización de las Naciones Unidas para la Educación, la Ciencia y la Cultura (UNESCO, 2023) han señalado que la incorporación de tecnologías digitales en procesos educativos debe responder a propósitos pedagógicos claros, criterios de pertinencia, equidad, preparación docente y condiciones institucionales adecuadas. Desde esta perspectiva, las Tecnologías de la Información y la Comunicación (TIC) no deben asumirse como una solución automática al bajo rendimiento académico, sino como mediaciones que, integradas de manera planificada, pueden favorecer la interacción, la retroalimentación, el acceso a recursos diversificados y la participación activa del estudiante en su proceso formativo (Coll, 2009).</p>
+<p>En Colombia, los resultados obtenidos en el área de Ciencias Naturales continúan representando un reto para el sistema educativo. Según el Informe Nacional de Resultados Saber 11° 2023, el promedio nacional alcanzado en esta área fue de 50 puntos en una escala de 0 a 100 (ICFES, 2023). Adicionalmente, una proporción considerable de estudiantes se concentra en niveles de desempeño básicos e intermedios, situación que refleja dificultades en el desarrollo de competencias asociadas a la comprensión de conceptos científicos, la interpretación de información, la argumentación basada en evidencias y la resolución de problemas propios del área.</p>
+<p>En el ámbito regional, el departamento del Huila presenta condiciones educativas que requieren atención, especialmente en relación con las brechas territoriales, la ruralidad y las diferencias en el acceso a recursos pedagógicos y tecnológicos. Según el diagnóstico territorial para la Región Centro Sur, la Entidad Territorial Certificada (ETC) Huila registró en 2024 un puntaje global de 257, inferior al promedio nacional de 260 (ICFES, 2024). Particularmente en Ciencias Naturales, el promedio obtenido fue de 51 puntos; sin embargo, el análisis por niveles de desempeño evidencia que el 15% de los estudiantes se ubicó en nivel 1 y el 52% en nivel 2, lo que significa que cerca de dos terceras partes de la población evaluada se concentró en los niveles más bajos o básicos del área. Estos datos permiten inferir la necesidad de continuar fortaleciendo las competencias científicas en el territorio, especialmente mediante estrategias pedagógicas que promuevan mayor participación, comprensión y aplicación del conocimiento.</p>
+<p>Esta problemática se manifiesta de manera particular en la Institución Educativa Municipal Misael Pastrana Borrero, ubicada en el municipio de Saladoblanco, Huila, donde se ha identificado bajo rendimiento académico en el área de Ciencias Naturales en los estudiantes de grado noveno. Según los registros académicos institucionales correspondientes al año 2024, de los 25 estudiantes que conforman el grupo, 18 presentan desempeños ubicados en los niveles básico o bajo, lo que representa el 72 % de la población estudiantil del curso. Esta situación resulta especialmente relevante, ya que el grado noveno constituye una etapa de transición hacia la educación media, caracterizada por mayores exigencias académicas y por la necesidad de consolidar competencias científicas fundamentales para los niveles posteriores de formación.</p>
+<p>Además del bajo desempeño académico, se observa desinterés frente al área y limitada participación en las actividades escolares, factores que pueden estar relacionados con el predominio de metodologías tradicionales centradas en la transmisión de contenidos, el desarrollo de actividades repetitivas y el escaso uso de recursos interactivos. Como advierte Furman (2021), cuando la enseñanza se reduce a conocimientos fácticos desconectados, se disipa la curiosidad natural del estudiante. Las Ciencias Naturales, por su naturaleza, requieren observación, experimentación, indagación, argumentación y relación con situaciones del entorno; sin embargo, cuando las prácticas pedagógicas se reducen a explicaciones expositivas y ejercicios poco contextualizados, se limita la motivación estudiantil y se dificulta la construcción de aprendizajes significativos.</p>
+<p>En este contexto, se identifica una necesidad de conocimiento específica: aunque la institución dispone de información sobre los resultados académicos de los estudiantes, no cuenta con evidencia sistemática que permita comprender cómo una estrategia pedagógica mediada por tecnologías digitales podría contribuir al fortalecimiento del rendimiento académico en Ciencias Naturales. Esta situación justifica la realización de una investigación que permita analizar el problema desde una perspectiva contextualizada y generar alternativas de intervención fundamentadas pedagógicamente.</p>
+<p>En este sentido, el uso de Google Classroom se presenta como una alternativa pertinente para organizar materiales, orientar actividades, compartir recursos educativos, promover la interacción académica y acompañar el proceso de aprendizaje de los estudiantes (Melo-Solarte &amp; Díaz, 2018). No obstante, su implementación debe estar articulada a una estrategia pedagógica intencionada, con actividades coherentes con los objetivos del área y con las necesidades reales del grupo ya que esto puede contribuir a fortalecer el rendimiento académico a través de recursos contextualizados, evaluación formativa y seguimiento permanente.</p>
+<p>De acuerdo con lo anterior, la presente investigación se orienta a fortalecer el rendimiento académico en el área de Ciencias Naturales de los estudiantes de grado noveno de la Institución Educativa Municipal Misael Pastrana Borrero, en Saladoblanco, Huila, mediante una estrategia pedagógica mediada por Google Classroom. En consecuencia, se plantea la siguiente pregunta de investigación: ¿De qué manera la implementación de una estrategia pedagógica mediada por Google Classroom fortalece el rendimiento académico en Ciencias Naturales de los estudiantes de grado noveno de la Institución Educativa Municipal Misael Pastrana Borrero en Saladoblanco, Huila?</p></section>
+<section data-title="Formulación"><p>¿De qué manera la implementación de una estrategia pedagógica mediada por Google Classroom fortalece el rendimiento académico en Ciencias Naturales de los estudiantes de grado noveno de la Institución Educativa Municipal Misael Pastrana Borrero en Saladoblanco, Huila?</p></section>
+<section data-title="Antecedentes"><p>La comprensión de los factores que influyen en el bajo rendimiento académico en Ciencias Naturales requiere una revisión de las investigaciones previas que han abordado esta problemática desde diferentes contextos educativos. En este sentido, la presente sección expone los antecedentes investigativos que fundamentan el estudio, permitiendo identificar hallazgos, enfoques teóricos y metodológicos relevantes sobre las causas asociadas a esta problemática.</p>
+<p>Para ello, se presentan investigaciones desarrolladas en los ámbitos internacional, nacional y regional, con el propósito de contextualizar el problema de investigación y evidenciar los aportes existentes al conocimiento de este fenómeno educativo.</p>
+<h3>Ámbito Internacional</h3>
+<p>A nivel internacional, diferentes investigaciones han abordado el problema del bajo rendimiento académico en Ciencias Naturales, identificando factores pedagógicos e institucionales que influyen en el aprendizaje de los estudiantes. Estos estudios evidencian que las metodologías de enseñanza, las estrategias didácticas implementadas por los docentes, la disponibilidad de recursos educativos y la formación profesional del profesorado constituyen elementos determinantes en el desempeño académico. Por ello, los antecedentes presentados permiten contextualizar la problemática objeto de estudio y sirven como sustento para comprender las variables que intervienen en el rendimiento académico en el área de Ciencias Naturales.</p>
+<p>En primer lugar, Yahya y Ayasrah (2018) realizaron una investigación titulada &quot;Causes of 8th Grade Students Low Achievement in TIMSS Study-2015 from Science Teachers and Educational Supervisors” en Jordania con el propósito de identificar las causas del bajo rendimiento académico de los estudiantes de octavo grado en el área de ciencias, tomando como referencia los resultados obtenidos en la prueba internacional TIMSS 2015. Metodológicamente, aplicaron un cuestionario cuantitativo a profesores de ciencias y entrevistas cualitativas a supervisores educativos, integrando los datos mediante triangulación para revelar cómo la gestión y la práctica pedagógica impactan el logro académico. Los resultados evidenciaron que las principales causas del bajo rendimiento estaban relacionadas con deficiencias en la gestión escolar, metodologías de enseñanza tradicionales, escasez de recursos para el aprendizaje práctico y limitada capacitación docente. Este estudio es relevante porque evidencia que el bajo desempeño exige intervenciones institucionales, aportando evidencia internacional para proponer estrategias de mejora. Las conclusiones demuestran que la crisis en el rendimiento obedece a una gestión educativa deficiente, metodologías poco innovadoras y falta de recursos didácticos o experimentales. Por ello, los autores determinan que es indispensable fortalecer las prácticas pedagógicas, impulsar la actualización profesional del profesorado y optimizar las condiciones institucionales que favorecen verdaderamente el aprendizaje escolar.</p>
+<p>De igual manera, Abreu Amador y Mejía de la Cruz (2020) desarrollaron una investigación en República Dominicana titulada “Factores que influyen en el bajo rendimiento escolar en la asignatura Ciencias de la Naturaleza, de 2do de secundaria, del Instituto Politécnico Max Henríquez Ureña, en el año escolar 2019-2020”, con el objetivo de identificar los factores que influyen en el bajo rendimiento escolar en la asignatura de Ciencias de la Naturaleza en estudiantes de segundo grado de secundaria. El estudio se realizó bajo un enfoque cuantitativo, con diseño descriptivo y de campo, utilizando encuestas y cuestionarios aplicados a estudiantes y docentes. Los hallazgos mostraron que diversos factores pedagógicos afectan el desempeño académico, entre ellos el uso de metodologías tradicionales, las dificultades en la comprensión de contenidos científicos y las limitaciones en las estrategias didácticas implementadas por los docentes. Su relevancia radica en que aborda la problemática desde una perspectiva puramente pedagógica, sirviendo como referente para entender la influencia de la interacción docente-estudiante en los resultados académicos. Las autoras concluyeron que es necesario transformar los procesos de enseñanza-aprendizaje mediante prácticas pedagógicas más dinámicas y participativas.</p>
+<p>Santana Santana (2024) llevó a cabo una investigación en República Dominicana denominada “Estrategia para mejorar el rendimiento académico en las ciencias de la naturaleza en estudiantes de segundo de secundaria” con el propósito de diseñar una estrategia didáctica para mejorar el rendimiento académico de los estudiantes de segundo grado de secundaria en el área de Ciencias Naturales. La investigación se desarrolló bajo un enfoque cuantitativo, de tipo descriptivo y documental, empleando observación, entrevistas, encuestas y una evaluación diagnóstica. Los resultados revelaron que el 76 % de los estudiantes presentó bajos niveles de desempeño académico, evidenciando dificultades significativas en el aprendizaje de las Ciencias Naturales. La autora concluyó que las deficiencias en las estrategias de enseñanza y en los procesos de aprendizaje influyen directamente en el rendimiento académico, por lo que recomendó implementar metodologías didácticas innovadoras que promuevan una participación activa y un aprendizaje significativo.</p>
+<p>Finalmente, el artículo científico &quot;Estrategia metodológica para el mejoramiento del rendimiento académico en la asignatura de ciencias naturales en los estudiantes de educación básica&quot;, elaborado por Leiton Leiton et al. (2024) en Ecuador, examina las causas del bajo rendimiento escolar. Metodológicamente, la investigación es de tipo aplicada y propositiva, con un enfoque mixto y diseño cuasiexperimental; se evalúa el rendimiento antes y después de la intervención mediante pruebas de conocimiento en un grupo experimental, demostrando la efectividad de las nuevas estrategias pedagógicas en el aula. La tesis principal plantea que impartir clases unidireccionales y aislar a los estudiantes de los laboratorios o espacios prácticos anula el aprendizaje significativo, generando desmotivación y bajas calificaciones. La investigación es altamente relevante pues aporta evidencia reciente de que la falta de espacios prácticos provoca el fracaso escolar, justificando el uso de metodologías activas y sentando las bases para la posterior introducción de un Entorno Virtual de Aprendizaje (EVA). Las conclusiones reflejan que, aunque existe retención momentánea, los alumnos no desarrollan habilidades científicas con métodos tradicionales. Para solucionarlo, recomiendan adoptar el Aprendizaje Basado en Problemas, integrando teoría y práctica a través de la experimentación, el uso efectivo de recursos dinámicos y la aplicación de un programa sólido de evaluación y retroalimentación constante.</p>
+<p>En conclusión, estos referentes justifican la necesidad de transformar la práctica pedagógica e intervenir con estrategias dinámicas. Las investigaciones desarrolladas en diversos países coinciden en que la raíz de esta crisis trasciende las fronteras geográficas y culturales, originándose en factores sistémicos comunes: la persistencia de modelos de enseñanza tradicionales, la falta de capacitación docente enfocada en metodologías activas y la marcada desconexión entre la teoría y la práctica en el aula.</p>
+<h3>Ámbito Nacional</h3>
+<p>Al contextualizar esta problemática en el ámbito colombiano, diferentes investigaciones han evidenciado que el bajo desempeño académico está asociado a factores similares a los identificados en otros contextos educativos. En respuesta a esta situación, diversos estudios se han enfocado en analizar las limitaciones de las metodologías tradicionales y el escaso aprovechamiento de recursos tecnológicos en las instituciones educativas.</p>
+<p>De esta forma, el estudio de posgrado desarrollado por Gualguán Luna (2018), titulado “Estrategias de mejoramiento del rendimiento académico en estudiantes de educación básica”, constituye un antecedente fundamental de corte cualitativo que analiza críticamente el fenómeno del bajo desempeño escolar en la educación básica secundaria de Nariño. La tesis principal del autor demuestra que el rendimiento académico no es un indicador aislado dependiente de la capacidad cognitiva individual del estudiante, sino el resultado multidimensional de una compleja interacción entre factores filiales, del entorno social y de las dinámicas institucionales imperantes. Metodológicamente, a través de la triangulación de encuestas y entrevistas aplicadas a docentes, familias y 41 estudiantes de grado octavo, la investigación aporta evidencias empíricas fidedignas sobre la urgencia de deconstruir las prácticas pedagógicas tradicionales y homogeneizadoras. En su lugar, el estudio propone la implementación de metodologías activas y proyectos de aula contextualizados, fuertemente respaldados por la innovación científica y tecnológica. Por consiguiente, este trabajo proporciona un marco analítico de alta relevancia teórica y empíricamente verificable para fundamentar problemas de investigación asociados a la didáctica, demostrando que la articulación escuela-familia y la transformación de la praxis docente son los ejes determinantes para mitigar el rezago escolar, optimizar los procesos de aprendizaje y potenciar el desarrollo de competencias en el territorio nacional.</p>
+<p>Por otro lado, Cabrera Pardo et al. (2022), en su trabajo de grado titulado “Fortalecimiento de las competencias científicas en el área de Ciencias Naturales, mediante la aplicación de una unidad didáctica basada en prácticas de laboratorio, para estudiantes de grado cuarto de la Institución Educativa Juan Cristóbal Martínez del municipio San Juan de Girón – Santander”, desarrollaron una investigación orientada a fortalecer las competencias científicas de estudiantes de básica primaria mediante la implementación de una unidad didáctica fundamentada en prácticas de laboratorio. El estudio se estructuró en diferentes fases que incluyeron el diagnóstico de saberes previos, la intervención pedagógica basada en actividades experimentales y la evaluación de los resultados obtenidos. Su principal objetivo fue determinar la influencia del aprendizaje experimental y la observación directa en la adquisición de conocimientos científicos frente a los métodos tradicionales de enseñanza. Los hallazgos evidenciaron que la participación activa de los estudiantes en experiencias de laboratorio favorece el desarrollo del pensamiento crítico, la capacidad de análisis y la motivación hacia el aprendizaje de las Ciencias Naturales. La relevancia de esta investigación radica en que demuestra cómo las estrategias didácticas basadas en la experimentación contribuyen a mejorar la comprensión de los fenómenos naturales y a incrementar el interés por la ciencia. Como conclusión, las autoras establecen que la implementación de unidades didácticas apoyadas en prácticas de laboratorio incide de manera positiva en el fortalecimiento de las competencias científicas y en el rendimiento académico, recomendando su incorporación permanente en los procesos educativos como una estrategia eficaz para promover aprendizajes significativos y una formación más analítica y participativa.</p>
+<p>La tesis de maestría de Pacheco Mindiola (2023), titulada “El Trabajo Práctico como Estrategia para el Fortalecimiento del Aprendizaje de las Ciencias Naturales en Estudiantes de Séptimo grado en la Institución Etnoeducativa Makumake”, constituye un referente académico pertinente, confiable y contextualizado para comprender cómo las metodologías activas pueden fortalecer el aprendizaje de las Ciencias Naturales en poblaciones escolares culturalmente diversas. Metodológicamente, la investigación se desarrolló con enfoque cualitativo y diseño cuasiexperimental, mediante la implementación de una secuencia didáctica basada en el trabajo práctico experimental, el aprendizaje por proyectos y el uso de escenarios alternativos como la huerta escolar. A partir de esta estructura, el autor cuestiona la suficiencia de la enseñanza tradicional centrada en la transmisión teórica de contenidos y plantea que el aprendizaje científico adquiere mayor sentido cuando los estudiantes relacionan los conceptos abstractos con situaciones concretas de su vida cotidiana. En consecuencia, el trabajo práctico no solo favorece la comprensión conceptual, sino que también potencia competencias científicas como la observación, la indagación, la formulación de hipótesis y la explicación de fenómenos del entorno. Asimismo, la tesis resulta relevante porque evidencia que las estrategias experimentales y contextualizadas incrementan la participación, la motivación y el interés de los estudiantes, aspectos directamente asociados con la permanencia escolar y la reducción del riesgo de deserción. Por tanto, este estudio permite sustentar que el fortalecimiento del aprendizaje en Ciencias Naturales exige prácticas pedagógicas activas, incluyentes y socioculturalmente pertinentes, capaces de superar la memorización mecánica y promover una apropiación crítica, significativa y duradera del conocimiento científico.</p>
+<p>El artículo de investigación “Rendimiento académico en el área de Ciencias Naturales en estudiantes de bachillerato”, de Causil Vargas (2024), constituye otro antecedente relevante y verificable para el análisis del bajo rendimiento académico en Ciencias Naturales en Colombia. Desde un enfoque cuantitativo, analítico-descriptivo y no experimental, el autor estudió a 600 estudiantes de sexto a undécimo grado de la Institución Educativa Luis Carlos Galán Sarmiento, en Magdalena, mediante encuestas sociodemográficas y registros de calificaciones, aplicando pruebas estadísticas como Shapiro-Wilk y el coeficiente de Pearson.</p>
+<p>Los resultados evidencian que el rendimiento académico no es uniforme durante la secundaria, pues mientras en los grados inferiores se observan relaciones positivas con el aprendizaje, en décimo y undécimo aparece una correlación inversa asociada al descenso de la motivación y las calificaciones. En este sentido, el estudio permite reconocer la etapa final del bachillerato como un periodo crítico que exige estrategias pedagógicas diferenciadas, contextualizadas y orientadas a fortalecer el interés científico, la permanencia escolar y el desempeño académico en Ciencias Naturales.</p>
+<p>Finalmente, la revisión de estos antecedentes en el ámbito nacional revela que el bajo rendimiento en Ciencias Naturales en Colombia está fuertemente condicionado tanto por las metodologías de enseñanza como por el escaso uso de recursos pedagógicos interactivos. Las investigaciones desarrolladas en diversas regiones del país demuestran empíricamente que la educación tradicional y puramente teórica es insuficiente para mantener el interés de los jóvenes, y que el contexto colombiano requiere intervenciones adaptadas a su realidad.</p>
+<h3>Ámbito Regional</h3>
+<p>En el ámbito regional, el departamento del Huila presenta una línea investigativa emergente que permite comprender el bajo rendimiento en Ciencias Naturales como un fenómeno multicausal, asociado no solo a las dificultades cognitivas de los estudiantes, sino también a factores actitudinales, metodológicos, motivacionales y contextuales que inciden en la apropiación del conocimiento científico.</p>
+<p>En primer lugar, el artículo de Falla Cuéllar y Cruz Herrera (2020), titulado “Actitudes de los estudiantes y propuesta alternativa para la enseñanza-aprendizaje de las Ciencias Naturales en las instituciones educativas de la ciudad de Neiva – Huila”, analiza las actitudes de los estudiantes frente al aprendizaje de las Ciencias Naturales y su incidencia en los procesos educativos. La investigación tuvo como objetivo identificar dichas actitudes y establecer su relación con variables como el género, el nivel socioeconómico, el grado escolar y la ocupación de los padres. Metodológicamente, se desarrolló mediante un estudio de carácter descriptivo, orientado a recopilar información sobre las percepciones y disposiciones de los estudiantes hacia esta área del conocimiento. Los autores parten de la premisa de que las actitudes influyen de manera significativa en el interés, la participación y el desempeño académico de los estudiantes. La relevancia de este trabajo radica en que ofrece una comprensión contextualizada de factores que pueden afectar el aprendizaje de las Ciencias Naturales en instituciones educativas de Neiva. Además, constituye un antecedente importante para investigaciones relacionadas con el bajo rendimiento académico, al evidenciar la necesidad de transformar las prácticas pedagógicas tradicionales. El estudio propone estrategias innovadoras y contextualizadas para fortalecer los procesos de enseñanza-aprendizaje. Los resultados muestran la importancia de adaptar las metodologías a las características y necesidades reales de los estudiantes. Como conclusión, los autores señalan que las instituciones educativas deben caracterizar mejor a su población estudiantil y revisar sus planes curriculares. Asimismo, destacan el papel fundamental del docente en la promoción de actitudes positivas hacia las Ciencias Naturales y en la construcción de experiencias de aprendizaje más significativas y motivadoras.</p>
+<p>Posteriormente, el artículo de Quintero-Fierro y Vargas-Zúñiga (2023), titulado “Refuerzo pedagógico como estrategia para el mejoramiento del aprendizaje en Ciencias Naturales”, aborda la problemática del bajo rendimiento académico en estudiantes de séptimo y octavo grado de la Institución Educativa Técnico Superior de Neiva. La investigación tuvo como objetivo implementar y analizar una estrategia de refuerzo pedagógico orientada a fortalecer el aprendizaje en el área de Ciencias Naturales. Metodológicamente, el estudio se desarrolló en cuatro etapas: identificación de las concepciones de los estudiantes sobre el bajo rendimiento académico, selección de las temáticas a reforzar, diseño e implementación de actividades didácticas, y reflexión sobre los resultados obtenidos. La propuesta se centró en el uso de juegos, actividades lúdicas y estrategias participativas para promover una mayor comprensión de los contenidos. Las autoras sostienen que el refuerzo pedagógico, cuando incorpora metodologías activas, favorece la motivación, la participación y el desempeño académico de los estudiantes. La relevancia de este trabajo radica en que constituye un antecedente directamente relacionado con el bajo rendimiento en Ciencias Naturales dentro del contexto regional de Neiva, aportando evidencias sobre la efectividad de estrategias de intervención pedagógica innovadoras. Asimismo, ofrece elementos teóricos y prácticos para el diseño de propuestas educativas enfocadas en mejorar los procesos de aprendizaje. Los resultados evidenciaron una mejor disposición de los estudiantes hacia el área y una mayor comprensión de los temas abordados. Como conclusión, las autoras afirman que el refuerzo pedagógico mediado por actividades lúdicas contribuye significativamente al fortalecimiento del aprendizaje en Ciencias Naturales. Además, recomiendan que este tipo de estrategias no se limiten a estudiantes con dificultades académicas, sino que se implementen como acciones inclusivas que beneficien a toda la comunidad estudiantil.</p>
+<p>En una línea complementaria, el trabajo de grado de Quintero Trujillo (2023), titulado “Uso de una estrategia pedagógica basada en la gamificación para el fortalecimiento del aprendizaje de las Ciencias Naturales de los estudiantes del grado noveno de la Institución Educativa San Antonio del Pescado del municipio de Garzón - Huila”, analiza la implementación de una estrategia pedagógica orientada a mejorar el aprendizaje de las Ciencias Naturales mediante la gamificación. La investigación tuvo como objetivo fortalecer los procesos de aprendizaje de los estudiantes de grado noveno a través de actividades que incorporaran dinámicas de juego, retos, recompensas y recursos motivadores. Metodológicamente, el estudio se desarrolló mediante el diseño e implementación de una propuesta pedagógica basada en principios de gamificación, adaptada al contexto escolar de la institución. La estrategia buscó transformar las prácticas tradicionales de enseñanza en experiencias más activas, participativas y significativas para los estudiantes. El autor sostiene que la incorporación de elementos propios del juego favorece el interés por los contenidos, incrementa la participación y fortalece el compromiso de los estudiantes con su proceso formativo. La relevancia de este antecedente radica en que se desarrolla en el departamento del Huila y aborda una problemática relacionada con la motivación y el rendimiento académico en Ciencias Naturales. Asimismo, aporta fundamentos para justificar el uso de metodologías innovadoras como alternativa para enfrentar dificultades de aprendizaje en esta área. Los resultados evidenciaron una respuesta positiva de los estudiantes frente a las actividades propuestas, mostrando mayor interés, interacción y disposición para aprender. Como conclusión, el estudio señala que la gamificación contribuye al fortalecimiento del aprendizaje en Ciencias Naturales cuando se implementa de manera planificada y articulada con los objetivos curriculares. Además, destaca que las clases que incorporan retos, participación activa y recursos didácticos innovadores generan ambientes más motivadores y propicios para mejorar el desempeño académico.</p>
+<p>Finalmente, la tesis de maestría de Cruz Benítez y Fernández Díaz (2024), titulada “Fortalecimiento de la competencia de indagación en el área de Ciencias Naturales de los estudiantes del grado noveno de la Institución Educativa San Andrés Tello mediante un espacio virtual de aprendizaje y el uso de recursos educativos digitales (RED)”, presenta una propuesta pedagógica enfocada en fortalecer la competencia de indagación científica en estudiantes de grado noveno. La investigación tuvo como objetivo mejorar las habilidades de indagación en Ciencias Naturales mediante la implementación de un espacio virtual de aprendizaje apoyado en recursos educativos digitales. Metodológicamente, el estudio diseñó y aplicó una estrategia educativa basada en el uso de tecnologías de la información y la comunicación, integrando recursos digitales y actividades virtuales orientadas al aprendizaje activo. La propuesta surgió como respuesta a las dificultades identificadas en los resultados académicos y en el desarrollo de competencias científicas de los estudiantes. Los autores sostienen que los entornos virtuales de aprendizaje favorecen la participación, la interacción y la construcción del conocimiento, permitiendo que los estudiantes desarrollen procesos de observación, análisis e indagación de manera más dinámica. La relevancia de este antecedente radica en que se desarrolla en el departamento del Huila y aborda directamente el fortalecimiento de competencias en el área de Ciencias Naturales. Además, aporta fundamentos teóricos y metodológicos para investigaciones relacionadas con el bajo rendimiento académico, al proponer una intervención educativa basada en el uso pedagógico de las TIC. Los resultados evidenciaron que la incorporación de recursos educativos digitales contribuyó al mejoramiento de la motivación, la participación y el desempeño de los estudiantes. En resumen, la investigación señala que los espacios virtuales de aprendizaje y los recursos educativos digitales constituyen herramientas efectivas para fortalecer la competencia de indagación científica. Asimismo, destaca que la integración planificada de las TIC en los procesos de enseñanza-aprendizaje favorece experiencias educativas más significativas y contribuye al fortalecimiento del aprendizaje en Ciencias Naturales.</p>
+<p>En síntesis, los antecedentes regionales revisados permiten afirmar que el bajo rendimiento en Ciencias Naturales en el Huila no debe interpretarse como una dificultad aislada del estudiante, sino como el resultado de una interacción entre actitudes desfavorables hacia la ciencia, metodologías tradicionales poco motivadoras, limitaciones en el desarrollo de competencias científicas y necesidad de innovación didáctica contextualizada. Desde Neiva, Garzón y Tello las investigaciones analizadas configuran un soporte empírico y territorial pertinente para justificar la presente propuesta, en tanto muestran que el mejoramiento del rendimiento académico en Ciencias Naturales exige estrategias pedagógicas activas, lúdicas, gamificadas y mediadas por recursos digitales, capaces de transformar la experiencia escolar y fortalecer el aprendizaje científico en correspondencia con las realidades educativas del departamento del Huila.</p></section>
+<section data-title="Justificación"><p>La presente investigación se justifica a partir de la necesidad de comprender y atender el bajo rendimiento académico en Ciencias Naturales como una problemática educativa de alta relevancia pedagógica, institucional y social. Esta situación no debe interpretarse únicamente como una dificultad individual del estudiante, sino como el resultado de la interacción de múltiples factores asociados a las prácticas de enseñanza, la motivación escolar, la apropiación conceptual de los contenidos científicos, los procesos de evaluación, el acompañamiento pedagógico y las condiciones contextuales en las que se desarrolla el aprendizaje. En este sentido, investigar las causas que inciden en el bajo desempeño académico resulta prioritario, dado que las Ciencias Naturales constituyen un área fundamental para el desarrollo del pensamiento crítico, la comprensión de fenómenos del entorno y la formación de ciudadanos capaces de analizar información, argumentar con evidencia y participar responsablemente en la toma de decisiones relacionadas con la salud, el ambiente, la ciencia y la tecnología.</p>
+<p>La relevancia científica de esta investigación se sustenta en la necesidad de generar conocimiento contextualizado sobre los factores que influyen en el rendimiento académico de los estudiantes de grado noveno en Ciencias Naturales. Si bien diversos estudios han abordado esta problemática desde diferentes perspectivas, persiste la necesidad de comprender cómo interactúan los factores pedagógicos y las mediaciones tecnológicas en contextos educativos específicos, particularmente en instituciones que enfrentan dificultades persistentes en los resultados académicos. En consecuencia, el estudio busca aportar evidencia empírica que permita comprender de manera más profunda las dinámicas que condicionan el aprendizaje y el desempeño escolar en esta área del conocimiento.</p>
+<p>Desde el punto de vista teórico, la investigación se fundamenta en enfoques cognitivos y socioculturales que conciben el aprendizaje como un proceso activo, significativo y socialmente mediado. Los planteamientos de Ausubel (1968) destacan que el aprendizaje adquiere mayor significado cuando los nuevos conocimientos se relacionan de manera sustancial con las estructuras cognitivas previas del estudiante, mientras que Vygotsky (1978) resalta la importancia de la interacción social y la mediación pedagógica en la construcción del conocimiento. Complementariamente, el National Research Council (2012) señala que la enseñanza de las ciencias debe promover procesos de indagación, análisis y argumentación que trasciendan la memorización de contenidos. Estos referentes permiten comprender el bajo rendimiento académico como un fenómeno complejo que requiere estrategias pedagógicas orientadas a favorecer la comprensión profunda y la participación activa de los estudiantes en la construcción del conocimiento científico.</p>
+<p>La pertinencia académica y social de la investigación radica en que el bajo rendimiento académico limita el desarrollo de las competencias científicas establecidas en los referentes de calidad educativa, entre ellos los Derechos Básicos de Aprendizaje (MEN, 2016). Las dificultades persistentes en esta área pueden afectar no solo los resultados académicos, sino también la motivación, la confianza en las propias capacidades y el interés por el aprendizaje de las ciencias. Esta situación adquiere especial relevancia en los estudiantes de grado noveno, quienes se encuentran en una etapa de transición hacia la educación media, donde se incrementan las exigencias académicas y se consolidan competencias fundamentales para la continuidad de su trayectoria educativa.</p>
+<p>Desde una perspectiva práctica, la investigación busca identificar las causas pedagógicas asociadas al bajo rendimiento académico y generar información que facilite el diseño de estrategias de intervención ajustadas a las necesidades del contexto escolar. En este propósito, la incorporación de Google Classroom se concibe como una mediación didáctica orientada a fortalecer los procesos de enseñanza y aprendizaje mediante la organización de recursos educativos, la comunicación permanente entre docentes y estudiantes, el seguimiento de actividades y la promoción del aprendizaje autónomo. Su integración responde a la necesidad de explorar alternativas pedagógicas apoyadas en tecnologías digitales que contribuyan a enriquecer las experiencias de aprendizaje y a ampliar las oportunidades de participación y acceso al conocimiento científico.</p>
+<p>La selección de esta plataforma encuentra sustento en investigaciones que señalan que el impacto de las tecnologías educativas depende de su articulación con objetivos pedagógicos claramente definidos y con procesos de acompañamiento docente sistemáticos. En consecuencia, la investigación no pretende evaluar la tecnología como un fin en sí mismo, sino analizar su potencial como recurso pedagógico para apoyar la comprensión conceptual, la interacción académica y el fortalecimiento de prácticas de enseñanza centradas en el estudiante.</p>
+<p>Desde el punto de vista metodológico, el estudio aporta un proceso sistemático de análisis que permitirá obtener evidencia contextualizada sobre los factores que influyen en el rendimiento académico en Ciencias Naturales y sobre las posibilidades de intervención mediante estrategias pedagógicas mediadas por tecnologías digitales. Los hallazgos podrán constituirse en un referente para futuras investigaciones y para la toma de decisiones institucionales orientadas al mejoramiento continuo de los procesos educativos en contextos con características similares.</p>
+<p>En síntesis, esta investigación es pertinente porque responde a una problemática educativa real que afecta el aprendizaje de las Ciencias Naturales y el desarrollo de competencias científicas en estudiantes de grado noveno. Su valor teórico radica en la articulación de enfoques que explican el aprendizaje desde dimensiones cognitivas y socioculturales; su valor práctico se refleja en la generación de información útil para diseñar estrategias pedagógicas contextualizadas; su valor metodológico se evidencia en la producción de conocimiento aplicable a escenarios educativos semejantes; y su valor institucional reside en la posibilidad de contribuir al fortalecimiento de los procesos de enseñanza y aprendizaje mediante el uso pedagógico de Google Classroom como herramienta de apoyo a la gestión educativa y al mejoramiento académico.</p></section>
+<section data-title="Objetivos"><h3>Objetivo general</h3><p>Fortalecer el rendimiento académico en Ciencias Naturales mediante una estrategia pedagógica mediada por Google Classroom en los estudiantes de grado noveno de la Institución Educativa Municipal Misael Pastrana Borrero en Saladoblanco, Huila.</p><h3>Objetivos específicos</h3><ul><li>Diagnosticar el nivel actual de rendimiento académico en Ciencias Naturales de los estudiantes de grado noveno.</li><li>Diseñar una estrategia pedagógica mediada por Google Classroom para fortalecer el aprendizaje en los estudiantes de grado noveno en Ciencias Naturales.</li><li>Implementar la estrategia pedagógica mediada por Google Classroom con los estudiantes de grado noveno en Ciencias Naturales.</li><li>Evaluar el impacto de la estrategia pedagógica mediada por Google Classroom en el fortalecimiento del rendimiento académico de los estudiantes de grado noveno en Ciencias Naturales.</li></ul></section></template>
+</section>
+
+<!-- UNIDAD DIDACTICA -->
+<section class="view" id="v-unidad">
+  <div class="eyebrow">Diseñando</div>
+  <h1 class="page-title">Unidad didáctica</h1>
+  <p class="lead">Estructura de la unidad que se implementará en Google Classroom con el grado noveno. Los campos marcados se completan cuando el equipo defina el tema.</p>
+  <div class="tbl"><table>
+    <tbody>
+      <tr><th style="width:30%">Institución</th><td>Institución Educativa Municipal Misael Pastrana Borrero, Saladoblanco, Huila</td></tr>
+      <tr><th>Área y grado</th><td>Ciencias Naturales · Grado noveno (25 estudiantes)</td></tr>
+      <tr><th>Tema de la unidad</th><td><span class="chip">Por definir</span></td></tr>
+      <tr><th>Referentes de calidad</th><td>Derechos Básicos de Aprendizaje de Ciencias Naturales (MEN, 2016) y estándares de competencias del área.</td></tr>
+      <tr><th>Propósito</th><td>Fortalecer la comprensión conceptual, la participación y el desempeño académico mediante actividades contextualizadas y evaluación formativa.</td></tr>
+      <tr><th>Plataforma</th><td>Google Classroom: material, tareas, cuestionarios, anuncios y comentarios de retroalimentación.</td></tr>
+    </tbody></table></div>
+  <h2 style="font-size:1.4rem;margin:28px 0 12px">Momentos de la unidad</h2>
+  <div class="flow">
+    <div class="step"><h3>Exploración</h3><p class="goal">Saberes previos y motivación</p><ul><li>Pregunta problematizadora del contexto</li><li>Cuestionario diagnóstico</li></ul></div>
+    <div class="step"><h3>Estructuración</h3><p class="goal">Construcción del concepto</p><ul><li>Materiales y videos en Classroom</li><li>Guías con apoyo del docente</li></ul></div>
+    <div class="step"><h3>Práctica</h3><p class="goal">Indagación y aplicación</p><ul><li>Actividades interactivas</li><li>Trabajo colaborativo</li></ul></div>
+    <div class="step"><h3>Evaluación</h3><p class="goal">Seguimiento y mejora</p><ul><li>Rúbrica y retroalimentación</li><li>Comparación con el diagnóstico</li></ul></div>
+  </div>
+</section>
+
+<!-- INFOGRAFIA -->
+<section class="view" id="v-infografia">
+  <div class="eyebrow">Diseñando</div>
+  <h1 class="page-title">Infografía: propuesta metodológica</h1>
+  <p class="lead">Las cuatro fases de la propuesta siguen los objetivos específicos del trabajo de grado.</p>
+  <div class="flow">
+    <div class="step"><h3>Diagnosticar</h3><p class="goal">Objetivo específico 1</p><ul><li>Revisar registros académicos 2024</li><li>Aplicar prueba diagnóstica de Ciencias Naturales</li><li>Identificar niveles de desempeño</li></ul></div>
+    <div class="step"><h3>Diseñar</h3><p class="goal">Objetivo específico 2</p><ul><li>Definir la unidad didáctica</li><li>Organizar el curso en Google Classroom</li><li>Elaborar recursos y rúbricas</li></ul></div>
+    <div class="step"><h3>Implementar</h3><p class="goal">Objetivo específico 3</p><ul><li>Desarrollar la unidad con noveno</li><li>Acompañar y retroalimentar en Classroom</li><li>Registrar evidencias del proceso</li></ul></div>
+    <div class="step"><h3>Evaluar</h3><p class="goal">Objetivo específico 4</p><ul><li>Comparar resultados antes y después</li><li>Analizar participación y motivación</li><li>Formular conclusiones y mejoras</li></ul></div>
+  </div>
+  <p class="note" style="margin-top:16px">Pregunta que orienta el proceso: ¿de qué manera la implementación de una estrategia pedagógica mediada por Google Classroom fortalece el rendimiento académico en Ciencias Naturales?</p>
+</section>
+
+<!-- DISENO INSTRUCCIONAL -->
+<section class="view" id="v-disenoinst">
+  <div class="eyebrow">Diseñando</div>
+  <h1 class="page-title">Diseño instruccional</h1>
+  <p class="lead">Se organiza con el modelo ADDIE (análisis, diseño, desarrollo, implementación y evaluación) y se relaciona con cada objetivo específico.</p>
+  <div class="tbl"><table>
+    <thead><tr><th>Fase</th><th>Qué se hace</th><th>Objetivo relacionado</th></tr></thead>
+    <tbody>
+      <tr><td><b>Análisis</b></td><td>Contexto de la institución, perfil de los 25 estudiantes de noveno, necesidades y conectividad; diagnóstico del rendimiento en Ciencias Naturales.</td><td>1. Diagnosticar</td></tr>
+      <tr><td><b>Diseño</b></td><td>Objetivos de aprendizaje alineados con los DBA, secuencia de actividades, estrategia de evaluación formativa y estructura del curso en Classroom.</td><td>2. Diseñar</td></tr>
+      <tr><td><b>Desarrollo</b></td><td>Elaboración de materiales, guías, cuestionarios y rúbricas; carga y organización por temas en Google Classroom.</td><td>2. Diseñar</td></tr>
+      <tr><td><b>Implementación</b></td><td>Trabajo con los estudiantes, acompañamiento docente permanente, comunicación y retroalimentación en la plataforma.</td><td>3. Implementar</td></tr>
+      <tr><td><b>Evaluación</b></td><td>Comparación de resultados con el diagnóstico, análisis de participación y ajustes a la estrategia.</td><td>4. Evaluar</td></tr>
+    </tbody></table></div>
+</section>
+
+<!-- PRODUCTO FINAL -->
+<section class="view" id="v-producto">
+  <div class="eyebrow">Diseñando</div>
+  <h1 class="page-title">Producto final</h1>
+  <p class="lead">El producto es una estrategia pedagógica mediada por Google Classroom para fortalecer el rendimiento en Ciencias Naturales de grado noveno.</p>
+  <div class="grid2">
+    <div class="card"><h3>Qué incluye</h3><ul><li>Curso organizado en Google Classroom</li><li>Unidad didáctica con recursos educativos digitales</li><li>Instrumentos de evaluación formativa y rúbricas</li><li>Informe de resultados frente al diagnóstico</li></ul></div>
+    <div class="card"><h3>A quién beneficia</h3><ul><li>Estudiantes de grado noveno de la I.E.M. Misael Pastrana Borrero</li><li>Docentes del área de Ciencias Naturales</li><li>Instituciones con contextos semejantes</li></ul></div>
+  </div>
+  <div class="todo" style="margin-top:16px">Enlace al curso de Google Classroom o a la carpeta del producto: por definir.</div>
+</section>
+
+<!-- VIDEO -->
+<section class="view" id="v-video">
+  <div class="eyebrow">Diseñando</div>
+  <h1 class="page-title">Video tutorial</h1>
+  <p class="lead">Guion de un tutorial breve para que estudiantes y docentes se ubiquen en el curso de Google Classroom.</p>
+  <div class="video" role="img" aria-label="Espacio reservado para el video tutorial">
+    <div><svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30" fill="none" stroke="#fff" stroke-width="3"/><path d="M26 20l20 12-20 12z" fill="#fff"/></svg><p style="margin-top:8px">Video tutorial en producción</p></div>
+  </div>
+  <div class="tbl" style="margin-top:18px"><table>
+    <thead><tr><th>Escena</th><th>Contenido</th><th>Duración</th></tr></thead>
+    <tbody>
+      <tr><td>1. Bienvenida</td><td>Presentación del proyecto y del objetivo del curso.</td><td>20 s</td></tr>
+      <tr><td>2. Ingreso</td><td>Cómo entrar a Google Classroom y unirse con el código de clase.</td><td>40 s</td></tr>
+      <tr><td>3. Recorrido</td><td>Tablón, trabajo de clase, personas y calificaciones.</td><td>60 s</td></tr>
+      <tr><td>4. Actividades</td><td>Abrir una tarea, adjuntar evidencia y entregar.</td><td>60 s</td></tr>
+      <tr><td>5. Retroalimentación</td><td>Ver comentarios y rúbrica del docente.</td><td>30 s</td></tr>
+    </tbody></table></div>
+  <div class="todo" style="margin-top:16px">Enlace del video (YouTube o Drive): por definir.</div>
+</section>
+
+<!-- REFERENCIAS -->
+<section class="view" id="v-referencias">
+  <div class="eyebrow">Créditos</div>
+  <h1 class="page-title">Referencias bibliográficas</h1>
+  <p class="lead">Normas APA, séptima edición.</p>
+  <div class="refs"><p>Abreu Amador, M., &amp; Mejía de la Cruz, W. (2020). Factores que influyen en el bajo rendimiento escolar en la asignatura Ciencias de la Naturaleza, de 2do de secundaria, del Instituto Politécnico Max Henríquez Ureña, en el año escolar 2019-2020 [Trabajo de grado, Universidad Nacional Pedro Henríquez Ureña]. Repositorio Institucional UNPHU. https://repositorio.unphu.edu.do/items/31fed557-f07c-404b-b21a-e9282d60e6e4</p><p>Cabrera Pardo, L. N., Salazar Piñerez, J. T., &amp; Suarez Acevedo, C. M. (2022). Fortalecimiento de las competencias científicas en el área de Ciencias Naturales, mediante la aplicación de una unidad didáctica basada en prácticas de laboratorio, para estudiantes de grado cuarto de la Institución Educativa Juan Cristóbal Martínez del municipio San Juan de Girón-Santander [Trabajo de grado, Corporación Universitaria Minuto de Dios]. Repositorio Institucional UNIMINUTO.</p><p>Coll, C. (2009). Aprender y enseñar con las TIC: expectativas, realidad y potencialidades. En R. Carneiro, J. C. Toscano, y T. Díaz (Coords.), Los desafíos de las TIC para el cambio educativo (pp. 113-126). OEI-Fundación Santillana.</p><p>Cruz Benítez, J. E., &amp; Fernández Díaz, O. R. (2024). Fortalecimiento de la competencia de indagación en el área de Ciencias Naturales de los estudiantes del grado noveno de la Institución Educativa San Andrés Tello mediante un espacio virtual de aprendizaje y el uso de recursos educativos digitales (RED) [Trabajo de grado de maestría, Universidad de Cartagena]. Repositorio Institucional Unicartagena.</p><p>Education Endowment Foundation. (2019). Using Digital Technology to Improve Learning [Uso de la tecnología digital para mejorar el aprendizaje]. EEF Guidance Report.</p><p>Falla Cuéllar, D. F., &amp; Cruz Herrera, L. A. (2020). Actitudes de los estudiantes y propuesta alternativa para la enseñanza-aprendizaje de las Ciencias Naturales en las instituciones educativas de la ciudad de Neiva-Huila. Revista PACA, 10, 83–100. https://doi.org/10.25054/2027257X.2880</p><p>Furman, M. (2021). Enseñar distinto: Guía para innovar en el aula. Siglo XXI Editores.</p><p>Gualguán Luna, G. (s.f.). Causas del bajo rendimiento en las áreas de Ciencias Sociales y Ciencias Naturales [Trabajo de grado, Universidad Católica de Manizales]. Repositorio de la Universidad Católica de Manizales. https://repositorio.ucm.edu.co/server/api/core/bitstreams/8cf5675e-52a9-4a73-b626-8022db3c1168/content</p><p>Instituto Colombiano para la Evaluación de la Educación [ICFES]. (2023). Informe Nacional de Resultados de las Pruebas Saber 11 - 2023. Ministerio de Educación Nacional.</p><p>Instituto Colombiano para la Evaluación de la Educación [ICFES]. (2024). Reporte de resultados Saber 11 por Entidades Territoriales Certificadas. Ministerio de Educación Nacional.</p><p>Leiton Leiton, D. R., Tamayo León, J. A., Ramírez González, E. G., Engracia Carvallo, D. E., &amp; Ramírez González, S. Y. (2024). Estrategia metodológica para el mejoramiento del rendimiento académico en la asignatura de ciencias naturales en los estudiantes de educación básica. Estudios y Perspectivas Revista Científica y Académica, 4(2). https://doi.org/10.61384/r.c.a..v4i2.221</p><p>Melo-Solarte, D. S., &amp; Díaz, P. A. (2018). El aprendizaje significativo y la evaluación formativa a través de Google Classroom. Revista Iberoamericana de Educación, 76(2), 53-70.</p><p>Ministerio de Educación Nacional [MEN]. (2016). Derechos Básicos de Aprendizaje: Ciencias Naturales. Bogotá, Colombia: Panamericana Formas e Impresos S.A.</p><p>Organización de las Naciones Unidas para la Educación, la Ciencia y la Cultura [UNESCO]. (2023). Informe de Seguimiento de la Educación en el Mundo 2023: La tecnología en la educación: ¿Una herramienta en los términos de quién?. París: UNESCO.</p><p>Organización para la Cooperación y el Desarrollo Económicos [OCDE]. (2023). Resultados de PISA 2022 (Volumen I): El estado del aprendizaje y la equidad en la educación. OECD Publishing.</p><p>Pacheco, O. (2023, 20 de febrero). El trabajo práctico como estrategia para el fortalecimiento del aprendizaje de las ciencias naturales en estudiantes de séptimo grado en la Institución Etnoeducativa Makumake [Trabajo de grado, Universidad Mariana]. Repositorio Institucional Unimariana. https://repositorio.umariana.edu.co/items/6ad0cdc8-1a0e-4566-95b6-fb08f02ea4ca</p><p>Quintero-Fierro, Y. K., &amp; Vargas-Zúñiga, K. T. (2023). Refuerzo pedagógico como estrategia para el mejoramiento del aprendizaje en Ciencias Naturales. Revista Electrónica EDUCyT, 14(Número extra), 789–795.</p><p>Quintero Trujillo, Ó. I. (2023). Uso de una estrategia pedagógica basada en la gamificación para el fortalecimiento del aprendizaje de las Ciencias Naturales de los estudiantes del grado noveno de la Institución Educativa San Antonio del Pescado del municipio de Garzón-Huila [Tesis de grado, Universidad Surcolombiana]. Repositorio Institucional USCO.</p><p>Santana Santana, R. B. (2024). Estrategia para mejorar el rendimiento académico en las ciencias de la naturaleza en estudiantes de segundo de secundaria. UCE Ciencia. Revista de Postgrado, 12(2). https://uceciencia.edu.do/index.php/OJS/article/view/371</p><p>Vargas, L. A. C. (2024). Rendimiento académico en el área de Ciencias Naturales en estudiantes de bachillerato. REDHECS: Revista Electrónica de Humanidades, Educación y Comunicación Social, 32(25), 10–24. https://dialnet.unirioja.es/servlet/articulo?codigo=10161601</p><p>Yahya, S. M., &amp; Ayasrah, M. N. (2018). Causes of 8th grade students&#x27; low achievement in TIMSS Study-2015 from science teachers and educational supervisors. Review of European Studies, 10(1), 124–139. https://doi.org/10.5539/res.v10n1p124</p></div>
+</section>
+
+<!-- AGRADECIMIENTOS -->
+<section class="view" id="v-agradecimientos">
+  <div class="eyebrow">Créditos</div>
+  <h1 class="page-title">Agradecimientos</h1>
+  <div class="prose">
+    <p>A la Universidad de Cartagena y a la Maestría en Recursos Digitales Aplicados a la Educación por la formación recibida.</p>
+    <p>A la docente Zohami Judith Ardila Ramos, tutora de Proyecto de Aula I, por su orientación durante el desarrollo de este portafolio.</p>
+    <p>A la Institución Educativa Municipal Misael Pastrana Borrero, a sus directivos, docentes, familias y a los estudiantes de grado noveno, protagonistas de este proyecto.</p>
+    <p>A nuestras familias por su apoyo y paciencia a lo largo de este proceso.</p>
+  </div>
+</section>
+
+<!-- LICENCIA -->
+<section class="view" id="v-licencia">
+  <div class="eyebrow">Créditos</div>
+  <h1 class="page-title">Licenciamiento</h1>
+  <div class="cc">
+    <div class="badge">CC BY-NC-SA 4.0</div>
+    <div class="prose"><p>Este portafolio se comparte bajo la licencia Creative Commons Atribución-NoComercial-CompartirIgual 4.0 Internacional. Puedes copiar, redistribuir y adaptar el material citando a las autoras y al autor, sin fines comerciales y compartiendo las obras derivadas con la misma licencia.</p>
+    <p style="margin-top:10px"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.es" target="_blank" rel="noopener">Ver el texto de la licencia</a></p></div>
+  </div>
+  <p class="note" style="margin-top:14px">Las referencias de terceros conservan los derechos de sus titulares.</p>
+</section>
+
+<!-- MAPA -->
+<section class="view" id="v-mapa">
+  <div class="eyebrow">Créditos</div>
+  <h1 class="page-title">Mapa de navegación</h1>
+  <p class="lead">Toca cualquier apartado para ir a él.</p>
+  <ul class="tree">
+    <li><button data-go="inicio">Inicio</button>
+      <ul><li>Escudo, título, estudiantes, tutora y director</li><li>Imágenes alusivas</li></ul></li>
+    <li><button data-go="avatar">1. Identificando</button>
+      <ul><li><button data-go="avatar">Avatar</button></li><li><button data-go="poster">Póster digital</button></li></ul></li>
+    <li><button data-go="ebook">2. Referenciando</button>
+      <ul><li><button data-go="ebook">E-book</button></li></ul></li>
+    <li><button data-go="unidad">3. Diseñando</button>
+      <ul><li><button data-go="unidad">Unidad didáctica</button></li><li><button data-go="infografia">Infografía: propuesta metodológica</button></li><li><button data-go="disenoinst">Diseño instruccional</button></li><li><button data-go="producto">Producto final</button></li><li><button data-go="video">Video tutorial</button></li></ul></li>
+    <li><button data-go="referencias">4. Créditos</button>
+      <ul><li><button data-go="referencias">Referencias bibliográficas (APA 7)</button></li><li><button data-go="agradecimientos">Agradecimientos</button></li><li><button data-go="licencia">Licenciamiento (Creative Commons)</button></li><li><button data-go="mapa">Mapa de navegación</button></li></ul></li>
+  </ul>
+</section>
+
+</main>
+<footer class="foot"><div class="wrap">Portafolio electrónico · Proyecto de Aula I · Universidad de Cartagena · CC BY-NC-SA 4.0</div></footer>
+
+<script>
+(function(){
+  // ====== Datos editables ======
+  var DIRECTOR = null; // Escribe aquí el nombre del director, por ejemplo "Nombre Apellido"
+  var TITLE = 'Fortalecimiento del rendimiento académico en Ciencias Naturales mediante una estrategia pedagógica mediada por Google Classroom en estudiantes de grado noveno de la Institución Educativa Municipal Misael Pastrana Borrero en Saladoblanco, Huila';
+  var SCRIPTS = {
+    1: [
+      'Hola, somos estudiantes de la Maestría en Recursos Digitales Aplicados a la Educación de la Universidad de Cartagena.',
+      'Nuestro trabajo de grado se titula: Fortalecimiento del rendimiento académico en Ciencias Naturales mediante una estrategia pedagógica mediada por Google Classroom, en estudiantes de grado noveno de la Institución Educativa Municipal Misael Pastrana Borrero, en Saladoblanco, Huila.',
+      'Sus autores son Dora Magally Barragán Polanco, Jhorman Leonardo Gutiérrez Rojas, Luz Stefanny Martínez Castillo y Vanesa Sofía Timaná Hurtado.',
+      (DIRECTOR ? 'El trabajo cuenta con la dirección de ' + DIRECTOR + '.' : 'El trabajo cuenta con la dirección de nuestro director de trabajo de grado.'),
+      'Gracias por visitar nuestro portafolio.'
+    ],
+    2: [
+      'En Colombia, el promedio nacional en Ciencias Naturales en Saber 11 fue de 50 puntos sobre 100, y en el Huila el 67 por ciento de los estudiantes evaluados quedó en los niveles uno y dos.',
+      'En la Institución Educativa Municipal Misael Pastrana Borrero, de los 25 estudiantes de grado noveno, 18 tuvieron desempeño básico o bajo en 2024. Eso equivale al 72 por ciento del curso.',
+      'Además, se observa desinterés por el área y poca participación, relacionados con metodologías tradicionales y con pocos recursos interactivos.',
+      'Por eso nos preguntamos: ¿de qué manera una estrategia pedagógica mediada por Google Classroom fortalece el rendimiento académico en Ciencias Naturales de los estudiantes de grado noveno?'
+    ]
+  };
+  var $ = function(s,r){return (r||document).querySelector(s)};
+  var $$ = function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
+
+  if (DIRECTOR) $('#dir-name').textContent = DIRECTOR;
+
+  // ====== Navegación ======
+  var views = $$('.view');
+  function go(id, noPush){
+    if(!$('#v-'+id)) id='inicio';
+    views.forEach(function(v){v.classList.toggle('active', v.id==='v-'+id)});
+    $$('.drop button').forEach(function(b){ if(b.dataset.go===id) b.setAttribute('aria-current','page'); else b.removeAttribute('aria-current'); });
+    $$('.m-item').forEach(function(m){m.classList.remove('open')});
+    $('#menu').classList.remove('open'); $('#burger').setAttribute('aria-expanded','false');
+    stopSpeech();
+    if(!noPush){ try{ history.replaceState(null,'','#'+id);}catch(e){} }
+    window.scrollTo({top:0});
+  }
+  document.addEventListener('click', function(e){
+    var g = e.target.closest('[data-go]');
+    if(g){ go(g.dataset.go); return; }
+    var mb = e.target.closest('.m-btn');
+    if(mb){
+      var it = mb.parentNode, was = it.classList.contains('open');
+      $$('.m-item').forEach(function(m){m.classList.remove('open')});
+      if(!was) it.classList.add('open');
+      return;
+    }
+    if(!e.target.closest('.m-item')) $$('.m-item').forEach(function(m){m.classList.remove('open')});
+  });
+  $('#burger').addEventListener('click', function(){
+    var o = $('#menu').classList.toggle('open'); this.setAttribute('aria-expanded', o);
+  });
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape') $$('.m-item').forEach(function(m){m.classList.remove('open')}); });
+  window.addEventListener('hashchange', function(){ go((location.hash||'#inicio').slice(1), true); });
+
+  // ====== Avatares ======
+  var AV1 = "img/avatar-estudiante.jpg";
+  var AV2 = "img/avatar-docente.jpg";
+
+  function face(kind){
+    var src = kind===1 ? AV1 : AV2;
+    var who = kind===1 ? 'Avatar estudiante que presenta el trabajo de grado'
+                       : 'Avatar docente que presenta el problema de investigación';
+    return '<img class="av-img" src="'+src+'" alt="'+who+'">';
+  }
+  $$('[data-face]').forEach(function(el){ el.innerHTML = face(+el.dataset.face); });
+
+  var synth = window.speechSynthesis;
+  if(!synth || typeof SpeechSynthesisUtterance==='undefined'){ $('#tts-note').hidden = false; }
+  var token = 0;
+  function pickVoice(){
+    var vs = synth ? synth.getVoices() : [];
+    var pref = ['es-CO','es-MX','es-US','es-419','es-ES'];
+    for(var i=0;i<pref.length;i++){
+      for(var j=0;j<vs.length;j++){ if(vs[j].lang && vs[j].lang.replace('_','-').indexOf(pref[i])===0) return vs[j]; }
+    }
+    for(var k=0;k<vs.length;k++){ if(vs[k].lang && vs[k].lang.toLowerCase().indexOf('es')===0) return vs[k]; }
+    return null;
+  }
+  function renderSub(n, idx){
+    var box = $('#sub'+n), lines = SCRIPTS[n];
+    box.innerHTML = lines.map(function(t,i){ return i===idx ? '<mark>'+t+'</mark>' : t; }).join(' ');
+  }
+  function stopSpeech(){
+    token++;
+    if(synth){ try{synth.cancel();}catch(e){} }
+    $$('.av').forEach(function(a){a.classList.remove('talking')});
+  }
+  function speak(n){
+    stopSpeech();
+    var my = token, lines = SCRIPTS[n], card = $('#av'+n);
+    if(!synth || typeof SpeechSynthesisUtterance==='undefined'){ renderSub(n,-1); return; }
+    var voice = pickVoice(), i = 0;
+    card.classList.add('talking');
+    (function next(){
+      if(my!==token) return;
+      if(i>=lines.length){ card.classList.remove('talking'); renderSub(n,-1); return; }
+      renderSub(n,i);
+      var u = new SpeechSynthesisUtterance(lines[i]);
+      u.lang = voice ? voice.lang : 'es-CO'; if(voice) u.voice = voice;
+      u.rate = 0.95; u.pitch = n===1 ? 1.1 : 0.9;
+      u.onend = function(){ i++; next(); };
+      u.onerror = function(){ if(my===token){ card.classList.remove('talking'); } };
+      synth.speak(u);
+    })();
+  }
+  if(synth && synth.addEventListener){ synth.addEventListener('voiceschanged', function(){}); }
+  renderSub(1,-1); renderSub(2,-1);
+  $$('[data-speak]').forEach(function(b){ b.addEventListener('click', function(){ speak(+b.dataset.speak); }); });
+  $$('[data-stop]').forEach(function(b){ b.addEventListener('click', function(){ stopSpeech(); renderSub(+b.dataset.stop,-1); }); });
+
+  // ====== E-book ======
+  var tpl = $('#ebdata').innerHTML, holder = document.createElement('div'); holder.innerHTML = tpl;
+  var chapters = $$('section[data-title]', holder).map(function(s){ return {title:s.dataset.title, html:s.innerHTML}; });
+  var cur = 0, toc = $('#toc');
+  chapters.forEach(function(c,i){
+    var b = document.createElement('button'); b.type='button'; b.textContent = c.title;
+    b.addEventListener('click', function(){ window._ebnav=1; show(i); });
+    toc.appendChild(b);
+  });
+  function show(i){
+    cur = Math.max(0, Math.min(chapters.length-1, i));
+    var c = chapters[cur];
+    $('#ebpage').innerHTML = (cur===0 ? '<div class="cover"><h2>Capítulo 1. Planteamiento y Formulación del Problema</h2><p>Proyecto de Aula I · Maestría en Recursos Digitales Aplicados a la Educación · Universidad de Cartagena</p></div>' : '') + '<h2>'+c.title+'</h2>' + c.html;
+    $$('button', toc).forEach(function(b,k){ if(k===cur) b.setAttribute('aria-current','true'); else b.removeAttribute('aria-current'); });
+    $('#ebprev').disabled = cur===0; $('#ebnext').disabled = cur===chapters.length-1;
+    if(window._ebnav){$('#ebpage').scrollIntoView({block:'nearest'});}
+  }
+  $('#ebprev').addEventListener('click', function(){ window._ebnav=1; show(cur-1); });
+  $('#ebnext').addEventListener('click', function(){ window._ebnav=1; show(cur+1); });
+  show(0);
+
+  go((location.hash||'#inicio').slice(1), true);
+})();
+</script>
+</body></html>
