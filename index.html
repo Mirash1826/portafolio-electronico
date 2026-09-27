@@ -185,6 +185,71 @@ tr:last-child td{border-bottom:0}
 .tree button{background:none;border:0;cursor:pointer;color:var(--ink);font:inherit;padding:2px 4px;text-align:left;text-decoration:underline;text-decoration-color:var(--line);text-underline-offset:3px}
 .tree button:hover{text-decoration-color:var(--brand)}
 footer.foot{border-top:1px solid var(--line);padding-block:22px;color:var(--muted);font-size:.88rem}
+
+/* ===== Póster digital ===== */
+.pk{display:grid;gap:16px}
+.pk-hero{background:var(--brand);color:var(--brand-ink);border-radius:16px;padding:clamp(20px,4vw,38px);position:relative;overflow:hidden}
+.pk-hero::after{content:"";position:absolute;right:-60px;top:-60px;width:220px;height:220px;border-radius:50%;background:var(--gold-soft);opacity:.14;pointer-events:none}
+.pk-hero h2{font:800 clamp(1.45rem,3.6vw,2.3rem)/1.15 var(--f-display);margin:0;max-width:20ch;text-wrap:balance}
+.pk-hero h2 em{font-style:normal;color:var(--gold-soft)}
+.pk-hero p{margin:12px 0 0;font-size:1rem;opacity:.92;max-width:48ch}
+.pk-rule{width:64px;height:4px;border-radius:2px;background:var(--gold-soft);margin-bottom:16px}
+
+.pk-cols{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));align-items:start}
+.pk-card{background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.pk-head{display:flex;align-items:center;gap:12px;background:var(--brand);color:var(--brand-ink);padding:12px 18px}
+.pk-head h3{margin:0;font:700 .95rem/1.2 var(--f-body);letter-spacing:.08em;text-transform:uppercase}
+.pk-head .pk-ico{width:30px;height:30px;flex:0 0 30px;background:rgba(255,255,255,.18)}
+.pk-body{padding:16px 18px;display:grid;gap:14px}
+
+.pk-ico{display:grid;place-items:center;border-radius:50%;color:var(--brand-ink)}
+.pk-ico svg{width:56%;height:56%;display:block}
+
+.pk-item{display:grid;grid-template-columns:42px 1fr;gap:14px;align-items:start;padding-bottom:14px;border-bottom:1px solid var(--line)}
+.pk-item:last-child{padding-bottom:0;border-bottom:0}
+.pk-item .pk-ico{width:42px;height:42px;background:var(--brand)}
+.pk-item:nth-child(odd) .pk-ico{background:var(--gold)}
+.pk-item h4{margin:0 0 3px;font:700 .98rem/1.3 var(--f-body);color:var(--brand)}
+.pk-item p{margin:0;font-size:.92rem;color:var(--muted);line-height:1.5}
+
+.pk-res{display:grid;grid-template-columns:repeat(2,1fr);gap:4px}
+.pk-res div{text-align:center;padding:12px 8px;border-radius:10px;transition:background .25s ease}
+.pk-res div:hover{background:var(--tint)}
+.pk-res .pk-ico{width:44px;height:44px;margin:0 auto 10px;background:var(--gold)}
+.pk-res div:nth-child(even) .pk-ico{background:var(--brand)}
+.pk-res p{margin:0;font-size:.86rem;color:var(--ink);line-height:1.4}
+
+.pk-goal{background:var(--brand);color:var(--brand-ink);border-radius:14px;padding:clamp(18px,3vw,26px);display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:center}
+.pk-goal .pk-ico{width:62px;height:62px;flex:0 0 62px;background:var(--gold-soft);color:var(--brand)}
+.pk-goal h3{margin:0 0 8px;font:700 .95rem/1.2 var(--f-body);letter-spacing:.08em;text-transform:uppercase;color:var(--gold-soft)}
+.pk-goal p{margin:0;font-size:1.02rem;line-height:1.55}
+
+.pk-steps{display:grid;gap:12px}
+.pk-step{display:grid;grid-template-columns:34px 1fr;gap:14px;align-items:center}
+.pk-step b{width:34px;height:34px;border-radius:50%;background:var(--gold);color:var(--brand-ink);display:grid;place-items:center;font:700 1rem/1 var(--f-display)}
+.pk-step p{margin:0;font-size:.94rem;color:var(--ink)}
+
+.pk-refs{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px}
+.pk-refs h3{display:flex;align-items:center;gap:10px;margin:0 0 12px;font:700 .9rem/1.2 var(--f-body);letter-spacing:.08em;text-transform:uppercase;color:var(--brand)}
+.pk-refs .pk-ico{width:30px;height:30px;background:var(--brand)}
+.pk-refs ul{margin:0;padding-left:1.15em;display:grid;gap:7px}
+.pk-refs li{font-size:.88rem;color:var(--muted);line-height:1.5}
+.pk-refs cite{font-style:italic}
+
+.pk-foot{background:var(--brand);color:var(--brand-ink);border-radius:12px;padding:14px 18px;text-align:center;font-size:.9rem}
+
+@media (max-width:520px){
+  .pk-goal{grid-template-columns:1fr;text-align:left}
+  .pk-item{grid-template-columns:36px 1fr;gap:12px}
+  .pk-item .pk-ico{width:36px;height:36px}
+}
+
+/* Aparición progresiva al desplazarse */
+.js-anim .rv{opacity:0;transform:translateY(16px) scale(.985)}
+.js-anim .rv.in{opacity:1;transform:none;transition:opacity .6s ease,transform .6s cubic-bezier(.2,.7,.3,1)}
+@media (prefers-reduced-motion:reduce){
+  .js-anim .rv,.js-anim .rv.in{opacity:1;transform:none;transition:none}
+}
 </style></head><body>
 
 <header class="top">
@@ -286,61 +351,107 @@ footer.foot{border-top:1px solid var(--line);padding-block:22px;color:var(--mute
 <section class="view" id="v-poster">
   <div class="eyebrow">Identificando</div>
   <h1 class="page-title">Póster digital</h1>
-  <p class="lead">Justificación y objetivos del trabajo de grado en una sola vista.</p>
-  <div class="poster">
-    <div>
-      <div class="eyebrow" style="color:var(--gold-soft)">Proyecto de grado · Maestría en Recursos Digitales Aplicados a la Educación</div>
-      <h2 style="margin-top:8px">Fortalecimiento del rendimiento académico en Ciencias Naturales con una estrategia mediada por Google Classroom</h2>
-      <p class="sub-t" style="margin-top:8px">Grado noveno · I.E.M. Misael Pastrana Borrero · Saladoblanco, Huila</p>
+  <p class="lead">Justificación, metodología y objetivos del trabajo de grado en una sola vista.</p>
+
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+    <symbol id="i-doc" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="M9 13h6M9 17h6"/></g></symbol>
+    <symbol id="i-net" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2.2"/><circle cx="5" cy="18" r="2.2"/><circle cx="19" cy="18" r="2.2"/><path d="M12 7.2v3.3m0 0-5.3 5.2m5.3-5.2 5.3 5.2"/></g></symbol>
+    <symbol id="i-brain" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 4a2.6 2.6 0 0 0-2.6 2.6A2.6 2.6 0 0 0 5.6 12 2.6 2.6 0 0 0 8 16.2V18a2 2 0 0 0 2 2h.5V4z"/><path d="M14 4a2.6 2.6 0 0 1 2.6 2.6A2.6 2.6 0 0 1 18.4 12 2.6 2.6 0 0 1 16 16.2V18a2 2 0 0 1-2 2h-.5V4z"/></g></symbol>
+    <symbol id="i-people" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9.5" cy="8" r="3.2"/><path d="M3.5 20a6 6 0 0 1 12 0"/><path d="M16.5 5.6a3.2 3.2 0 0 1 0 6.3"/><path d="M19 20a6 6 0 0 0-3-5.1"/></g></symbol>
+    <symbol id="i-laptop" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="16" height="11" rx="1.6"/><path d="M2 20h20"/></g></symbol>
+    <symbol id="i-bank" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 3 8h18z"/><path d="M5.5 11v7M9.5 11v7M14.5 11v7M18.5 11v7"/><path d="M2.5 21h19"/></g></symbol>
+    <symbol id="i-gear" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3.2"/><path d="M12 2.6v2.6m0 13.6v2.6M2.6 12h2.6m13.6 0h2.6M5.3 5.3l1.9 1.9m9.6 9.6 1.9 1.9m0-13.4-1.9 1.9m-9.6 9.6-1.9 1.9"/></g></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="6.2"/><path d="m20 20-4.6-4.6"/></g></symbol>
+    <symbol id="i-clip" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4.5H7A1.9 1.9 0 0 0 5 6.4v12.7A1.9 1.9 0 0 0 7 21h10a1.9 1.9 0 0 0 2-1.9V6.4a1.9 1.9 0 0 0-2-1.9h-2"/><rect x="9" y="2.6" width="6" height="3.8" rx="1.1"/><path d="M9 11.5h6M9 15.5h5"/></g></symbol>
+    <symbol id="i-target" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3.8"/><circle cx="12" cy="12" r="1.1" fill="currentColor" stroke="none"/></g></symbol>
+    <symbol id="i-chart" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 20.5h17"/><path d="M6.5 20.5v-5M11 20.5v-9M15.5 20.5v-6"/><path d="M20 4.5v4h-4"/><path d="M20 4.5 14 10"/></g></symbol>
+    <symbol id="i-screen" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="13" rx="1.8"/><path d="M8.5 21h7M12 17v4"/><path d="m9 8 2.4 2.3L9 12.6"/></g></symbol>
+    <symbol id="i-list" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 5.5h10M9.5 12h10M9.5 18.5h10"/><path d="m3.5 5.5 1.4 1.4L7.5 4.3"/><path d="m3.5 12 1.4 1.4 2.6-2.6"/><path d="m3.5 18.5 1.4 1.4 2.6-2.6"/></g></symbol>
+    <symbol id="i-book" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6.6C10.4 5 7.9 4.5 3.8 4.5v13c4.1 0 6.6.5 8.2 2 1.6-1.5 4.1-2 8.2-2v-13c-4.1 0-6.6.5-8.2 2.1z"/><path d="M12 6.6v12.9"/></g></symbol>
+  </defs></svg>
+
+  <div class="pk">
+
+    <div class="pk-hero rv">
+      <div class="pk-rule"></div>
+      <h2>Estrategia pedagógica mediada por <em>Google Classroom</em> en Ciencias Naturales</h2>
+      <p>Innovación educativa para el fortalecimiento del rendimiento académico en la educación básica.</p>
     </div>
-    <div class="p-grid">
-      <div class="p-box">
-        <h3>El problema en el aula</h3>
-        <div class="stat">72 %</div>
-        <p>de los 25 estudiantes de noveno (18) tuvo desempeño básico o bajo en Ciencias Naturales en 2024.</p>
-        <div class="bar-chart" role="img" aria-label="Estudiantes de noveno: 18 con desempeño básico o bajo y 7 en otros niveles">
-          <div class="bar-row"><span>Básico o bajo</span><span class="track"><span class="fill g" style="width:72%"></span></span><b>18</b></div>
-          <div class="bar-row"><span>Otros niveles</span><span class="track"><span class="fill" style="width:28%"></span></span><b>7</b></div>
+
+    <div class="pk-cols">
+
+      <div style="display:grid;gap:16px">
+        <article class="pk-card rv">
+          <div class="pk-head"><span class="pk-ico"><svg><use href="#i-doc"/></svg></span><h3>Justificación del proyecto</h3></div>
+          <div class="pk-body">
+            <div class="pk-item rv"><span class="pk-ico"><svg><use href="#i-net"/></svg></span><div><h4>Visión multicausal</h4><p>El bajo rendimiento resulta de la interacción entre metodologías tradicionales, motivación y contexto escolar.</p></div></div>
+            <div class="pk-item rv"><span class="pk-ico"><svg><use href="#i-brain"/></svg></span><div><h4>Fundamentación teórica</h4><p>Impulsa el aprendizaje significativo (Ausubel) y mediado socialmente (Vygotsky), basado en indagación científica.</p></div></div>
+            <div class="pk-item rv"><span class="pk-ico"><svg><use href="#i-people"/></svg></span><div><h4>Impacto académico y social</h4><p>Intervención en grado noveno para consolidar competencias clave antes de la educación media.</p></div></div>
+            <div class="pk-item rv"><span class="pk-ico"><svg><use href="#i-laptop"/></svg></span><div><h4>Mediación tecnológica</h4><p>Google Classroom estructurado intencionalmente para organizar recursos y fomentar el aprendizaje autónomo.</p></div></div>
+            <div class="pk-item rv"><span class="pk-ico"><svg><use href="#i-bank"/></svg></span><div><h4>Aporte institucional</h4><p>Genera evidencia empírica y metodologías aplicables a la institución y a contextos similares.</p></div></div>
+          </div>
+        </article>
+
+        <div class="pk-goal rv">
+          <span class="pk-ico"><svg><use href="#i-target"/></svg></span>
+          <div>
+            <h3>Objetivo general</h3>
+            <p>Fortalecer el rendimiento académico en Ciencias Naturales mediante una estrategia pedagógica mediada por Google Classroom en los estudiantes de grado noveno de la Institución Educativa Municipal Misael Pastrana Borrero, en Saladoblanco, Huila.</p>
+          </div>
         </div>
       </div>
-      <div class="p-box">
-        <h3>Por qué importa</h3>
-        <ul>
-          <li><b>Científica:</b> genera evidencia contextualizada sobre factores pedagógicos y mediaciones tecnológicas.</li>
-          <li><b>Teórica:</b> se apoya en el aprendizaje significativo (Ausubel) y la mediación social (Vygotsky).</li>
-          <li><b>Social:</b> el grado noveno es la transición a la media y exige competencias científicas sólidas.</li>
-        </ul>
+
+      <div style="display:grid;gap:16px">
+        <article class="pk-card rv">
+          <div class="pk-head"><span class="pk-ico"><svg><use href="#i-gear"/></svg></span><h3>Metodología</h3></div>
+          <div class="pk-body">
+            <div class="pk-item rv"><span class="pk-ico"><svg><use href="#i-search"/></svg></span><div><h4>Enfoque</h4><p>Mixto (cuantitativo y cualitativo).</p></div></div>
+            <div class="pk-item rv"><span class="pk-ico"><svg><use href="#i-doc"/></svg></span><div><h4>Tipo de investigación</h4><p>Aplicada, descriptiva y explicativa.</p></div></div>
+            <div class="pk-item rv"><span class="pk-ico"><svg><use href="#i-people"/></svg></span><div><h4>Población y muestra</h4><p>Estudiantes de grado noveno de la Institución Educativa Municipal Misael Pastrana Borrero.</p></div></div>
+            <div class="pk-item rv"><span class="pk-ico"><svg><use href="#i-clip"/></svg></span><div><h4>Instrumentos</h4><p>Pruebas de diagnóstico y de salida, encuestas, observación y análisis documental.</p></div></div>
+            <div class="pk-item rv"><span class="pk-ico"><svg><use href="#i-target"/></svg></span><div><h4>Fases de intervención</h4><p>Diagnóstico → Diseño → Implementación → Evaluación.</p></div></div>
+          </div>
+        </article>
+
+        <article class="pk-card rv">
+          <div class="pk-head"><span class="pk-ico"><svg><use href="#i-chart"/></svg></span><h3>Resultados esperados</h3></div>
+          <div class="pk-body">
+            <div class="pk-res">
+              <div class="rv"><span class="pk-ico"><svg><use href="#i-chart"/></svg></span><p>Mejora en el rendimiento académico.</p></div>
+              <div class="rv"><span class="pk-ico"><svg><use href="#i-brain"/></svg></span><p>Mayor motivación y participación.</p></div>
+              <div class="rv"><span class="pk-ico"><svg><use href="#i-screen"/></svg></span><p>Desarrollo de competencias digitales y científicas.</p></div>
+              <div class="rv"><span class="pk-ico"><svg><use href="#i-people"/></svg></span><p>Fortalecimiento del trabajo autónomo y colaborativo.</p></div>
+            </div>
+          </div>
+        </article>
+
+        <article class="pk-card rv">
+          <div class="pk-head"><span class="pk-ico"><svg><use href="#i-list"/></svg></span><h3>Objetivos específicos</h3></div>
+          <div class="pk-body">
+            <div class="pk-steps">
+              <div class="pk-step rv"><b>1</b><p>Diagnosticar el nivel actual de rendimiento académico.</p></div>
+              <div class="pk-step rv"><b>2</b><p>Diseñar la estrategia pedagógica mediada por la plataforma.</p></div>
+              <div class="pk-step rv"><b>3</b><p>Implementar la propuesta didáctica estructurada en el aula.</p></div>
+              <div class="pk-step rv"><b>4</b><p>Evaluar el impacto de la intervención en el desempeño.</p></div>
+            </div>
+          </div>
+        </article>
       </div>
-      <div class="p-box">
-        <h3>Por qué Google Classroom</h3>
-        <ul>
-          <li>Organiza recursos y actividades en un solo lugar.</li>
-          <li>Mantiene comunicación y retroalimentación permanentes.</li>
-          <li>Permite seguimiento del proceso y aprendizaje autónomo.</li>
-          <li>Funciona como mediación didáctica, no como fin en sí mismo.</li>
-        </ul>
-      </div>
-      <div class="p-box">
-        <h3>Valor del estudio</h3>
-        <ul>
-          <li><b>Práctico:</b> orienta el diseño de estrategias ajustadas al contexto.</li>
-          <li><b>Metodológico:</b> aporta un proceso replicable en contextos similares.</li>
-          <li><b>Institucional:</b> apoya el mejoramiento continuo de la enseñanza.</li>
-        </ul>
-      </div>
+
     </div>
-    <div class="p-obj">
-      <h3>Objetivo general</h3>
-      <p style="font-size:.95rem;margin-bottom:12px">Fortalecer el rendimiento académico en Ciencias Naturales mediante una estrategia pedagógica mediada por Google Classroom en los estudiantes de grado noveno.</p>
-      <h3>Objetivos específicos</h3>
-      <ol>
-        <li>Diagnosticar el nivel actual de rendimiento académico en Ciencias Naturales.</li>
-        <li>Diseñar la estrategia pedagógica mediada por Google Classroom.</li>
-        <li>Implementar la estrategia con los estudiantes de grado noveno.</li>
-        <li>Evaluar el impacto de la estrategia en el rendimiento académico.</li>
-      </ol>
+
+    <div class="pk-refs rv">
+      <h3><span class="pk-ico"><svg><use href="#i-book"/></svg></span>Referencias principales (APA 7)</h3>
+      <ul>
+        <li>Ausubel, D. P. (2002). <cite>Adquisición y retención del conocimiento</cite>. Paidós.</li>
+        <li>Vygotsky, L. S. (1978). <cite>El desarrollo de los procesos psicológicos superiores</cite>. Crítica.</li>
+        <li>Cabero-Almenara, J. y Palacios-Rodríguez, A. (2021). Tecnología educativa y formación docente. <cite>Revista EDUTEC, 76</cite>, 1-14.</li>
+        <li>Area-Moreira, M. (2018). Las aulas virtuales en la docencia universitaria. <cite>RIED, 21</cite>(1), 1-18.</li>
+        <li>Ministerio de Educación Nacional. (2016). <cite>Derechos Básicos de Aprendizaje. Ciencias Naturales</cite>.</li>
+      </ul>
     </div>
-    <p class="sub-t">Autoras y autor: Barragán Polanco · Gutiérrez Rojas · Martínez Castillo · Timaná Hurtado · Docente tutora: Zohami Judith Ardila Ramos</p>
+
+    <div class="pk-foot rv">Institución Educativa Municipal Misael Pastrana Borrero · Saladoblanco, Huila</div>
   </div>
 </section>
 
@@ -677,6 +788,24 @@ footer.foot{border-top:1px solid var(--line);padding-block:22px;color:var(--mute
   $('#ebprev').addEventListener('click', function(){ window._ebnav=1; show(cur-1); });
   $('#ebnext').addEventListener('click', function(){ window._ebnav=1; show(cur+1); });
   show(0);
+
+  // ===== Aparicion progresiva del poster =====
+  (function(){
+    if(!('IntersectionObserver' in window)) return;
+    document.documentElement.classList.add('js-anim');
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, {rootMargin:'0px 0px -6% 0px', threshold:0.08});
+    document.querySelectorAll('.rv').forEach(function(el){
+      var sibs = Array.prototype.filter.call(el.parentNode.children, function(c){
+        return c.classList && c.classList.contains('rv');
+      });
+      el.style.transitionDelay = (Math.min(sibs.indexOf(el), 10) * 60) + 'ms';
+      io.observe(el);
+    });
+  })();
 
   go((location.hash||'#inicio').slice(1), true);
 })();
