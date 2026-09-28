@@ -190,6 +190,13 @@ footer.foot{border-top:1px solid var(--line);padding-block:22px;color:var(--mute
 .pk{display:grid;gap:16px}
 .pk-hero{background:var(--brand);color:var(--brand-ink);border-radius:16px;padding:clamp(20px,4vw,38px);position:relative;overflow:hidden}
 .pk-hero::after{content:"";position:absolute;right:-60px;top:-60px;width:220px;height:220px;border-radius:50%;background:var(--gold-soft);opacity:.14;pointer-events:none}
+.pk-hero::before{content:"";position:absolute;left:-70px;bottom:-90px;width:260px;height:260px;border-radius:50%;background:#fff;opacity:.05;pointer-events:none}
+.pk-hero>.pk-rule,.pk-hero>h2,.pk-hero>p{position:relative;z-index:1}
+.pk-deco{position:absolute;z-index:0;pointer-events:none}
+.pk-hero .pk-deco{color:#fff}
+.pk-hero .pk-deco-a{width:210px;height:210px;top:-44px;right:6px;opacity:.12;transform:rotate(-10deg)}
+.pk-hero .pk-deco-b{width:130px;height:130px;left:-16px;bottom:-24px;opacity:.08;transform:rotate(16deg)}
+@media (max-width:640px){.pk-deco{display:none}}
 .pk-hero h2{font:800 clamp(1.45rem,3.6vw,2.3rem)/1.15 var(--f-display);margin:0;max-width:20ch;text-wrap:balance}
 .pk-hero h2 em{font-style:normal;color:var(--gold-soft)}
 .pk-hero p{margin:12px 0 0;font-size:1rem;opacity:.92;max-width:48ch}
@@ -219,7 +226,10 @@ footer.foot{border-top:1px solid var(--line);padding-block:22px;color:var(--mute
 .pk-res div:nth-child(even) .pk-ico{background:var(--brand)}
 .pk-res p{margin:0;font-size:.86rem;color:var(--ink);line-height:1.4}
 
-.pk-goal{background:var(--brand);color:var(--brand-ink);border-radius:14px;padding:clamp(18px,3vw,26px);display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:center}
+.pk-goal{background:var(--brand);color:var(--brand-ink);border-radius:14px;padding:clamp(18px,3vw,26px);display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:center;position:relative;overflow:hidden}
+.pk-goal>.pk-ico,.pk-goal>div{position:relative;z-index:1}
+.pk-goal .pk-deco{color:#fff}
+.pk-goal .pk-deco-a{width:170px;height:170px;right:-30px;top:-36px;opacity:.13;transform:rotate(8deg)}
 .pk-goal .pk-ico{width:62px;height:62px;flex:0 0 62px;background:var(--gold-soft);color:var(--brand)}
 .pk-goal h3{margin:0 0 8px;font:700 .95rem/1.2 var(--f-body);letter-spacing:.08em;text-transform:uppercase;color:var(--gold-soft)}
 .pk-goal p{margin:0;font-size:1.02rem;line-height:1.55}
@@ -387,6 +397,8 @@ footer.foot{border-top:1px solid var(--line);padding-block:22px;color:var(--mute
   <div class="pk">
 
     <div class="pk-hero rv">
+      <svg class="pk-deco pk-deco-a" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#i-net"/></svg>
+      <svg class="pk-deco pk-deco-b" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#i-brain"/></svg>
       <div class="pk-rule"></div>
       <h2>Estrategia pedagógica mediada por <em>Google Classroom</em> en Ciencias Naturales</h2>
       <p>Innovación educativa para el fortalecimiento del rendimiento académico en la educación básica.</p>
@@ -407,6 +419,7 @@ footer.foot{border-top:1px solid var(--line);padding-block:22px;color:var(--mute
         </article>
 
         <div class="pk-goal rv">
+          <svg class="pk-deco pk-deco-a" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#i-book"/></svg>
           <span class="pk-ico"><svg><use href="#i-target"/></svg></span>
           <div>
             <h3>Objetivo general</h3>
