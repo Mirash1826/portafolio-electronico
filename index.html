@@ -98,7 +98,7 @@ main{padding-block:28px 56px}
 .enter button span{font-size:.88rem;color:var(--muted)}
 
 /* Avatars */
-.avatars{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+.avatars{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));align-items:start}
 .av{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px;display:grid;gap:12px}
 .av-img{width:100%;height:auto;display:block;border-radius:10px;aspect-ratio:1/1;object-fit:cover}
 .av.talking .av-img{animation:bob 1.6s ease-in-out infinite}
@@ -336,7 +336,7 @@ footer.foot{border-top:1px solid var(--line);padding-block:22px;color:var(--mute
 <section class="view" id="v-avatar">
   <div class="eyebrow">Identificando</div>
   <h1 class="page-title">Avatares</h1>
-  <p class="lead">El primer avatar presenta el trabajo de grado en video. El segundo, con voz sintetizada, se activa pulsando «Escuchar».</p>
+  <p class="lead">Dos avatares en video presentan el trabajo de grado y el problema de investigación.</p>
   <div class="avatars">
     <article class="av av-video-card" id="av1">
       <h3>Avatar 1 · El trabajo de grado</h3>
@@ -348,14 +348,17 @@ footer.foot{border-top:1px solid var(--line);padding-block:22px;color:var(--mute
         </video>
       </div>
     </article>
-    <article class="av" id="av2">
+    <article class="av av-video-card" id="av2">
       <h3>Avatar 2 · El problema</h3>
-      <div class="av-stage" data-face="2"></div>
-      <div class="sub" id="sub2" aria-live="polite"></div>
-      <div class="controls"><button class="btn" data-speak="2">Escuchar</button><button class="btn alt" data-stop="2">Detener</button></div>
+      <div class="av-video-wrap">
+        <span class="av-badge">Video</span>
+        <video class="av-video" controls playsinline preload="metadata">
+          <source src="img/avatar-2-el-problema.mp4" type="video/mp4">
+          Tu navegador no puede reproducir este video. <a href="img/avatar-2-el-problema.mp4">Descárgalo aquí</a>.
+        </video>
+      </div>
     </article>
   </div>
-  <p class="note" id="tts-note" style="margin-top:14px" hidden>Este navegador no tiene voz integrada. Puedes leer el guion en el recuadro del segundo avatar.</p>
 </section>
 
 <!-- POSTER -->
@@ -736,7 +739,7 @@ footer.foot{border-top:1px solid var(--line);padding-block:22px;color:var(--mute
   $$('[data-face]').forEach(function(el){ el.innerHTML = face(+el.dataset.face); });
 
   var synth = window.speechSynthesis;
-  if(!synth || typeof SpeechSynthesisUtterance==='undefined'){ $('#tts-note').hidden = false; }
+  if(!synth || typeof SpeechSynthesisUtterance==='undefined'){ var __n=$('#tts-note'); if(__n) __n.hidden = false; }
   var token = 0;
   function pickVoice(){
     var vs = synth ? synth.getVoices() : [];
