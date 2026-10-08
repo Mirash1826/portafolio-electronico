@@ -261,6 +261,16 @@ footer.foot{border-top:1px solid var(--line);padding-block:22px;color:var(--mute
 .av-video-wrap::before{content:"";position:absolute;left:0;right:0;top:0;height:4px;background:linear-gradient(90deg,var(--brand),var(--gold));z-index:2}
 .av-video{display:block;width:100%;height:auto;aspect-ratio:16/9;background:#000}
 .av-badge{position:absolute;top:14px;left:14px;z-index:2;background:var(--brand);color:var(--brand-ink);font:700 .68rem/1 var(--f-body);letter-spacing:.08em;text-transform:uppercase;padding:5px 10px;border-radius:999px;box-shadow:0 2px 6px rgba(0,0,0,.25)}
+.ebook-media{margin-top:28px}
+.ebook-media h2{font:800 1.1rem/1.2 var(--f-display);margin:0 0 4px;color:var(--brand)}
+.ebook-media .sub{margin:0 0 16px;color:var(--muted);font-size:.92rem}
+.media-grid{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));align-items:start}
+.media-card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px;display:grid;gap:12px}
+.media-card h3{font-size:1.15rem;padding:0;margin:0}
+.media-video-wrap{position:relative;margin:0;border-radius:12px;overflow:hidden;background:#0b1310;box-shadow:0 14px 30px -16px rgba(15,36,26,.5);border:1px solid var(--line)}
+.media-video-wrap::before{content:"";position:absolute;left:0;right:0;top:0;height:4px;background:linear-gradient(90deg,var(--brand),var(--gold));z-index:2}
+.media-video{display:block;width:100%;height:auto;aspect-ratio:16/9;background:#000}
+.media-badge{position:absolute;top:14px;left:14px;z-index:2;background:var(--brand);color:var(--brand-ink);font:700 .68rem/1 var(--f-body);letter-spacing:.08em;text-transform:uppercase;padding:5px 10px;border-radius:999px;box-shadow:0 2px 6px rgba(0,0,0,.25)}
 </style></head><body>
 
 <header class="top">
@@ -535,6 +545,32 @@ footer.foot{border-top:1px solid var(--line);padding-block:22px;color:var(--mute
 <p>Desde el punto de vista metodológico, el estudio aporta un proceso sistemático de análisis que permitirá obtener evidencia contextualizada sobre los factores que influyen en el rendimiento académico en Ciencias Naturales y sobre las posibilidades de intervención mediante estrategias pedagógicas mediadas por tecnologías digitales. Los hallazgos podrán constituirse en un referente para futuras investigaciones y para la toma de decisiones institucionales orientadas al mejoramiento continuo de los procesos educativos en contextos con características similares.</p>
 <p>En síntesis, esta investigación es pertinente porque responde a una problemática educativa real que afecta el aprendizaje de las Ciencias Naturales y el desarrollo de competencias científicas en estudiantes de grado noveno. Su valor teórico radica en la articulación de enfoques que explican el aprendizaje desde dimensiones cognitivas y socioculturales; su valor práctico se refleja en la generación de información útil para diseñar estrategias pedagógicas contextualizadas; su valor metodológico se evidencia en la producción de conocimiento aplicable a escenarios educativos semejantes; y su valor institucional reside en la posibilidad de contribuir al fortalecimiento de los procesos de enseñanza y aprendizaje mediante el uso pedagógico de Google Classroom como herramienta de apoyo a la gestión educativa y al mejoramiento académico.</p></section>
 <section data-title="Objetivos"><h3>Objetivo general</h3><p>Fortalecer el rendimiento académico en Ciencias Naturales mediante una estrategia pedagógica mediada por Google Classroom en los estudiantes de grado noveno de la Institución Educativa Municipal Misael Pastrana Borrero en Saladoblanco, Huila.</p><h3>Objetivos específicos</h3><ul><li>Diagnosticar el nivel actual de rendimiento académico en Ciencias Naturales de los estudiantes de grado noveno.</li><li>Diseñar una estrategia pedagógica mediada por Google Classroom para fortalecer el aprendizaje en los estudiantes de grado noveno en Ciencias Naturales.</li><li>Implementar la estrategia pedagógica mediada por Google Classroom con los estudiantes de grado noveno en Ciencias Naturales.</li><li>Evaluar el impacto de la estrategia pedagógica mediada por Google Classroom en el fortalecimiento del rendimiento académico de los estudiantes de grado noveno en Ciencias Naturales.</li></ul></section></template>
+<div class="ebook-media rv">
+  <h2>Material audiovisual complementario</h2>
+  <p class="sub">Video explicativo y podcast relacionados con el Capítulo 1.</p>
+  <div class="media-grid">
+    <article class="media-card">
+      <h3>Innovación educativa y Ciencias Naturales</h3>
+      <div class="media-video-wrap">
+        <span class="media-badge">Video</span>
+        <video class="media-video" controls playsinline preload="metadata">
+          <source src="img/innovacion-educativa.mp4" type="video/mp4">
+          Tu navegador no puede reproducir este video. <a href="img/innovacion-educativa.mp4">Descárgalo aquí</a>.
+        </video>
+      </div>
+    </article>
+    <article class="media-card">
+      <h3>Podcast del capítulo</h3>
+      <div class="media-video-wrap">
+        <span class="media-badge">Podcast</span>
+        <video class="media-video" controls playsinline preload="metadata">
+          <source src="img/podcast.mp4" type="video/mp4">
+          Tu navegador no puede reproducir este video. <a href="img/podcast.mp4">Descárgalo aquí</a>.
+        </video>
+      </div>
+    </article>
+  </div>
+</div>
 </section>
 
 <!-- UNIDAD DIDACTICA -->
