@@ -271,6 +271,10 @@ footer.foot{border-top:1px solid var(--line);padding-block:22px;color:var(--mute
 .media-video-wrap::before{content:"";position:absolute;left:0;right:0;top:0;height:4px;background:linear-gradient(90deg,var(--brand),var(--gold));z-index:2}
 .media-video{display:block;width:100%;height:auto;aspect-ratio:16/9;background:#000}
 .media-badge{position:absolute;top:14px;left:14px;z-index:2;background:var(--brand);color:var(--brand-ink);font:700 .68rem/1 var(--f-body);letter-spacing:.08em;text-transform:uppercase;padding:5px 10px;border-radius:999px;box-shadow:0 2px 6px rgba(0,0,0,.25)}
+.media-ebook-link{display:block;position:relative;aspect-ratio:16/9;background:#0b1310}
+.media-ebook-cover{display:block;width:100%;height:100%;object-fit:cover}
+.media-ebook-cta{position:absolute;left:0;right:0;bottom:0;display:flex;align-items:center;justify-content:center;gap:8px;padding:10px 14px;background:linear-gradient(0deg,rgba(9,20,14,.88),rgba(9,20,14,.55) 70%,transparent);color:#fff;font:700 .85rem/1 var(--f-body);letter-spacing:.01em}
+.media-ebook-link:hover .media-ebook-cta{background:linear-gradient(0deg,rgba(9,20,14,.95),rgba(9,20,14,.7) 70%,transparent)}
 </style></head><body>
 
 <header class="top">
@@ -488,9 +492,18 @@ footer.foot{border-top:1px solid var(--line);padding-block:22px;color:var(--mute
 <section class="view" id="v-ebook">
   <div class="eyebrow">Referenciando</div>
   <h1 class="page-title">E-book: Capítulo 2</h1>
-  <p class="lead">Video explicativo y podcast del Capítulo 2: planteamiento y formulación del problema.</p>
   <div class="ebook-media rv">
   <div class="media-grid">
+    <article class="media-card">
+      <h3>E-book</h3>
+      <div class="media-video-wrap media-ebook-wrap">
+        <span class="media-badge">E-book</span>
+        <a class="media-ebook-link" href="img/e-book-capitulo2.pdf" target="_blank" rel="noopener">
+          <img class="media-ebook-cover" src="img/e-book-capitulo2-portada.jpg" alt="Portada del e-book del Capítulo 2" loading="lazy">
+          <span class="media-ebook-cta">Ver e-book (PDF)</span>
+        </a>
+      </div>
+    </article>
     <article class="media-card">
       <h3>Innovación educativa y Ciencias Naturales</h3>
       <div class="media-video-wrap">
@@ -502,7 +515,7 @@ footer.foot{border-top:1px solid var(--line);padding-block:22px;color:var(--mute
       </div>
     </article>
     <article class="media-card">
-      <h3>Podcast del capítulo</h3>
+      <h3>Podcast</h3>
       <div class="media-video-wrap">
         <span class="media-badge">Podcast</span>
         <video class="media-video" controls playsinline preload="metadata">
