@@ -87,6 +87,7 @@ button{font-family:inherit}
 .tab .n{font-family:'Space Mono',monospace;font-size:.72rem;opacity:.8}
 .tab[data-state="done"]{color:var(--forest)}
 .tab[data-state="locked"]{opacity:.55;cursor:not-allowed}
+.lock-msg{margin-top:8px;padding:8px 12px;border-radius:8px;border:1px solid var(--red);background:color-mix(in srgb, var(--red) 10%, var(--surface));color:var(--red);font-size:.82rem}
 .tab[aria-selected="true"]{background:var(--surface);color:var(--ink);font-weight:600}
 .tab-icon{width:14px;height:14px;flex:none}
 
@@ -248,6 +249,7 @@ footer.credits{margin-top:40px;color:var(--muted);font-size:.76rem;text-align:ce
   </header>
 
   <nav class="tabs" id="tabs" role="tablist" aria-label="Expedientes del caso"></nav>
+  <div class="lock-msg" id="lock-msg" aria-live="polite" style="display:none"></div>
   <div class="board">
     <h2 style="margin:0 0 4px;font-size:.95rem;color:var(--forest)">Tablero del caso</h2>
     <p style="margin:0;font-size:.78rem;color:var(--muted)">Resuelve cada expediente para desbloquear el siguiente. Puedes reintentar las veces que necesites.</p>
@@ -471,6 +473,16 @@ function flashLocked(id){
   nav.style.transition='transform .08s'; nav.style.transform='translateX(-4px)';
   setTimeout(function(){ nav.style.transform='translateX(4px)'; }, 80);
   setTimeout(function(){ nav.style.transform='translateX(0)'; }, 160);
+
+  var idx = ORDER.indexOf(id);
+  var prevId = idx>0 ? ORDER[idx-1] : null;
+  var msg = document.getElementById('lock-msg');
+  if(msg && prevId && TAB_META[prevId]){
+    msg.textContent = 'Expediente bloqueado: primero debes resolver "'+TAB_META[prevId].label+'" con el puntaje mínimo pedido (usa "Revisar respuestas" y, si te falta, dale "Reintentar").';
+    msg.style.display='block';
+    clearTimeout(msg._hideTimer);
+    msg._hideTimer = setTimeout(function(){ msg.style.display='none'; }, 6000);
+  }
 }
 
 /* ---------------- Google Forms oficiales (expedientes evaluados) ---------------- */
@@ -698,7 +710,7 @@ buildQuiz('quiz-ex2', {
 });
 
 buildQuiz('quiz-ex3', {
-  need:4,
+  need:3,
   onPass:function(){ progress.ex3=true; saveProgress(); renderTabs(); drawPedigree(); },
   questions:[
     {text:'Madre portadora (X^H X^h) × padre sano (X^H Y): ¿qué probabilidad tiene cada HIJO varón de nacer con hemofilia?', options:['0%','25%','50%','100%'], correct:2, explain:'De los dos posibles hijos varones en el cuadro, uno hereda X^h Y (afectado) y el otro X^H Y (sano): 50%.'},
@@ -709,7 +721,7 @@ buildQuiz('quiz-ex3', {
 });
 
 buildQuiz('quiz-ex4', {
-  need:3,
+  need:2,
   onPass:function(){ progress.ex4=true; saveProgress(); renderTabs(); drawPedigree(); },
   questions:[
     {text:'¿Por qué sabemos con certeza que Rosa Elena es portadora, aunque nunca haya tenido síntomas?', options:['Porque todas las mujeres son portadoras', 'Porque su padre Ignacio estaba afectado y todo padre afectado transmite el alelo a TODAS sus hijas', 'Porque su hijo Daniel nació sano', 'No se puede saber con certeza'], correct:1, explain:'Un padre afectado transmite su único X (con el alelo h) a cada una de sus hijas, sin excepción.'},
