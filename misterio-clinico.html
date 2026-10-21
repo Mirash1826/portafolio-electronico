@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Caso Hemofilia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Lexend:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* ===================================================================
+   DISEÑO: expediente forense de papel kraft — carpeta de la Agencia de
+   Detectives Genéticos. Pestañas de carpeta = navegación entre
+   expedientes. Sellos de caja (BLOQUEADO / EN CURSO / RESUELTO) marcan
+   el avance. Acento rojo = tinta de sello; dorado = laca de sello.
+   =================================================================== */
+:root{
+  --bg:#e7dabd; --surface:#faf3e2; --surface-2:#f0e5cb; --surface-3:#e3d4ae;
+  --ink:#241a10; --muted:#6c5a3f; --line:#cdb988;
+  --forest:#1f5c46; --forest-ink:#eef6f1; --forest-dim:#dcebe4;
+  --gold:#a9792c; --red:#9c3327; --red-ink:#fdeceA;
+  --shadow:0 18px 40px -22px rgba(36,26,16,.55);
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#161f19; --surface:#1e2922; --surface-2:#263228; --surface-3:#2e3c30;
+    --ink:#f1e9d6; --muted:#aa9d7e; --line:#3a4a3b;
+    --forest:#6bbd97; --forest-ink:#0c1712; --forest-dim:#243830;
+    --gold:#d9a74c; --red:#e2776a; --red-ink:#3a1713;
+    --shadow:0 18px 40px -20px rgba(0,0,0,.6);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#161f19; --surface:#1e2922; --surface-2:#263228; --surface-3:#2e3c30;
+  --ink:#f1e9d6; --muted:#aa9d7e; --line:#3a4a3b;
+  --forest:#6bbd97; --forest-ink:#0c1712; --forest-dim:#243830;
+  --gold:#d9a74c; --red:#e2776a; --red-ink:#3a1713;
+  --shadow:0 18px 40px -20px rgba(0,0,0,.6);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{
+  background:
+    radial-gradient(1200px 500px at 15% -10%, color-mix(in srgb, var(--forest) 10%, transparent), transparent),
+    var(--bg);
+  color:var(--ink);
+  font-family:'Lexend',system-ui,sans-serif;
+  padding-left:max(16px, env(safe-area-inset-left,0px));
+  padding-right:max(16px, env(safe-area-inset-right,0px));
+}
+.shell{max-width:1040px;margin:0 auto;padding-block:28px 60px}
+h1,h2,h3{font-family:'Special Elite',monospace;letter-spacing:.01em;text-wrap:balance;font-weight:400}
+.mono{font-family:'Space Mono',monospace}
+a{color:var(--forest)}
+button{font-family:inherit}
+
+/* ---------- letterhead ---------- */
+.letterhead{
+  display:flex;align-items:center;gap:16px;flex-wrap:wrap;
+  padding:18px 20px;border:1px solid var(--line);border-radius:10px;
+  background:var(--surface);box-shadow:var(--shadow);margin-bottom:18px;
+}
+.badge-mark{
+  width:52px;height:52px;flex:none;border-radius:50%;
+  background:var(--forest);color:var(--forest-ink);
+  display:grid;place-items:center;font-family:'Special Elite',monospace;font-size:1.3rem;
+  border:2px solid color-mix(in srgb, var(--forest) 60%, black 10%);
+}
+.letterhead .names{min-width:0}
+.letterhead h1{font-size:1.15rem;margin:0 0 2px;color:var(--forest)}
+.letterhead .sub{margin:0;color:var(--muted);font-size:.82rem}
+.case-id{
+  margin-left:auto;font-family:'Space Mono',monospace;font-size:.72rem;color:var(--muted);
+  text-align:right;line-height:1.5;white-space:nowrap;
+}
+
+/* ---------- folder tabs nav ---------- */
+.tabs{display:flex;gap:6px;overflow-x:auto;padding-bottom:2px;margin-bottom:0;scrollbar-width:thin}
+.tab{
+  flex:none;display:flex;align-items:center;gap:8px;
+  padding:10px 14px;border:1px solid var(--line);border-bottom:none;
+  border-radius:10px 10px 0 0;background:var(--surface-2);color:var(--muted);
+  font-size:.82rem;cursor:pointer;white-space:nowrap;transition:background .15s,color .15s;
+}
+.tab .n{font-family:'Space Mono',monospace;font-size:.72rem;opacity:.8}
+.tab[data-state="done"]{color:var(--forest)}
+.tab[data-state="locked"]{opacity:.55;cursor:not-allowed}
+.tab[aria-selected="true"]{background:var(--surface);color:var(--ink);font-weight:600}
+.tab-icon{width:14px;height:14px;flex:none}
+
+/* ---------- case board (progress strip) ---------- */
+.board{
+  border:1px solid var(--line);border-top:none;background:var(--surface);
+  border-radius:0 10px 10px 10px;box-shadow:var(--shadow);padding:22px;margin-bottom:26px;
+}
+.stamps{display:grid;grid-template-columns:repeat(auto-fit,minmax(118px,1fr));gap:10px;margin-top:4px}
+.stamp{
+  border:1.5px dashed var(--line);border-radius:10px;padding:10px 8px;text-align:center;
+  display:flex;flex-direction:column;align-items:center;gap:6px;font-size:.72rem;color:var(--muted);
+}
+.stamp[data-state="done"]{border-style:solid;border-color:var(--forest);color:var(--forest)}
+.stamp[data-state="current"]{border-color:var(--gold);color:var(--gold)}
+.stamp svg{width:22px;height:22px}
+.stamp b{font-weight:600;color:inherit;font-size:.74rem}
+
+/* ---------- generic section cards ---------- */
+.view{display:none}
+.view.active{display:block}
+.intro-art{
+  border:1px solid var(--line);border-radius:12px;background:var(--surface-2);
+  padding:18px;margin-bottom:16px;box-shadow:var(--shadow);
+}
+.case-note{
+  position:relative;background:var(--surface-3);border:1px solid var(--line);
+  border-radius:4px;padding:16px 18px;margin:16px 0;box-shadow:var(--shadow);
+  font-size:.95rem;line-height:1.6;
+}
+.case-note::before{
+  content:"EXPEDIENTE";position:absolute;top:-10px;left:14px;background:var(--red);
+  color:var(--red-ink);font-family:'Special Elite',monospace;font-size:.65rem;
+  letter-spacing:.1em;padding:3px 10px;border-radius:3px;transform:rotate(-2deg);
+}
+.capsule{
+  border:1px solid var(--line);border-radius:12px;background:var(--surface);
+  padding:20px;margin:16px 0;box-shadow:var(--shadow);
+}
+.capsule h2{color:var(--forest);font-size:1.05rem;margin:0 0 10px;display:flex;gap:10px;align-items:center}
+.capsule h2 .num{
+  font-family:'Space Mono',monospace;font-size:.75rem;color:var(--forest-ink);
+  background:var(--forest);padding:2px 8px;border-radius:5px;flex:none;
+}
+.capsule p{margin:0 0 12px;line-height:1.65;font-size:.94rem;max-width:62ch}
+.capsule .diagram{margin:14px 0;text-align:center}
+.capsule .diagram svg{max-width:100%;height:auto}
+.term-grid{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));margin:14px 0}
+.term{border:1px solid var(--line);border-radius:8px;padding:10px 12px;background:var(--surface-2)}
+.term b{display:block;color:var(--forest);font-size:.85rem;margin-bottom:3px}
+.term span{font-size:.82rem;color:var(--muted)}
+
+/* ---------- quiz ---------- */
+.quiz{border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:20px;margin:16px 0;box-shadow:var(--shadow)}
+.quiz-head{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:4px;flex-wrap:wrap}
+.quiz-head h3{margin:0;color:var(--forest);font-size:1rem}
+.quiz-head .need{font-size:.74rem;color:var(--muted)}
+.q-block{border-top:1px dashed var(--line);padding:16px 0}
+.q-block:first-of-type{border-top:none}
+.q-text{font-weight:600;margin:0 0 10px;font-size:.92rem}
+.q-opts{display:grid;gap:8px}
+.opt{
+  display:flex;gap:10px;align-items:flex-start;text-align:left;
+  border:1px solid var(--line);border-radius:8px;padding:10px 12px;
+  background:var(--surface-2);cursor:pointer;font-size:.88rem;color:var(--ink);
+}
+.opt:hover{border-color:var(--forest)}
+.opt[data-picked="true"]{border-color:var(--forest);background:var(--forest-dim)}
+.opt[data-reveal="correct"]{border-color:var(--forest);background:var(--forest-dim);font-weight:600}
+.opt[data-reveal="wrong"]{border-color:var(--red);background:color-mix(in srgb, var(--red) 12%, var(--surface-2))}
+.opt .mark{flex:none;width:18px;height:18px;margin-top:1px}
+.q-explain{display:none;margin-top:10px;font-size:.84rem;color:var(--muted);background:var(--surface-2);border-left:3px solid var(--forest);padding:8px 12px;border-radius:4px}
+.q-explain.show{display:block}
+.quiz-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px;align-items:center}
+.quiz-result{font-size:.86rem;color:var(--muted)}
+
+/* ---------- punnett ---------- */
+.punnett-wrap{overflow-x:auto}
+table.punnett{border-collapse:collapse;margin:0 auto;font-family:'Space Mono',monospace}
+table.punnett th,table.punnett td{
+  border:1px solid var(--line);min-width:72px;height:52px;text-align:center;
+  font-size:.86rem;padding:4px;
+}
+table.punnett th{background:var(--surface-3);color:var(--forest)}
+table.punnett td.corner{background:var(--surface-3)}
+table.punnett td.cell{
+  background:var(--surface-2);cursor:pointer;color:var(--muted);transition:background .15s,color .15s;
+}
+table.punnett td.cell[data-revealed="true"]{background:var(--forest-dim);color:var(--ink);cursor:default;font-weight:600}
+.punnett-hint{font-size:.76rem;color:var(--muted);text-align:center;margin-top:8px}
+
+/* ---------- pedigree ---------- */
+.pedigree-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--surface-2);padding:10px}
+.pedigree-wrap svg{display:block;margin:0 auto}
+.ped-node{cursor:pointer}
+.ped-node rect,.ped-node circle{stroke:var(--ink);stroke-width:2.2}
+.ped-node text{font-family:'Lexend',sans-serif;fill:var(--ink)}
+.ped-legend{display:flex;flex-wrap:wrap;gap:14px;font-size:.76rem;color:var(--muted);margin-top:10px;justify-content:center}
+.ped-legend span{display:inline-flex;align-items:center;gap:6px}
+.ped-info{
+  border:1px solid var(--line);border-radius:10px;background:var(--surface);padding:14px 16px;
+  margin-top:12px;min-height:64px;font-size:.88rem;box-shadow:var(--shadow);
+}
+.ped-info b{color:var(--forest)}
+
+/* ---------- buttons ---------- */
+.btn{
+  display:inline-flex;align-items:center;gap:8px;border-radius:8px;border:1px solid var(--forest);
+  background:var(--forest);color:var(--forest-ink);padding:10px 16px;font-size:.86rem;font-weight:600;
+  cursor:pointer;text-decoration:none;
+}
+.btn.secondary{background:transparent;color:var(--forest)}
+.btn[disabled]{opacity:.5;cursor:not-allowed}
+.btn.ghost{background:transparent;border-color:var(--line);color:var(--muted)}
+
+/* ---------- form CTA (external, placeholder) ---------- */
+.form-cta{
+  border:2px dashed var(--gold);border-radius:12px;padding:18px 20px;margin:20px 0;
+  background:color-mix(in srgb, var(--gold) 8%, var(--surface));
+}
+.form-cta .tag{
+  font-family:'Space Mono',monospace;font-size:.68rem;letter-spacing:.06em;color:var(--gold);
+  text-transform:uppercase;margin-bottom:6px;display:block;
+}
+.form-cta p{margin:4px 0 12px;font-size:.86rem;color:var(--muted)}
+
+/* ---------- lock notice ---------- */
+.locked-view{border:1px dashed var(--line);border-radius:12px;padding:40px 20px;text-align:center;color:var(--muted)}
+
+/* ---------- footer / real world box ---------- */
+.sidebar-box{border:1px solid var(--line);border-radius:12px;background:var(--surface-2);padding:18px 20px;margin:20px 0}
+.sidebar-box h3{color:var(--gold);font-size:.92rem;margin:0 0 8px}
+.sidebar-box p{font-size:.86rem;color:var(--muted);line-height:1.6;margin:0}
+.final-stamp{
+  text-align:center;padding:30px 20px;border:3px double var(--forest);border-radius:14px;margin:20px 0;
+  display:none;background:var(--forest-dim);
+}
+.final-stamp.show{display:block}
+.final-stamp .big{font-family:'Special Elite',monospace;font-size:1.6rem;color:var(--forest);letter-spacing:.04em}
+
+footer.credits{margin-top:40px;color:var(--muted);font-size:.76rem;text-align:center}
+
+@media (max-width:560px){
+  .case-id{margin-left:0;text-align:left}
+  table.punnett th,table.punnett td{min-width:58px;height:44px;font-size:.74rem}
+}
+</style>
+</head>
+<body>
+<div class="shell">
+
+  <header class="letterhead">
+    <div class="badge-mark">ADG</div>
+    <div class="names">
+      <h1>Agencia de Detectives Genéticos</h1>
+      <p class="sub">División de Herencia · Caso activo: familia Osorio–Rincón</p>
+    </div>
+    <div class="case-id mono">EXPEDIENTE N.º 1138-H<br>ESTADO: <span id="case-status">EN INVESTIGACIÓN</span></div>
+  </header>
+
+  <nav class="tabs" id="tabs" role="tablist" aria-label="Expedientes del caso"></nav>
+  <div class="board">
+    <h2 style="margin:0 0 4px;font-size:.95rem;color:var(--forest)">Tablero del caso</h2>
+    <p style="margin:0;font-size:.78rem;color:var(--muted)">Resuelve cada expediente para desbloquear el siguiente. Puedes reintentar las veces que necesites.</p>
+    <div class="stamps" id="stamps"></div>
+  </div>
+
+  <!-- ============== INTRO ============== -->
+  <section class="view" id="view-intro">
+    <div class="intro-art">
+      <div class="case-note">
+        <p><b>De:</b> Dra. Luz Amparo Cabrera, Hospital Regional de Saladoblanco<br>
+        <b>Para:</b> Agente en formación (tú)<br>
+        <b>Asunto:</b> Caso del pequeño Mateo</p>
+        <p>Mateo Rincón Osorio, de 2 años, llegó a urgencias con un sangrado que no paraba de detenerse tras una caída leve en el patio de su casa. Los exámenes confirmaron <b>hemofilia</b>: su sangre tarda mucho más de lo normal en coagular.</p>
+        <p>Su papá, Pablo, no tiene la condición. Su mamá, Camila, tampoco presenta síntomas. La familia está confundida: <i>"¿de dónde salió esto, si ninguno de los dos la tiene?"</i></p>
+        <p>Vamos a necesitar que investigues el expediente genético completo de la familia: su vocabulario, las reglas de la herencia, el cromosoma responsable y el árbol familiar. Al final, tú darás el veredicto: <b>qué probabilidad hay de que un futuro hermano o hermana de Mateo nazca también con hemofilia</b>.</p>
+        <p style="margin-bottom:0">Bienvenido al caso, agente.</p>
+      </div>
+    </div>
+    <div style="text-align:center">
+      <button class="btn" onclick="goTo('ex1')">Abrir Expediente 1 →</button>
+    </div>
+  </section>
+
+  <!-- ============== EXPEDIENTE 1: VOCABULARIO ============== -->
+  <section class="view" id="view-ex1">
+    <div class="capsule">
+      <h2><span class="num">01</span>El código oculto</h2>
+      <p>Antes de leer el expediente de los Osorio, necesitas dominar el vocabulario básico de la genética. Cada célula guarda el ADN, una larguísima instrucción enrollada en los <b>cromosomas</b>. Dentro de un cromosoma, un <b>gen</b> es el fragmento que guarda la instrucción para una característica concreta &mdash;por ejemplo, si la sangre coagula bien o no.</p>
+      <p>Cada gen puede tener distintas "versiones": esas versiones son los <b>alelos</b>. Una persona hereda un alelo de su mamá y otro de su papá.</p>
+      <div class="diagram">
+        <svg viewBox="0 0 560 160" width="100%" role="img" aria-label="Diagrama de cromosoma, gen y alelos">
+          <defs>
+            <style>.dlabel{font:600 12px Lexend,sans-serif;fill:var(--muted)}.dval{font:700 13px 'Space Mono',monospace}</style>
+          </defs>
+          <!-- chromosome -->
+          <rect x="20" y="55" width="26" height="70" rx="13" fill="var(--surface-3)" stroke="var(--ink)" stroke-width="2"/>
+          <text x="33" y="142" text-anchor="middle" class="dlabel">cromosoma</text>
+          <line x1="46" y1="90" x2="150" y2="40" stroke="var(--muted)" stroke-width="1.4" stroke-dasharray="3 3"/>
+          <!-- zoom gene -->
+          <rect x="150" y="15" width="140" height="50" rx="8" fill="var(--forest-dim)" stroke="var(--forest)" stroke-width="2"/>
+          <text x="220" y="45" text-anchor="middle" class="dval" fill="var(--forest)">GEN "coagulación"</text>
+          <line x1="290" y1="40" x2="360" y2="40" stroke="var(--muted)" stroke-width="1.4" stroke-dasharray="3 3"/>
+          <!-- two alleles -->
+          <rect x="360" y="10" width="180" height="40" rx="8" fill="var(--surface)" stroke="var(--gold)" stroke-width="2"/>
+          <text x="450" y="35" text-anchor="middle" class="dval" fill="var(--gold)">alelo: versión A</text>
+          <rect x="360" y="60" width="180" height="40" rx="8" fill="var(--surface)" stroke="var(--red)" stroke-width="2"/>
+          <text x="450" y="85" text-anchor="middle" class="dval" fill="var(--red)">alelo: versión B</text>
+          <text x="450" y="118" text-anchor="middle" class="dlabel">un alelo de mamá, otro de papá</text>
+        </svg>
+      </div>
+      <div class="term-grid">
+        <div class="term"><b>Genotipo</b><span>La combinación exacta de alelos que tiene una persona &mdash;lo escrito en su ADN.</span></div>
+        <div class="term"><b>Fenotipo</b><span>Cómo se expresa ese genotipo &mdash;lo que se ve o lo que ocurre en el cuerpo.</span></div>
+        <div class="term"><b>Dominante</b><span>Se manifiesta con una sola copia del alelo, aunque la otra sea distinta.</span></div>
+        <div class="term"><b>Recesivo</b><span>Solo se manifiesta si no hay una copia dominante que lo tape.</span></div>
+      </div>
+    </div>
+    <div class="quiz" id="quiz-ex1"></div>
+  </section>
+
+  <!-- ============== EXPEDIENTE 2: MENDEL + PUNNETT ============== -->
+  <section class="view" id="view-ex2">
+    <div class="capsule">
+      <h2><span class="num">02</span>Las reglas de Mendel</h2>
+      <p>Gregor Mendel descubrió las reglas de la herencia cruzando miles de plantas de arveja. Vamos a repasar su herramienta más famosa &mdash;el <b>cuadro de Punnett</b>&mdash; con uno de sus propios ejemplos: el color de la semilla.</p>
+      <p>El alelo <b>A</b> (amarillo) es dominante sobre <b>a</b> (verde). Si cruzamos dos plantas <span class="mono">Aa</span> (amarillas, pero portadoras del alelo verde), así se reparten los alelos en la descendencia:</p>
+      <div class="punnett-wrap">
+        <table class="punnett" id="punnett-ex2" aria-label="Cuadro de Punnett Aa por Aa"></table>
+      </div>
+      <p class="punnett-hint">Toca cada casilla para revelar la combinación.</p>
+      <p>Este mismo cuadro &mdash;cambiando las letras por cromosomas X e Y&mdash; es exactamente lo que vamos a usar en el Expediente 3 para investigar la hemofilia.</p>
+    </div>
+    <div class="quiz" id="quiz-ex2"></div>
+  </section>
+
+  <!-- ============== EXPEDIENTE 3: LIGADO AL SEXO ============== -->
+  <section class="view" id="view-ex3">
+    <div class="capsule">
+      <h2><span class="num">03</span>El cromosoma clave</h2>
+      <p>Los humanos tenemos 23 pares de cromosomas. El último par determina el sexo: <span class="mono">XX</span> en las mujeres, <span class="mono">XY</span> en los hombres. El gen de la coagulación que falla en la hemofilia está en el <b>cromosoma X</b>.</p>
+      <p>Usamos <span class="mono">X<sup>H</sup></span> para el alelo normal y <span class="mono">X<sup>h</sup></span> para el alelo de hemofilia (recesivo). Como las mujeres tienen dos cromosomas X, necesitan <b>dos</b> copias de X<sup>h</sup> para estar afectadas &mdash;con una sola copia son <b>portadoras</b>, casi siempre sin síntomas. Los hombres solo tienen un X: con <b>una sola copia</b> de X<sup>h</sup> ya están afectados, porque no tienen un segundo X que lo tape.</p>
+      <p>Cruce clave: una madre portadora (<span class="mono">X<sup>H</sup>X<sup>h</sup></span>) con un padre sano (<span class="mono">X<sup>H</sup>Y</span>):</p>
+      <div class="punnett-wrap">
+        <table class="punnett" id="punnett-ex3" aria-label="Cuadro de Punnett madre portadora por padre sano"></table>
+      </div>
+      <p class="punnett-hint">Toca cada casilla para revelar la combinación.</p>
+      <div class="term-grid">
+        <div class="term"><b>Regla de oro n.º 1</b><span>Un padre afectado NUNCA transmite hemofilia a sus hijos varones (ellos reciben su Y, no su X).</span></div>
+        <div class="term"><b>Regla de oro n.º 2</b><span>Un padre afectado SIEMPRE transmite el alelo a todas sus hijas (ellas reciben su único X).</span></div>
+      </div>
+    </div>
+    <div class="quiz" id="quiz-ex3"></div>
+  </section>
+
+  <!-- ============== EXPEDIENTE 4: PEDIGRÍ ============== -->
+  <section class="view" id="view-ex4">
+    <div class="capsule">
+      <h2><span class="num">04</span>El árbol genealógico</h2>
+      <p>Con las reglas claras, es hora de leer el expediente familiar completo. Toca cada persona del árbol para ver su información. Dos personas tienen un signo de interrogación: ese es el misterio que tienes que resolver con lo que ya sabes.</p>
+      <div class="pedigree-wrap">
+        <svg id="pedigree-svg" viewBox="0 0 760 640" width="100%" role="img" aria-label="Árbol genealógico de la familia Paredes-Osorio-Rincón"></svg>
+      </div>
+      <div class="ped-legend">
+        <span><svg width="16" height="16"><rect x="1" y="1" width="14" height="14" fill="var(--surface)" stroke="var(--ink)" stroke-width="2"/></svg> hombre</span>
+        <span><svg width="16" height="16"><circle cx="8" cy="8" r="7" fill="var(--surface)" stroke="var(--ink)" stroke-width="2"/></svg> mujer</span>
+        <span><svg width="16" height="16"><rect x="1" y="1" width="14" height="14" fill="var(--red)" stroke="var(--ink)" stroke-width="2"/></svg> afectado/a</span>
+        <span><svg width="16" height="16"><circle cx="8" cy="8" r="7" fill="var(--surface)" stroke="var(--ink)" stroke-width="2"/><circle cx="8" cy="8" r="3" fill="var(--gold)"/></svg> portadora (confirmada)</span>
+        <span><svg width="16" height="16"><circle cx="8" cy="8" r="7" fill="var(--surface)" stroke="var(--ink)" stroke-width="2"/><text x="8" y="11.5" text-anchor="middle" font-size="9" fill="var(--muted)">?</text></svg> estado por investigar</span>
+      </div>
+      <div class="ped-info" id="ped-info">Toca a cualquier integrante del árbol para ver su expediente individual.</div>
+    </div>
+    <div class="quiz" id="quiz-ex4"></div>
+  </section>
+
+  <!-- ============== VEREDICTO FINAL ============== -->
+  <section class="view" id="view-final">
+    <div class="capsule">
+      <h2><span class="num">05</span>El veredicto</h2>
+      <p>Con el expediente completo, ya sabemos que <b>Camila es portadora</b> (<span class="mono">X<sup>H</sup>X<sup>h</sup></span>) &mdash;lo confirma el propio caso de Mateo&mdash; y que <b>Pablo no está afectado</b> (<span class="mono">X<sup>H</sup>Y</span>). La familia quiere saber qué pueden esperar si Camila tiene otro hijo o hija.</p>
+      <div class="punnett-wrap">
+        <table class="punnett" id="punnett-final" aria-label="Cuadro de Punnett Camila por Pablo"></table>
+      </div>
+      <p class="punnett-hint">Este es el mismo cruce del Expediente 3: úsalo para responder el veredicto.</p>
+    </div>
+    <div class="quiz" id="quiz-final"></div>
+
+    <div class="final-stamp" id="final-stamp">
+      <div class="big">CASO RESUELTO</div>
+      <p style="margin:8px 0 0;color:var(--muted);font-size:.88rem">Expediente 1138-H cerrado. Buen trabajo, agente.</p>
+    </div>
+
+    <div class="sidebar-box">
+      <h3>Conexión con el mundo real</h3>
+      <p>Este patrón de herencia no es inventado: es el mismo que los científicos documentaron en el siglo XIX en la familia real británica. La reina Victoria era portadora de hemofilia, y por los matrimonios entre familias reales europeas, el alelo llegó a las casas reales de Rusia, España y Alemania. Es uno de los árboles genealógicos más estudiados en la historia de la genética humana &mdash;y sigue el mismo patrón que acabas de resolver en el caso de Mateo.</p>
+    </div>
+  </section>
+
+  <footer class="credits">Material didáctico · Google Classroom · Ciencias Naturales, 9.º grado · Institución Educativa Municipal Misael Pastrana Borrero, Saladoblanco (Huila)</footer>
+</div>
+
+<script>
+(function(){
+"use strict";
+
+/* ---------------- progress state ---------------- */
+var ORDER = ['intro','ex1','ex2','ex3','ex4','final'];
+var STORE_KEY = 'adg_caso_1138h_progress_v1';
+var progress = {ex1:false, ex2:false, ex3:false, ex4:false, final:false};
+try{
+  var raw = localStorage.getItem(STORE_KEY);
+  if(raw){ var saved = JSON.parse(raw); for(var k in progress){ if(saved && typeof saved[k]==='boolean') progress[k]=saved[k]; } }
+}catch(e){}
+function saveProgress(){ try{ localStorage.setItem(STORE_KEY, JSON.stringify(progress)); }catch(e){} }
+
+function isUnlocked(id){
+  if(id==='intro' || id==='ex1') return true;
+  if(id==='ex2') return progress.ex1;
+  if(id==='ex3') return progress.ex2;
+  if(id==='ex4') return progress.ex3;
+  if(id==='final') return progress.ex4;
+  return false;
+}
+
+var TAB_META = {
+  intro:{label:'Briefing', n:'00'},
+  ex1:{label:'Vocabulario', n:'01'},
+  ex2:{label:'Mendel', n:'02'},
+  ex3:{label:'Ligado al X', n:'03'},
+  ex4:{label:'Pedigrí', n:'04'},
+  final:{label:'Veredicto', n:'05'}
+};
+
+var ICONS = {
+  lock:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="9" rx="1.5"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>',
+  dot:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="7"/></svg>',
+  check:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M4 12.5 9.5 18 20 6"/></svg>'
+};
+
+function renderTabs(){
+  var nav = document.getElementById('tabs');
+  var stamps = document.getElementById('stamps');
+  nav.innerHTML=''; stamps.innerHTML='';
+  ORDER.forEach(function(id){
+    var unlocked = isUnlocked(id);
+    var done = id==='intro' ? false : !!progress[id];
+    var state = !unlocked ? 'locked' : (done ? 'done' : 'current');
+    var tab = document.createElement('button');
+    tab.className='tab'; tab.type='button'; tab.setAttribute('role','tab');
+    tab.setAttribute('data-state', state);
+    tab.innerHTML = '<span class="n">'+TAB_META[id].n+'</span><span>'+TAB_META[id].label+'</span>'+(state==='locked'?'<span class="tab-icon">'+ICONS.lock+'</span>':(done?'<span class="tab-icon">'+ICONS.check+'</span>':''));
+    tab.addEventListener('click', function(){ goTo(id); });
+    nav.appendChild(tab);
+
+    if(id!=='intro'){
+      var st = document.createElement('div');
+      st.className='stamp'; st.setAttribute('data-state', state);
+      st.innerHTML = (state==='locked'?ICONS.lock:(state==='done'?ICONS.check:ICONS.dot))+'<b>'+TAB_META[id].label+'</b><span>'+(state==='locked'?'Bloqueado':(state==='done'?'Resuelto':'En curso'))+'</span>';
+      stamps.appendChild(st);
+    }
+  });
+}
+
+window.goTo = function(id){
+  if(!isUnlocked(id)){
+    flashLocked(id);
+    return;
+  }
+  ORDER.forEach(function(v){
+    document.getElementById('view-'+v).classList.toggle('active', v===id);
+  });
+  renderTabs();
+  var el = document.getElementById('view-'+id);
+  if(el && el.scrollIntoView) el.scrollIntoView({behavior:'smooth', block:'start'});
+  var statusEl = document.getElementById('case-status');
+  if(statusEl) statusEl.textContent = (id==='final' && progress.final) ? 'CASO RESUELTO' : 'EN INVESTIGACIÓN';
+};
+
+function flashLocked(id){
+  var nav = document.getElementById('tabs');
+  nav.style.transition='transform .08s'; nav.style.transform='translateX(-4px)';
+  setTimeout(function(){ nav.style.transform='translateX(4px)'; }, 80);
+  setTimeout(function(){ nav.style.transform='translateX(0)'; }, 160);
+}
+
+/* ---------------- Google Forms oficiales (expedientes evaluados) ---------------- */
+var FORM_URLS = {
+  'quiz-ex1': 'https://docs.google.com/forms/d/e/1FAIpQLSde9vrNwuwfK8KefCUUqVDTxT05pL_8kaq6mcf0Nh70V9rQmg/viewform',
+  'quiz-ex2': 'https://docs.google.com/forms/d/e/1FAIpQLSfXJxRoO5Iv-o7chpdZGX3cIHSfitu9NFbWqDTEzVeew9gALQ/viewform',
+  'quiz-ex3': 'https://docs.google.com/forms/d/e/1FAIpQLSf-0bTV2LAh3xMJrXwk1rqbPTYJWTlzdyofkVKzwUXqbDe8Vw/viewform',
+  'quiz-ex4': 'https://docs.google.com/forms/d/e/1FAIpQLSf-eJsxUpLv1ea6fMDt35lvUFeXCMZ7w0LawDOmvQViRfKcxA/viewform',
+  'quiz-final': 'https://docs.google.com/forms/d/e/1FAIpQLSed118QS8uw8x1xV6TnYKOd--wuUJ83cf6r76WeuMHuZt0z1w/viewform'
+};
+
+/* ---------------- quiz engine ---------------- */
+function buildQuiz(containerId, cfg){
+  var el = document.getElementById(containerId);
+  var state = {answers:new Array(cfg.questions.length).fill(null), checked:false};
+
+  function render(){
+    var html = '<div class="quiz-head"><h3>Reto evaluativo</h3><span class="need">Necesitas '+cfg.need+' de '+cfg.questions.length+' correctas para avanzar</span></div>';
+    cfg.questions.forEach(function(q, qi){
+      html += '<div class="q-block"><p class="q-text">'+(qi+1)+'. '+q.text+'</p><div class="q-opts" data-qi="'+qi+'">';
+      q.options.forEach(function(opt, oi){
+        html += '<button type="button" class="opt" data-qi="'+qi+'" data-oi="'+oi+'">'+
+                '<svg class="mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" style="visibility:hidden"><path d="M4 12.5 9.5 18 20 6"/></svg>'+
+                '<span>'+opt+'</span></button>';
+      });
+      html += '</div><div class="q-explain" id="'+containerId+'-explain-'+qi+'"></div></div>';
+    });
+    html += '<div class="quiz-actions"><button type="button" class="btn" id="'+containerId+'-check">Revisar respuestas</button>'+
+            '<button type="button" class="btn secondary" id="'+containerId+'-retry" style="display:none">Reintentar</button>'+
+            '<span class="quiz-result" id="'+containerId+'-result"></span></div>';
+    if(FORM_URLS[containerId]){
+      html += '<div class="quiz-actions" id="'+containerId+'-formwrap" style="display:none">'+
+              '<a class="btn" href="'+FORM_URLS[containerId]+'" target="_blank" rel="noopener" id="'+containerId+'-formlink">Abrir tu expediente evaluado →</a>'+
+              '<span class="quiz-result">Este es el formulario oficial que tu profesor revisará. Complétalo ahora que lo dominas.</span></div>';
+    }
+    el.innerHTML = html;
+
+    el.querySelectorAll('.opt').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        if(state.checked) return;
+        var qi = +btn.getAttribute('data-qi');
+        state.answers[qi] = +btn.getAttribute('data-oi');
+        el.querySelectorAll('.opt[data-qi="'+qi+'"]').forEach(function(b){ b.removeAttribute('data-picked'); });
+        btn.setAttribute('data-picked','true');
+      });
+    });
+    document.getElementById(containerId+'-check').addEventListener('click', checkAnswers);
+    document.getElementById(containerId+'-retry').addEventListener('click', function(){
+      state.answers = new Array(cfg.questions.length).fill(null);
+      state.checked = false;
+      render();
+    });
+  }
+
+  function checkAnswers(){
+    var unanswered = state.answers.some(function(a){ return a===null; });
+    var resultEl = document.getElementById(containerId+'-result');
+    if(unanswered){ resultEl.textContent = 'Responde todas las preguntas antes de revisar.'; return; }
+    state.checked = true;
+    var correctCount = 0;
+    cfg.questions.forEach(function(q, qi){
+      var picked = state.answers[qi];
+      var isCorrect = picked === q.correct;
+      if(isCorrect) correctCount++;
+      el.querySelectorAll('.opt[data-qi="'+qi+'"]').forEach(function(b){
+        var oi = +b.getAttribute('data-oi');
+        b.disabled = true;
+        if(oi===q.correct) b.setAttribute('data-reveal','correct');
+        else if(oi===picked) b.setAttribute('data-reveal','wrong');
+      });
+      var ex = document.getElementById(containerId+'-explain-'+qi);
+      ex.textContent = (isCorrect ? 'Correcto. ' : 'Casi. ') + q.explain;
+      ex.classList.add('show');
+    });
+    document.getElementById(containerId+'-check').style.display='none';
+    document.getElementById(containerId+'-retry').style.display='inline-flex';
+    var passed = correctCount >= cfg.need;
+    resultEl.textContent = 'Obtuviste '+correctCount+' de '+cfg.questions.length+' correctas.'+(passed?' ¡Expediente resuelto!':' Te falta reforzar algunos puntos — vuelve a intentarlo.');
+    var formWrap = document.getElementById(containerId+'-formwrap');
+    if(formWrap) formWrap.style.display = passed ? 'flex' : 'none';
+    if(passed && cfg.onPass) cfg.onPass();
+  }
+
+  render();
+}
+
+/* ---------------- punnett builder (reveal-on-click) ---------------- */
+function buildPunnett(tableId, momAlleles, dadAlleles, fmt){
+  var t = document.getElementById(tableId);
+  var html = '<tr><td class="corner"></td>';
+  dadAlleles.forEach(function(a){ html += '<th>'+fmt(a)+'</th>'; });
+  html += '</tr>';
+  momAlleles.forEach(function(m){
+    html += '<tr><th>'+fmt(m)+'</th>';
+    dadAlleles.forEach(function(d){
+      html += '<td class="cell" data-revealed="false" data-result="'+fmt(m)+fmt(d)+'"></td>';
+    });
+    html += '</tr>';
+  });
+  t.innerHTML = html;
+  t.querySelectorAll('td.cell').forEach(function(cell){
+    cell.addEventListener('click', function(){
+      cell.setAttribute('data-revealed','true');
+      cell.innerHTML = cell.getAttribute('data-result');
+    });
+  });
+}
+function fmtPea(a){ return a; }
+function fmtX(a){
+  if(a==='Y') return 'Y';
+  if(a==='XH') return 'X<sup>H</sup>';
+  if(a==='Xh') return 'X<sup>h</sup>';
+  return a;
+}
+
+buildPunnett('punnett-ex2', ['A','a'], ['A','a'], fmtPea);
+buildPunnett('punnett-ex3', ['XH','Xh'], ['XH','Y'], fmtX);
+buildPunnett('punnett-final', ['XH','Xh'], ['XH','Y'], fmtX);
+
+/* ---------------- pedigree ---------------- */
+var PEOPLE = [
+  {id:'ignacio', name:'Ignacio Paredes', sex:'M', status:'affected', x:260, y:60, role:'Bisabuelo'},
+  {id:'mercedes', name:'Mercedes Vargas', sex:'F', status:'unaffected', x:460, y:60, role:'Bisabuela'},
+  {id:'rosa', name:'Rosa Elena Paredes', sex:'F', status:'carrier-hidden', x:260, y:220, role:'Abuela'},
+  {id:'manuel', name:'Manuel Osorio', sex:'M', status:'unaffected', x:460, y:220, role:'Abuelo'},
+  {id:'camila', name:'Camila Osorio Paredes', sex:'F', status:'carrier-hidden', x:220, y:390, role:'Madre de Mateo'},
+  {id:'daniel', name:'Daniel Osorio Paredes', sex:'M', status:'affected', x:500, y:390, role:'Tío de Mateo'},
+  {id:'pablo', name:'Pablo Rincón', sex:'M', status:'unaffected', x:60, y:390, role:'Padre de Mateo'},
+  {id:'mateo', name:'Mateo Rincón Osorio', sex:'M', status:'affected', x:140, y:550, role:'El caso (2 años)'}
+];
+var UNIONS = [
+  {a:'ignacio', b:'mercedes', childY:220, childX:'rosa'},
+  {a:'rosa', b:'manuel', childY:390, siblings:['camila','daniel']},
+  {a:'pablo', b:'camila', childY:550, childX:'mateo'}
+];
+var STATUS_TEXT = {
+  affected: 'Confirmado/a afectado/a por hemofilia.',
+  unaffected: 'Sin hemofilia y sin indicios de ser portador/a.',
+  'carrier-hidden': '¿Portadora? Resuelve las pistas del Expediente 4 para descubrirlo.',
+  'carrier-confirmed': 'Confirmada como portadora (X<sup>H</sup>X<sup>h</sup>) por el expediente familiar.'
+};
+
+function pedStatus(p){
+  if(p.status==='carrier-hidden' && progress.ex4) return 'carrier-confirmed';
+  return p.status;
+}
+
+function drawPedigree(){
+  var svg = document.getElementById('pedigree-svg');
+  var parts = [];
+  function line(x1,y1,x2,y2){ parts.push('<line x1="'+x1+'" y1="'+y1+'" x2="'+x2+'" y2="'+y2+'" stroke="var(--muted)" stroke-width="2"/>'); }
+
+  UNIONS.forEach(function(u){
+    var A = PEOPLE.filter(function(p){return p.id===u.a})[0];
+    var B = PEOPLE.filter(function(p){return p.id===u.b})[0];
+    var midX = (A.x+B.x)/2;
+    line(A.x+18, A.y, B.x-18, B.y);
+    if(u.childX){
+      var C = PEOPLE.filter(function(p){return p.id===u.childX})[0];
+      line(midX, A.y, midX, u.childY-26);
+      line(midX, u.childY-26, C.x, u.childY-26);
+      line(C.x, u.childY-26, C.x, C.y-20);
+    }
+    if(u.siblings){
+      var xs = u.siblings.map(function(id){ return PEOPLE.filter(function(p){return p.id===id})[0]; });
+      var barY = u.childY-26;
+      line(midX, A.y, midX, barY);
+      var minX = Math.min.apply(null, xs.map(function(p){return p.x;}));
+      var maxX = Math.max.apply(null, xs.map(function(p){return p.x;}));
+      line(minX, barY, maxX, barY);
+      xs.forEach(function(p){ line(p.x, barY, p.x, p.y-20); });
+    }
+  });
+
+  PEOPLE.forEach(function(p){
+    var st = pedStatus(p);
+    var fill = st==='affected' ? 'var(--red)' : 'var(--surface)';
+    var shape = p.sex==='M'
+      ? '<rect x="'+(p.x-18)+'" y="'+(p.y-18)+'" width="36" height="36" fill="'+fill+'"/>'
+      : '<circle cx="'+p.x+'" cy="'+p.y+'" r="18" fill="'+fill+'"/>';
+    var mark = '';
+    if(st==='carrier-confirmed'){
+      mark = '<circle cx="'+p.x+'" cy="'+p.y+'" r="5" fill="var(--gold)"/>';
+    } else if(st==='carrier-hidden'){
+      mark = '<text x="'+p.x+'" y="'+(p.y+5)+'" text-anchor="middle" font-size="15" fill="var(--muted)" font-weight="700">?</text>';
+    }
+    parts.push('<g class="ped-node" data-id="'+p.id+'">'+shape+mark+
+      '<text x="'+p.x+'" y="'+(p.y+34)+'" text-anchor="middle" font-size="11">'+p.name.split(' ')[0]+'</text>'+
+      '</g>');
+  });
+
+  svg.innerHTML = parts.join('');
+  svg.querySelectorAll('.ped-node').forEach(function(g){
+    g.addEventListener('click', function(){
+      var id = g.getAttribute('data-id');
+      var p = PEOPLE.filter(function(x){return x.id===id;})[0];
+      var st = pedStatus(p);
+      document.getElementById('ped-info').innerHTML = '<b>'+p.name+'</b> &middot; '+p.role+'<br>'+STATUS_TEXT[st];
+    });
+  });
+}
+
+/* ---------------- question banks ---------------- */
+buildQuiz('quiz-ex1', {
+  need:4,
+  onPass:function(){ progress.ex1=true; saveProgress(); renderTabs(); },
+  questions:[
+    {text:'¿Qué es un alelo?', options:['Una enfermedad genética','Una versión distinta de un mismo gen','El cromosoma completo','Un tipo de célula'], correct:1, explain:'Cada gen puede tener distintas "versiones": esas son los alelos.'},
+    {text:'El genotipo de una persona es…', options:['Lo que se observa a simple vista','La combinación de alelos que tiene en su ADN','El número de cromosomas que tiene','El nombre de una enfermedad'], correct:1, explain:'El genotipo es la información genética en sí, no lo que se ve.'},
+    {text:'Si un alelo es dominante…', options:['Es el único alelo que existe','Se expresa incluso con una sola copia','Nunca se hereda','Solo lo tienen los hombres'], correct:1, explain:'Basta una copia del alelo dominante para que se manifieste.'},
+    {text:'Un alelo recesivo generalmente se expresa cuando…', options:['Hay una copia dominante que lo acompaña','No hay ninguna copia dominante que lo tape','Nunca se expresa','Solo está en el cromosoma Y'], correct:1, explain:'El recesivo queda "tapado" si hay un dominante presente.'},
+    {text:'El fenotipo es…', options:['La secuencia exacta de ADN','Cómo se expresa el genotipo: lo que se ve o lo que ocurre en el cuerpo','Un tipo de cromosoma','Sinónimo exacto de genotipo'], correct:1, explain:'El fenotipo es la expresión visible o funcional del genotipo.'}
+  ]
+});
+
+buildQuiz('quiz-ex2', {
+  need:3,
+  onPass:function(){ progress.ex2=true; saveProgress(); renderTabs(); },
+  questions:[
+    {text:'En el cruce Aa × Aa, ¿qué proporción de la descendencia será verde (aa)?', options:['1/4','1/2','3/4','Ninguna'], correct:0, explain:'Solo la combinación aa (1 de las 4 casillas) da semilla verde.'},
+    {text:'¿Qué proporción será amarilla (AA o Aa)?', options:['1/4','1/2','3/4','4/4'], correct:2, explain:'3 de las 4 combinaciones posibles llevan al menos un alelo A dominante.'},
+    {text:'Si cruzamos AA (amarillo puro) × aa (verde), ¿de qué color serán TODAS las semillas?', options:['Verdes','Amarillas','Mitad y mitad','Ninguna germina'], correct:1, explain:'Todas heredan un A de un padre: con un solo alelo dominante ya se expresa amarillo.'},
+    {text:'¿Por qué el cuadro de Punnett es útil?', options:['Porque predice con certeza el fenotipo de cada hijo','Porque muestra las combinaciones posibles y sus probabilidades','Porque mide el ADN directamente','Porque solo sirve para plantas'], correct:1, explain:'El cuadro muestra probabilidades, no certezas individuales — por eso hablamos de "1 de cada 4", no de resultados garantizados.'}
+  ]
+});
+
+buildQuiz('quiz-ex3', {
+  need:4,
+  onPass:function(){ progress.ex3=true; saveProgress(); renderTabs(); drawPedigree(); },
+  questions:[
+    {text:'Madre portadora (X^H X^h) × padre sano (X^H Y): ¿qué probabilidad tiene cada HIJO varón de nacer con hemofilia?', options:['0%','25%','50%','100%'], correct:2, explain:'De los dos posibles hijos varones en el cuadro, uno hereda X^h Y (afectado) y el otro X^H Y (sano): 50%.'},
+    {text:'En el mismo cruce, ¿qué probabilidad tiene cada HIJA de ser portadora?', options:['0%','25%','50%','100%'], correct:2, explain:'La mitad de las combinaciones femeninas del cuadro son X^H X^h (portadora).'},
+    {text:'¿Puede un padre con hemofilia transmitírsela a su hijo varón?', options:['Sí, siempre','Sí, a veces','No, porque el hijo recibe el Y del padre, no su X','No, porque la hemofilia no se hereda de los padres'], correct:2, explain:'El hijo varón recibe el cromosoma Y de su padre; su X siempre viene de la madre.'},
+    {text:'¿Por qué la hemofilia es mucho más común en hombres que en mujeres?', options:['Porque los hombres tienen más cromosomas X','Porque a los hombres les basta una sola copia del alelo para estar afectados','Porque las mujeres son inmunes genéticamente','Porque el gen está en el cromosoma Y'], correct:1, explain:'Con un solo X, los hombres no tienen una segunda copia que "tape" el alelo recesivo.'}
+  ]
+});
+
+buildQuiz('quiz-ex4', {
+  need:3,
+  onPass:function(){ progress.ex4=true; saveProgress(); renderTabs(); drawPedigree(); },
+  questions:[
+    {text:'¿Por qué sabemos con certeza que Rosa Elena es portadora, aunque nunca haya tenido síntomas?', options:['Porque todas las mujeres son portadoras', 'Porque su padre Ignacio estaba afectado y todo padre afectado transmite el alelo a TODAS sus hijas', 'Porque su hijo Daniel nació sano', 'No se puede saber con certeza'], correct:1, explain:'Un padre afectado transmite su único X (con el alelo h) a cada una de sus hijas, sin excepción.'},
+    {text:'¿Qué evidencia confirma que Camila es portadora?', options:['Que ella presenta síntomas leves', 'Que su hijo Mateo nació afectado, y eso solo es posible si la madre aportó el alelo h', 'Que su esposo Pablo es portador', 'Que su madre Rosa Elena tuvo síntomas'], correct:1, explain:'Pablo no está afectado, así que el alelo h de Mateo solo pudo venir de Camila: ella es portadora.'},
+    {text:'Daniel (tío de Mateo) está afectado. ¿Qué confirma esto sobre Rosa Elena?', options:['Que Rosa Elena está afectada también', 'Que Rosa Elena es portadora, porque ella tuvo que aportarle el alelo h a Daniel', 'Nada: es solo coincidencia', 'Que Manuel es portador'], correct:1, explain:'Para que un hijo varón esté afectado, la madre debe tener al menos una copia del alelo — otra confirmación de que Rosa Elena es portadora.'}
+  ]
+});
+
+buildQuiz('quiz-final', {
+  need:3,
+  onPass:function(){
+    progress.final=true; saveProgress(); renderTabs();
+    document.getElementById('final-stamp').classList.add('show');
+    document.getElementById('case-status').textContent='CASO RESUELTO';
+  },
+  questions:[
+    {text:'Si Camila y Pablo tienen otro hijo VARÓN, ¿qué probabilidad hay de que nazca con hemofilia?', options:['0%','25%','50%','100%'], correct:2, explain:'Es exactamente el mismo cruce del Expediente 3: 50% de los hijos varones heredan X^h Y.'},
+    {text:'Si tienen otra hija, ¿qué probabilidad hay de que nazca AFECTADA (no solo portadora)?', options:['0%','25%','50%','100%'], correct:0, explain:'Para que una hija esté afectada necesitaría X^h de AMBOS padres, y Pablo no tiene el alelo h: ninguna hija puede estar afectada en este cruce.'},
+    {text:'¿Qué probabilidad hay de que una futura hija sea portadora?', options:['0%','25%','50%','100%'], correct:2, explain:'La mitad de las combinaciones femeninas del cuadro son X^H X^h.'},
+    {text:'Resume el patrón en una frase: la hemofilia, en este caso, es…', options:['Autosómica dominante','Autosómica recesiva','Ligada al X, recesiva','Ligada al Y'], correct:2, explain:'El gen está en el cromosoma X y se comporta como recesivo: exactamente el patrón que investigaste en todo el expediente.'}
+  ]
+});
+
+/* ---------------- boot ---------------- */
+renderTabs();
+drawPedigree();
+goTo('intro');
+
+})();
+</script>
+
+</body>
+</html>
