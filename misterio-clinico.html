@@ -498,6 +498,9 @@ var FORM_URLS = {
 function buildQuiz(containerId, cfg){
   var el = document.getElementById(containerId);
   var state = {answers:new Array(cfg.questions.length).fill(null), checked:false};
+  var selfId = containerId.replace(/^quiz-/, '');
+  var selfIdx = ORDER.indexOf(selfId);
+  var nextId = (selfIdx>=0 && selfIdx<ORDER.length-1) ? ORDER[selfIdx+1] : null;
 
   function render(){
     var html = '<div class="quiz-head"><h3>Reto evaluativo</h3><span class="need">Necesitas '+cfg.need+' de '+cfg.questions.length+' correctas para avanzar</span></div>';
@@ -513,9 +516,14 @@ function buildQuiz(containerId, cfg){
     html += '<div class="quiz-actions"><button type="button" class="btn" id="'+containerId+'-check">Revisar respuestas</button>'+
             '<button type="button" class="btn secondary" id="'+containerId+'-retry" style="display:none">Reintentar</button>'+
             '<span class="quiz-result" id="'+containerId+'-result"></span></div>';
+    if(nextId && TAB_META[nextId]){
+      html += '<div class="quiz-actions" id="'+containerId+'-nextwrap" style="display:none">'+
+              '<button type="button" class="btn" id="'+containerId+'-nextbtn">Siguiente: '+TAB_META[nextId].label+' →</button>'+
+              '<span class="quiz-result">¡Expediente resuelto! Toca el botón para continuar con el siguiente.</span></div>';
+    }
     if(FORM_URLS[containerId]){
       html += '<div class="quiz-actions" id="'+containerId+'-formwrap" style="display:none">'+
-              '<a class="btn" href="'+FORM_URLS[containerId]+'" target="_blank" rel="noopener" id="'+containerId+'-formlink">Abrir tu expediente evaluado →</a>'+
+              '<a class="btn secondary" href="'+FORM_URLS[containerId]+'" target="_blank" rel="noopener" id="'+containerId+'-formlink">Abrir tu expediente evaluado →</a>'+
               '<span class="quiz-result">Este es el formulario oficial que tu profesor revisará. Complétalo ahora que lo dominas.</span></div>';
     }
     el.innerHTML = html;
@@ -535,6 +543,10 @@ function buildQuiz(containerId, cfg){
       state.checked = false;
       render();
     });
+    var nextBtn = document.getElementById(containerId+'-nextbtn');
+    if(nextBtn){
+      nextBtn.addEventListener('click', function(){ goTo(nextId); });
+    }
   }
 
   function checkAnswers(){
@@ -563,6 +575,8 @@ function buildQuiz(containerId, cfg){
     resultEl.textContent = 'Obtuviste '+correctCount+' de '+cfg.questions.length+' correctas.'+(passed?' ¡Expediente resuelto!':' Te falta reforzar algunos puntos — vuelve a intentarlo.');
     var formWrap = document.getElementById(containerId+'-formwrap');
     if(formWrap) formWrap.style.display = passed ? 'flex' : 'none';
+    var nextWrap = document.getElementById(containerId+'-nextwrap');
+    if(nextWrap) nextWrap.style.display = passed ? 'flex' : 'none';
     if(passed && cfg.onPass) cfg.onPass();
   }
 
