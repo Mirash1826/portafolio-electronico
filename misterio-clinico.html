@@ -6,304 +6,350 @@
 <title>Caso Hemofilia</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Lexend:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
-/* ===================================================================
-   DISEÑO: expediente forense de papel kraft — carpeta de la Agencia de
-   Detectives Genéticos. Pestañas de carpeta = navegación entre
-   expedientes. Sellos de caja (BLOQUEADO / EN CURSO / RESUELTO) marcan
-   el avance. Acento rojo = tinta de sello; dorado = laca de sello.
-   =================================================================== */
 :root{
-  --bg:#e7dabd; --surface:#faf3e2; --surface-2:#f0e5cb; --surface-3:#e3d4ae;
-  --ink:#241a10; --muted:#6c5a3f; --line:#cdb988;
-  --forest:#1f5c46; --forest-ink:#eef6f1; --forest-dim:#dcebe4;
-  --gold:#a9792c; --red:#9c3327; --red-ink:#fdeceA;
-  --shadow:0 18px 40px -22px rgba(36,26,16,.55);
+  --bg:#f4f6ef; --surface:#ffffff; --surface-2:#f1f5ef; --surface-3:#e4eee7;
+  --ink:#14231b; --muted:#4d5f55; --line:#d9e2d9;
+  --brand:#1f5a40; --brand-ink:#ffffff; --field:#174631; --field-ink:#ffffff;
+  --forest:#1f5a40; --forest-ink:#ffffff; --forest-dim:#dcebe2;
+  --gold:#b07d16; --gold-text:#8a5f0a; --sun:#e8b54a; --gold-soft:#f5e9c8; --tint:#e4eee7;
+  --red:#b23a2c; --red-soft:#f8e1dc; --red-ink:#ffffff;
+  --focus:#0b6bcb;
+  --f-display:'Bricolage Grotesque','Segoe UI',system-ui,sans-serif;
+  --f-body:'Source Sans 3','Segoe UI',system-ui,sans-serif;
+  --f-mono:'Space Mono',ui-monospace,monospace;
+  --r:18px; --r-sm:12px;
+  --shadow:0 1px 2px rgba(16,40,28,.06),0 10px 28px -14px rgba(16,40,28,.22);
+  --shadow-up:0 2px 4px rgba(16,40,28,.08),0 18px 36px -16px rgba(16,40,28,.30);
+  --ease-out:cubic-bezier(.23,1,.32,1);
   color-scheme:light;
 }
 @media (prefers-color-scheme:dark){
   :root:not([data-theme="light"]){
-    --bg:#161f19; --surface:#1e2922; --surface-2:#263228; --surface-3:#2e3c30;
-    --ink:#f1e9d6; --muted:#aa9d7e; --line:#3a4a3b;
-    --forest:#6bbd97; --forest-ink:#0c1712; --forest-dim:#243830;
-    --gold:#d9a74c; --red:#e2776a; --red-ink:#3a1713;
-    --shadow:0 18px 40px -20px rgba(0,0,0,.6);
     color-scheme:dark;
+    --bg:#0f1a15; --surface:#16251e; --surface-2:#1b2c23; --surface-3:#22372c;
+    --ink:#e8f0ea; --muted:#a9bbb0; --line:#2b4136;
+    --brand:#6fc79b; --brand-ink:#0d1a13; --field:#0b2219; --field-ink:#eef6f0;
+    --forest:#6fc79b; --forest-ink:#0d1a13; --forest-dim:#1f3a2c;
+    --gold:#e0b04a; --gold-text:#e9c066; --sun:#e8b54a; --gold-soft:#3a3016; --tint:#1c3026;
+    --red:#ee8a7c; --red-soft:#3d1c18; --red-ink:#1a0c0a;
+    --focus:#7db8ff;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 28px -14px rgba(0,0,0,.6);
+    --shadow-up:0 2px 4px rgba(0,0,0,.45),0 18px 36px -16px rgba(0,0,0,.7);
   }
 }
 :root[data-theme="dark"]{
-  --bg:#161f19; --surface:#1e2922; --surface-2:#263228; --surface-3:#2e3c30;
-  --ink:#f1e9d6; --muted:#aa9d7e; --line:#3a4a3b;
-  --forest:#6bbd97; --forest-ink:#0c1712; --forest-dim:#243830;
-  --gold:#d9a74c; --red:#e2776a; --red-ink:#3a1713;
-  --shadow:0 18px 40px -20px rgba(0,0,0,.6);
   color-scheme:dark;
+  --bg:#0f1a15; --surface:#16251e; --surface-2:#1b2c23; --surface-3:#22372c;
+  --ink:#e8f0ea; --muted:#a9bbb0; --line:#2b4136;
+  --brand:#6fc79b; --brand-ink:#0d1a13; --field:#0b2219; --field-ink:#eef6f0;
+  --forest:#6fc79b; --forest-ink:#0d1a13; --forest-dim:#1f3a2c;
+  --gold:#e0b04a; --gold-text:#e9c066; --sun:#e8b54a; --gold-soft:#3a3016; --tint:#1c3026;
+  --red:#ee8a7c; --red-soft:#3d1c18; --red-ink:#1a0c0a;
+  --focus:#7db8ff;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 28px -14px rgba(0,0,0,.6);
+  --shadow-up:0 2px 4px rgba(0,0,0,.45),0 18px 36px -16px rgba(0,0,0,.7);
 }
 *{box-sizing:border-box}
-body{
-  background:
-    radial-gradient(1200px 500px at 15% -10%, color-mix(in srgb, var(--forest) 10%, transparent), transparent),
-    var(--bg);
-  color:var(--ink);
-  font-family:'Lexend',system-ui,sans-serif;
-  padding-left:max(16px, env(safe-area-inset-left,0px));
-  padding-right:max(16px, env(safe-area-inset-right,0px));
-}
-.shell{max-width:1040px;margin:0 auto;padding-block:28px 60px}
-h1,h2,h3{font-family:'Special Elite',monospace;letter-spacing:.01em;text-wrap:balance;font-weight:400}
-.mono{font-family:'Space Mono',monospace}
-a{color:var(--forest)}
-button{font-family:inherit}
+html{scrollbar-color:var(--brand) var(--tint);-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:1.0625rem;line-height:1.6;margin:0;caret-color:var(--brand)}
+::selection{background:var(--sun);color:#14231b}
+h1,h2,h3{font-family:var(--f-display);line-height:1.12;text-wrap:balance;margin:0;letter-spacing:-.01em}
+p{margin:0}
+a{color:var(--brand);text-underline-offset:3px;text-decoration-thickness:1.5px}
+:focus-visible{outline:3px solid var(--focus);outline-offset:3px;border-radius:6px}
+button{font-family:inherit;-webkit-tap-highlight-color:transparent}
+.mono{font-family:var(--f-mono);font-size:.92em}
+sup{font-size:.68em;line-height:0}
+.wrap{max-width:1040px;margin:0 auto;padding-inline:max(16px,env(safe-area-inset-left,0px))}
 
-/* ---------- letterhead ---------- */
-.letterhead{
-  display:flex;align-items:center;gap:16px;flex-wrap:wrap;
-  padding:18px 20px;border:1px solid var(--line);border-radius:10px;
-  background:var(--surface);box-shadow:var(--shadow);margin-bottom:18px;
-}
-.badge-mark{
-  width:52px;height:52px;flex:none;border-radius:50%;
-  background:var(--forest);color:var(--forest-ink);
-  display:grid;place-items:center;font-family:'Special Elite',monospace;font-size:1.3rem;
-  border:2px solid color-mix(in srgb, var(--forest) 60%, black 10%);
-}
-.letterhead .names{min-width:0}
-.letterhead h1{font-size:1.15rem;margin:0 0 2px;color:var(--forest)}
-.letterhead .sub{margin:0;color:var(--muted);font-size:.82rem}
-.case-id{
-  margin-left:auto;font-family:'Space Mono',monospace;font-size:.72rem;color:var(--muted);
-  text-align:right;line-height:1.5;white-space:nowrap;
-}
+/* ---------- barra superior ---------- */
+header.top{background:var(--field);color:var(--field-ink);box-shadow:0 6px 18px -12px rgba(0,0,0,.45)}
+.bar{display:flex;align-items:center;gap:14px;padding-block:12px;flex-wrap:wrap}
+.back{display:inline-flex;align-items:center;gap:6px;color:inherit;text-decoration:none;font:700 .95rem var(--f-body);background:rgba(255,255,255,.12);padding:8px 14px;border-radius:999px;transition:transform 160ms var(--ease-out),background-color 160ms ease}
+.back svg{width:16px;height:16px}
+.back:active{transform:scale(.97)}
+.agency{display:flex;align-items:center;gap:12px;min-width:0}
+.badge-mark{width:44px;height:44px;flex:none;border-radius:50%;background:var(--sun);color:#14231b;display:grid;place-items:center;font:800 .95rem var(--f-display)}
+.agency b{font-family:var(--f-display);font-size:1.05rem;line-height:1.15;display:block}
+.agency span{font-size:.85rem;opacity:.85;display:block}
+.status{margin-left:auto;font:700 .9rem var(--f-body);padding:6px 14px;border-radius:999px;background:rgba(255,255,255,.14);white-space:nowrap}
+.status[data-solved="true"]{background:var(--sun);color:#14231b}
+@media (hover:hover) and (pointer:fine){.back:hover{background:rgba(255,255,255,.22)}}
+@media (max-width:620px){.status{margin-left:0}}
 
-/* ---------- folder tabs nav ---------- */
-.tabs{display:flex;gap:6px;overflow-x:auto;padding-bottom:2px;margin-bottom:0;scrollbar-width:thin}
-.tab{
-  flex:none;display:flex;align-items:center;gap:8px;
-  padding:10px 14px;border:1px solid var(--line);border-bottom:none;
-  border-radius:10px 10px 0 0;background:var(--surface-2);color:var(--muted);
-  font-size:.82rem;cursor:pointer;white-space:nowrap;transition:background .15s,color .15s;
-}
-.tab .n{font-family:'Space Mono',monospace;font-size:.72rem;opacity:.8}
-.tab[data-state="done"]{color:var(--forest)}
-.tab[data-state="locked"]{opacity:.55;cursor:not-allowed}
-.lock-msg{margin-top:8px;padding:8px 12px;border-radius:8px;border:1px solid var(--red);background:color-mix(in srgb, var(--red) 10%, var(--surface));color:var(--red);font-size:.82rem}
-.tab[aria-selected="true"]{background:var(--surface);color:var(--ink);font-weight:600}
-.tab-icon{width:14px;height:14px;flex:none}
+/* ---------- portada del caso ---------- */
+main{padding-block:26px 48px}
+.case-hero{background:var(--surface);border-radius:26px;padding:clamp(20px,4vw,36px);box-shadow:var(--shadow);display:grid;gap:18px}
+.case-hero h1{font-size:clamp(1.9rem,4.6vw,3rem);font-weight:800;letter-spacing:-.025em;line-height:1.05;max-width:20ch}
+.case-hero .sub{font-size:clamp(1.02rem,1.5vw,1.15rem);max-width:58ch;color:var(--ink)}
+.meter{display:grid;gap:8px;max-width:520px}
+.meter-top{display:flex;justify-content:space-between;gap:10px;font-weight:600;font-size:.95rem;color:var(--muted)}
+.meter-top b{color:var(--ink)}
+.meter-bar{height:12px;border-radius:99px;background:var(--tint);overflow:hidden}
+.meter-bar i{display:block;height:100%;width:0;border-radius:inherit;background:var(--brand);transition:width 500ms var(--ease-out)}
 
-/* ---------- case board (progress strip) ---------- */
-.board{
-  border:1px solid var(--line);border-top:none;background:var(--surface);
-  border-radius:0 10px 10px 10px;box-shadow:var(--shadow);padding:22px;margin-bottom:26px;
-}
-.stamps{display:grid;grid-template-columns:repeat(auto-fit,minmax(118px,1fr));gap:10px;margin-top:4px}
-.stamp{
-  border:1.5px dashed var(--line);border-radius:10px;padding:10px 8px;text-align:center;
-  display:flex;flex-direction:column;align-items:center;gap:6px;font-size:.72rem;color:var(--muted);
-}
-.stamp[data-state="done"]{border-style:solid;border-color:var(--forest);color:var(--forest)}
-.stamp[data-state="current"]{border-color:var(--gold);color:var(--gold)}
-.stamp svg{width:22px;height:22px}
-.stamp b{font-weight:600;color:inherit;font-size:.74rem}
+/* ---------- pasos (expedientes) ---------- */
+.steps{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);margin:18px 0 0;padding:10px 0;display:flex;gap:8px;overflow-x:auto;scrollbar-width:none}
+.steps::-webkit-scrollbar{display:none}
+.tab{flex:none;display:inline-flex;align-items:center;gap:8px;border:0;background:var(--surface);color:var(--muted);font:700 .95rem var(--f-body);padding:6px 16px 6px 6px;border-radius:999px;cursor:pointer;box-shadow:var(--shadow);transition:transform 160ms var(--ease-out),background-color 160ms ease,color 160ms ease}
+.tab:active{transform:scale(.97)}
+.tab .dot{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:var(--tint);color:var(--brand);font:800 .85rem var(--f-display)}
+.tab .dot svg{width:15px;height:15px}
+.tab[data-state="done"] .dot{background:var(--brand);color:var(--brand-ink)}
+.tab[data-state="locked"]{color:color-mix(in srgb,var(--muted) 75%,transparent);box-shadow:none;background:var(--surface-2)}
+.tab[data-state="locked"] .dot{background:transparent;color:inherit}
+.tab[aria-current="step"]{background:var(--brand);color:var(--brand-ink)}
+.tab[aria-current="step"] .dot{background:var(--sun);color:#14231b}
+@media (hover:hover) and (pointer:fine){.tab:not([aria-current]):not([data-state="locked"]):hover{background:var(--tint);color:var(--brand)}}
+.lock-msg{margin:6px 0 0;padding:12px 16px;border-radius:var(--r-sm);background:var(--red-soft);color:var(--ink);font-size:.98rem;display:flex;gap:10px;align-items:flex-start}
+.lock-msg svg{flex:none;width:20px;height:20px;color:var(--red);margin-top:2px}
+.shake{animation:shake 240ms var(--ease-out)}
+@keyframes shake{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
 
-/* ---------- generic section cards ---------- */
-.view{display:none}
-.view.active{display:block}
-.intro-art{
-  border:1px solid var(--line);border-radius:12px;background:var(--surface-2);
-  padding:18px;margin-bottom:16px;box-shadow:var(--shadow);
-}
-.case-note{
-  position:relative;background:var(--surface-3);border:1px solid var(--line);
-  border-radius:4px;padding:16px 18px;margin:16px 0;box-shadow:var(--shadow);
-  font-size:.95rem;line-height:1.6;
-}
-.case-note::before{
-  content:"EXPEDIENTE";position:absolute;top:-10px;left:14px;background:var(--red);
-  color:var(--red-ink);font-family:'Special Elite',monospace;font-size:.65rem;
-  letter-spacing:.1em;padding:3px 10px;border-radius:3px;transform:rotate(-2deg);
-}
-.capsule{
-  border:1px solid var(--line);border-radius:12px;background:var(--surface);
-  padding:20px;margin:16px 0;box-shadow:var(--shadow);
-}
-.capsule h2{color:var(--forest);font-size:1.05rem;margin:0 0 10px;display:flex;gap:10px;align-items:center}
-.capsule h2 .num{
-  font-family:'Space Mono',monospace;font-size:.75rem;color:var(--forest-ink);
-  background:var(--forest);padding:2px 8px;border-radius:5px;flex:none;
-}
-.capsule p{margin:0 0 12px;line-height:1.65;font-size:.94rem;max-width:62ch}
-.capsule .diagram{margin:14px 0;text-align:center}
-.capsule .diagram svg{max-width:100%;height:auto}
-.term-grid{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));margin:14px 0}
-.term{border:1px solid var(--line);border-radius:8px;padding:10px 12px;background:var(--surface-2)}
-.term b{display:block;color:var(--forest);font-size:.85rem;margin-bottom:3px}
-.term span{font-size:.82rem;color:var(--muted)}
+/* ---------- vistas ---------- */
+.view{display:none;scroll-margin-top:72px;padding-top:18px}
+.view.active{display:block;animation:rise 360ms var(--ease-out) both}
+@keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 
-/* ---------- quiz ---------- */
-.quiz{border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:20px;margin:16px 0;box-shadow:var(--shadow)}
-.quiz-head{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:4px;flex-wrap:wrap}
-.quiz-head h3{margin:0;color:var(--forest);font-size:1rem}
-.quiz-head .need{font-size:.74rem;color:var(--muted)}
-.q-block{border-top:1px dashed var(--line);padding:16px 0}
-.q-block:first-of-type{border-top:none}
-.q-text{font-weight:600;margin:0 0 10px;font-size:.92rem}
-.q-opts{display:grid;gap:8px}
-.opt{
-  display:flex;gap:10px;align-items:flex-start;text-align:left;
-  border:1px solid var(--line);border-radius:8px;padding:10px 12px;
-  background:var(--surface-2);cursor:pointer;font-size:.88rem;color:var(--ink);
-}
-.opt:hover{border-color:var(--forest)}
-.opt[data-picked="true"]{border-color:var(--forest);background:var(--forest-dim)}
-.opt[data-reveal="correct"]{border-color:var(--forest);background:var(--forest-dim);font-weight:600}
-.opt[data-reveal="wrong"]{border-color:var(--red);background:color-mix(in srgb, var(--red) 12%, var(--surface-2))}
-.opt .mark{flex:none;width:18px;height:18px;margin-top:1px}
-.q-explain{display:none;margin-top:10px;font-size:.84rem;color:var(--muted);background:var(--surface-2);border-left:3px solid var(--forest);padding:8px 12px;border-radius:4px}
+.card{background:var(--surface);border-radius:var(--r);padding:clamp(18px,3.4vw,30px);margin:0 0 18px;box-shadow:var(--shadow)}
+.card h2{font-size:clamp(1.45rem,3vw,1.9rem);font-weight:800;letter-spacing:-.02em;display:flex;gap:12px;align-items:center;margin-bottom:14px}
+.card h2 .num{flex:none;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;background:var(--sun);color:#14231b;font:800 1rem var(--f-display)}
+.card p{line-height:1.65;max-width:66ch}
+.card p+p,.card p+.diagram,.card .diagram+p,.card .punnett-wrap+p{margin-top:12px}
+.card > p + .term-grid{margin-top:16px}
+
+/* bienvenida */
+.guide{display:flex;gap:16px;align-items:flex-end;margin-bottom:18px}
+.guide svg{flex:none;width:84px;height:auto}
+.bubble{background:var(--gold-soft);color:var(--ink);border-radius:20px 20px 20px 6px;padding:14px 18px;max-width:56ch;font-size:1.04rem;line-height:1.5}
+.bubble b{font-family:var(--f-display)}
+.letter{background:var(--surface);border-radius:var(--r);box-shadow:var(--shadow);overflow:hidden;margin-bottom:18px}
+.letter-head{background:var(--field);color:var(--field-ink);padding:16px clamp(18px,3.4vw,30px);display:grid;gap:2px;font-size:.98rem}
+.letter-head h2{font-size:clamp(1.3rem,2.6vw,1.6rem);margin-bottom:6px}
+.letter-head b{font-weight:700}
+.letter-body{padding:clamp(18px,3.4vw,30px);display:grid;gap:12px;max-width:72ch;line-height:1.65}
+.letter-body .goal{background:var(--gold-soft);border-radius:var(--r-sm);padding:12px 16px}
+.how{list-style:none;padding:0;margin:14px 0 0;display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.how li{background:var(--surface-2);border-radius:var(--r-sm);padding:14px 16px;display:flex;gap:12px;align-items:flex-start}
+.how .n{flex:none;width:32px;height:32px;border-radius:50%;display:grid;place-items:center;background:var(--sun);color:#14231b;font:800 .95rem var(--f-display)}
+.how b{display:block;font-family:var(--f-display);font-size:1.05rem}
+.how span{font-size:.97rem;color:var(--muted)}
+.center{text-align:center;margin-top:8px}
+
+/* diagramas y términos */
+.diagram{margin:16px 0;text-align:center}
+.diagram svg{max-width:100%;height:auto}
+.term-grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));margin:16px 0 0}
+.term{border-radius:var(--r-sm);padding:14px 16px;background:var(--surface-2)}
+.term b{display:block;color:var(--brand);font-family:var(--f-display);font-size:1.08rem;margin-bottom:4px}
+.term span{font-size:.97rem;color:var(--muted)}
+.term.gold{background:var(--gold-soft)}
+.term.gold b{color:var(--gold-text)}
+
+/* ---------- reto ---------- */
+.quiz{background:var(--surface);border-radius:var(--r);padding:clamp(18px,3.4vw,30px);margin:0 0 18px;box-shadow:var(--shadow)}
+.quiz-head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:6px}
+.quiz-head h3{font-size:1.4rem;font-weight:800}
+.quiz-head .need{font:600 .92rem var(--f-body);padding:5px 12px;border-radius:999px;background:var(--gold-soft);color:var(--ink)}
+.q-block{padding:18px 0;border-top:1px solid var(--line)}
+.q-block:first-of-type{border-top:0}
+.q-text{font-weight:700;margin:0 0 12px;font-size:1.06rem}
+.q-opts{display:grid;gap:10px}
+@media (min-width:720px){.q-opts{grid-template-columns:1fr 1fr}}
+.opt{display:flex;gap:12px;align-items:center;text-align:left;border:0;border-radius:14px;padding:12px 14px;background:var(--surface-2);cursor:pointer;font-size:1rem;color:var(--ink);box-shadow:inset 0 0 0 2px transparent;transition:transform 160ms var(--ease-out),background-color 160ms ease,box-shadow 160ms ease}
+.opt:active:not(:disabled){transform:scale(.98)}
+.opt .letter-b{flex:none;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:var(--surface);color:var(--brand);font:800 .9rem var(--f-display);box-shadow:var(--shadow);transition:background-color 160ms ease,color 160ms ease}
+.opt[data-picked="true"]{background:var(--forest-dim);box-shadow:inset 0 0 0 2px var(--brand)}
+.opt[data-picked="true"] .letter-b{background:var(--brand);color:var(--brand-ink)}
+.opt:disabled{cursor:default}
+.opt[data-reveal="correct"]{background:var(--forest-dim);box-shadow:inset 0 0 0 2px var(--brand);font-weight:700}
+.opt[data-reveal="correct"] .letter-b{background:var(--brand);color:var(--brand-ink)}
+.opt[data-reveal="wrong"]{background:var(--red-soft);box-shadow:inset 0 0 0 2px var(--red)}
+.opt[data-reveal="wrong"] .letter-b{background:var(--red);color:var(--red-ink)}
+@media (hover:hover) and (pointer:fine){.opt:not(:disabled):not([data-picked="true"]):hover{background:var(--tint)}}
+.q-explain{display:none;margin-top:12px;font-size:.98rem;background:var(--surface-2);padding:12px 16px;border-radius:var(--r-sm)}
 .q-explain.show{display:block}
-.quiz-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px;align-items:center}
-.quiz-result{font-size:.86rem;color:var(--muted)}
+.q-explain b{color:var(--brand)}
+.q-explain.bad b{color:var(--red)}
+.quiz-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px;align-items:center}
+.quiz-result{font-size:1rem;color:var(--muted)}
+.quiz-result.pass{color:var(--ink);font-weight:700}
+.next-box{background:var(--gold-soft);border-radius:var(--r-sm);padding:14px 16px;margin-top:16px}
 
-/* ---------- punnett ---------- */
-.punnett-wrap{overflow-x:auto}
-table.punnett{border-collapse:collapse;margin:0 auto;font-family:'Space Mono',monospace}
-table.punnett th,table.punnett td{
-  border:1px solid var(--line);min-width:72px;height:52px;text-align:center;
-  font-size:.86rem;padding:4px;
-}
-table.punnett th{background:var(--surface-3);color:var(--forest)}
-table.punnett td.corner{background:var(--surface-3)}
-table.punnett td.cell{
-  background:var(--surface-2);cursor:pointer;color:var(--muted);transition:background .15s,color .15s;
-}
-table.punnett td.cell[data-revealed="true"]{background:var(--forest-dim);color:var(--ink);cursor:default;font-weight:600}
-.punnett-hint{font-size:.76rem;color:var(--muted);text-align:center;margin-top:8px}
+/* ---------- Punnett ---------- */
+.punnett-wrap{overflow-x:auto;margin-top:16px}
+table.punnett{border-collapse:separate;border-spacing:8px;margin:0 auto;font-family:var(--f-mono)}
+table.punnett th,table.punnett td{min-width:84px;height:60px;text-align:center;font-size:1rem;padding:4px;border-radius:12px}
+table.punnett th{background:var(--field);color:var(--field-ink);font-weight:700}
+table.punnett td.corner{background:transparent}
+table.punnett td.cell{background:var(--surface-2);cursor:pointer;color:var(--muted);box-shadow:inset 0 0 0 2px var(--line);transition:transform 160ms var(--ease-out),background-color 200ms ease}
+table.punnett td.cell:not([data-revealed="true"])::after{content:"?";font:800 1.2rem var(--f-display);opacity:.55}
+table.punnett td.cell:active{transform:scale(.95)}
+table.punnett td.cell[data-revealed="true"]{background:var(--gold-soft);color:var(--ink);cursor:default;font-weight:700;box-shadow:none;animation:pop 260ms var(--ease-out)}
+@keyframes pop{from{transform:scale(.85)}to{transform:none}}
+@media (hover:hover) and (pointer:fine){table.punnett td.cell:not([data-revealed="true"]):hover{background:var(--tint)}}
+.punnett-hint{font-size:.95rem;color:var(--muted);text-align:center;margin-top:8px !important;max-width:none !important}
 
-/* ---------- pedigree ---------- */
-.pedigree-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--surface-2);padding:10px}
-.pedigree-wrap svg{display:block;margin:0 auto}
+/* ---------- pedigrí ---------- */
+.pedigree-wrap{overflow-x:auto;border-radius:var(--r-sm);background:var(--surface-2);padding:10px;margin-top:16px}
+.pedigree-wrap svg{display:block;margin:0 auto;min-width:520px}
 .ped-node{cursor:pointer}
-.ped-node rect,.ped-node circle{stroke:var(--ink);stroke-width:2.2}
-.ped-node text{font-family:'Lexend',sans-serif;fill:var(--ink)}
-.ped-legend{display:flex;flex-wrap:wrap;gap:14px;font-size:.76rem;color:var(--muted);margin-top:10px;justify-content:center}
+.ped-node rect,.ped-node circle{stroke:var(--ink);stroke-width:2.2;transition:stroke-width 160ms ease}
+.ped-node.sel rect,.ped-node.sel circle{stroke:var(--gold);stroke-width:4}
+.ped-node text{font-family:var(--f-body);font-weight:600;fill:var(--ink)}
+.ped-legend{display:flex;flex-wrap:wrap;gap:16px;font-size:.92rem;color:var(--muted);margin-top:12px;justify-content:center}
 .ped-legend span{display:inline-flex;align-items:center;gap:6px}
-.ped-info{
-  border:1px solid var(--line);border-radius:10px;background:var(--surface);padding:14px 16px;
-  margin-top:12px;min-height:64px;font-size:.88rem;box-shadow:var(--shadow);
-}
-.ped-info b{color:var(--forest)}
+.ped-info{border-radius:var(--r-sm);background:var(--gold-soft);padding:14px 16px;margin-top:14px;min-height:64px;font-size:1rem}
+.ped-info b{color:var(--ink);font-family:var(--f-display)}
 
-/* ---------- buttons ---------- */
-.btn{
-  display:inline-flex;align-items:center;gap:8px;border-radius:8px;border:1px solid var(--forest);
-  background:var(--forest);color:var(--forest-ink);padding:10px 16px;font-size:.86rem;font-weight:600;
-  cursor:pointer;text-decoration:none;
-}
-.btn.secondary{background:transparent;color:var(--forest)}
+/* ---------- botones ---------- */
+.btn{display:inline-flex;align-items:center;gap:8px;font:700 1rem var(--f-body);background:var(--brand);color:var(--brand-ink);border:0;border-radius:999px;padding:12px 22px;cursor:pointer;text-decoration:none;transition:transform 160ms var(--ease-out),background-color 160ms ease,box-shadow 160ms ease}
+.btn svg{width:18px;height:18px}
+.btn:active{transform:scale(.97)}
+.btn.sun{background:var(--sun);color:#14231b}
+.btn.secondary{background:transparent;color:var(--brand);box-shadow:inset 0 0 0 2px var(--brand)}
 .btn[disabled]{opacity:.5;cursor:not-allowed}
-.btn.ghost{background:transparent;border-color:var(--line);color:var(--muted)}
-
-/* ---------- form CTA (external, placeholder) ---------- */
-.form-cta{
-  border:2px dashed var(--gold);border-radius:12px;padding:18px 20px;margin:20px 0;
-  background:color-mix(in srgb, var(--gold) 8%, var(--surface));
+@media (hover:hover) and (pointer:fine){
+  .btn:hover{box-shadow:var(--shadow-up)}
+  .btn.secondary:hover{background:var(--tint);box-shadow:inset 0 0 0 2px var(--brand)}
 }
-.form-cta .tag{
-  font-family:'Space Mono',monospace;font-size:.68rem;letter-spacing:.06em;color:var(--gold);
-  text-transform:uppercase;margin-bottom:6px;display:block;
-}
-.form-cta p{margin:4px 0 12px;font-size:.86rem;color:var(--muted)}
 
-/* ---------- lock notice ---------- */
-.locked-view{border:1px dashed var(--line);border-radius:12px;padding:40px 20px;text-align:center;color:var(--muted)}
+/* ---------- cierre ---------- */
+.final-stamp{display:none;text-align:center;padding:clamp(24px,5vw,40px) 20px;border-radius:24px;margin:0 0 18px;background:var(--field);color:var(--field-ink);box-shadow:var(--shadow-up)}
+.final-stamp.show{display:block;animation:rise 420ms var(--ease-out) both}
+.final-stamp .seal{width:72px;height:72px;margin:0 auto 12px;border-radius:50%;display:grid;place-items:center;background:var(--sun);color:#14231b}
+.final-stamp .seal svg{width:38px;height:38px}
+.final-stamp .big{font:800 clamp(1.8rem,4vw,2.4rem) var(--f-display);letter-spacing:-.02em}
+.final-stamp p{margin:8px auto 18px;max-width:46ch;opacity:.92}
+.world{background:var(--gold-soft);border-radius:var(--r);padding:clamp(18px,3.4vw,28px)}
+.world h3{font-size:1.3rem;margin-bottom:8px}
+.world p{line-height:1.65;max-width:70ch}
 
-/* ---------- footer / real world box ---------- */
-.sidebar-box{border:1px solid var(--line);border-radius:12px;background:var(--surface-2);padding:18px 20px;margin:20px 0}
-.sidebar-box h3{color:var(--gold);font-size:.92rem;margin:0 0 8px}
-.sidebar-box p{font-size:.86rem;color:var(--muted);line-height:1.6;margin:0}
-.final-stamp{
-  text-align:center;padding:30px 20px;border:3px double var(--forest);border-radius:14px;margin:20px 0;
-  display:none;background:var(--forest-dim);
-}
-.final-stamp.show{display:block}
-.final-stamp .big{font-family:'Special Elite',monospace;font-size:1.6rem;color:var(--forest);letter-spacing:.04em}
-
-footer.credits{margin-top:40px;color:var(--muted);font-size:.76rem;text-align:center}
+footer.credits{margin-top:40px;padding:28px 0 calc(28px + env(safe-area-inset-bottom,0px));background:var(--field);color:var(--field-ink)}
+footer.credits .wrap{display:flex;flex-wrap:wrap;gap:14px 24px;align-items:center;justify-content:space-between}
+footer.credits p{font-size:.95rem;opacity:.9;max-width:62ch}
 
 @media (max-width:560px){
-  .case-id{margin-left:0;text-align:left}
-  table.punnett th,table.punnett td{min-width:58px;height:44px;font-size:.74rem}
+  table.punnett th,table.punnett td{min-width:62px;height:50px;font-size:.88rem}
+  table.punnett{border-spacing:6px}
+  .guide svg{width:64px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:1ms !important;animation-iteration-count:1 !important;transition-duration:1ms !important}
 }
 </style>
 </head>
 <body>
-<div class="shell">
 
-  <header class="letterhead">
-    <div class="badge-mark">ADG</div>
-    <div class="names">
-      <h1>Agencia de Detectives Genéticos</h1>
-      <p class="sub">División de Herencia · Caso activo: familia Osorio–Rincón</p>
+<header class="top">
+  <div class="wrap bar">
+    <a class="back" href="index.html#unidad"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Portafolio</a>
+    <div class="agency">
+      <div class="badge-mark" aria-hidden="true">ADG</div>
+      <div><b>Agencia de Detectives Genéticos</b><span>División de Herencia · Expediente n.º 1138-H</span></div>
     </div>
-    <div class="case-id mono">EXPEDIENTE N.º 1138-H<br>ESTADO: <span id="case-status">EN INVESTIGACIÓN</span></div>
-  </header>
-
-  <nav class="tabs" id="tabs" role="tablist" aria-label="Expedientes del caso"></nav>
-  <div class="lock-msg" id="lock-msg" aria-live="polite" style="display:none"></div>
-  <div class="board">
-    <h2 style="margin:0 0 4px;font-size:.95rem;color:var(--forest)">Tablero del caso</h2>
-    <p style="margin:0;font-size:.78rem;color:var(--muted)">Resuelve cada expediente para desbloquear el siguiente. Puedes reintentar las veces que necesites.</p>
-    <div class="stamps" id="stamps"></div>
+    <span class="status" id="case-status" role="status">En investigación</span>
   </div>
+</header>
+
+<main class="wrap">
+
+  <section class="case-hero" aria-labelledby="case-title">
+    <h1 id="case-title">El misterio de Mateo: ¿de dónde salió la hemofilia?</h1>
+    <p class="sub">Caso activo de la familia Osorio–Rincón. Resuelve cada expediente para desbloquear el siguiente; puedes reintentar las veces que necesites.</p>
+    <div class="meter">
+      <div class="meter-top"><span>Tu avance</span><span id="meter-txt"><b>0</b> de 5 expedientes resueltos</span></div>
+      <div class="meter-bar" role="progressbar" aria-label="Expedientes resueltos" aria-valuemin="0" aria-valuemax="5" aria-valuenow="0" id="meter"><i id="meter-fill"></i></div>
+    </div>
+  </section>
+
+  <nav class="steps" id="tabs" aria-label="Expedientes del caso"></nav>
+  <div class="lock-msg" id="lock-msg" aria-live="polite" style="display:none"></div>
 
   <!-- ============== INTRO ============== -->
-  <section class="view" id="view-intro">
-    <div class="intro-art">
-      <div class="case-note">
-        <p><b>De:</b> Dra. Luz Amparo Cabrera, Hospital Regional de Saladoblanco<br>
-        <b>Para:</b> Agente en formación (tú)<br>
-        <b>Asunto:</b> Caso del pequeño Mateo</p>
-        <p>Mateo Rincón Osorio, de 2 años, llegó a urgencias con un sangrado que no paraba de detenerse tras una caída leve en el patio de su casa. Los exámenes confirmaron <b>hemofilia</b>: su sangre tarda mucho más de lo normal en coagular.</p>
-        <p>Su papá, Pablo, no tiene la condición. Su mamá, Camila, tampoco presenta síntomas. La familia está confundida: <i>"¿de dónde salió esto, si ninguno de los dos la tiene?"</i></p>
-        <p>Vamos a necesitar que investigues el expediente genético completo de la familia: su vocabulario, las reglas de la herencia, el cromosoma responsable y el árbol familiar. Al final, tú darás el veredicto: <b>qué probabilidad hay de que un futuro hermano o hermana de Mateo nazca también con hemofilia</b>.</p>
-        <p style="margin-bottom:0">Bienvenido al caso, agente.</p>
-      </div>
+  <section class="view" id="view-intro" aria-label="Briefing">
+    <div class="guide">
+      <svg viewBox="0 0 150 165" aria-hidden="true" focusable="false">
+        <path d="M55 120 L48 145" stroke="var(--brand)" stroke-width="6" stroke-linecap="round" fill="none"/>
+        <path d="M85 120 L92 145" stroke="var(--brand)" stroke-width="6" stroke-linecap="round" fill="none"/>
+        <ellipse cx="46" cy="148" rx="8" ry="4" fill="var(--brand)"/>
+        <ellipse cx="94" cy="148" rx="8" ry="4" fill="var(--brand)"/>
+        <path d="M35 90 Q10 95 8 75" stroke="var(--gold)" stroke-width="6" stroke-linecap="round" fill="none"/>
+        <path d="M105 90 Q130 95 132 75" stroke="var(--gold)" stroke-width="6" stroke-linecap="round" fill="none"/>
+        <line x1="103" y1="103" x2="135" y2="140" stroke="var(--gold)" stroke-width="12" stroke-linecap="round"/>
+        <circle cx="70" cy="70" r="48" fill="var(--surface)" stroke="var(--gold)" stroke-width="8"/>
+        <path d="M55 40 Q70 55 55 70 Q70 85 55 100" fill="none" stroke="var(--brand)" stroke-width="2.5"/>
+        <path d="M85 40 Q70 55 85 70 Q70 85 85 100" fill="none" stroke="var(--brand)" stroke-width="2.5"/>
+        <line x1="58" y1="47" x2="82" y2="47" stroke="var(--brand)" stroke-width="2"/>
+        <line x1="58" y1="70" x2="82" y2="70" stroke="var(--brand)" stroke-width="2"/>
+        <line x1="58" y1="93" x2="82" y2="93" stroke="var(--brand)" stroke-width="2"/>
+        <circle cx="58" cy="60" r="5" fill="#16241d"/>
+        <circle cx="82" cy="60" r="5" fill="#16241d"/>
+        <circle cx="59.5" cy="58" r="1.6" fill="#fff"/>
+        <circle cx="83.5" cy="58" r="1.6" fill="#fff"/>
+        <path d="M58 82 Q70 92 82 82" stroke="#16241d" stroke-width="3" stroke-linecap="round" fill="none"/>
+      </svg>
+      <p class="bubble"><b>¡Bienvenido, agente!</b> Llegó un mensaje urgente del hospital. Léelo con calma: ahí está la pregunta que vas a responder al final del caso.</p>
     </div>
-    <div style="text-align:center">
-      <button class="btn" onclick="goTo('ex1')">Abrir Expediente 1 →</button>
+
+    <article class="letter">
+      <div class="letter-head">
+        <h2>Mensaje urgente del hospital</h2>
+        <span><b>De:</b> Dra. Luz Amparo Cabrera, Hospital Regional de Saladoblanco</span>
+        <span><b>Para:</b> Agente en formación (tú)</span>
+        <span><b>Asunto:</b> Caso del pequeño Mateo</span>
+      </div>
+      <div class="letter-body">
+        <p>Mateo Rincón Osorio, de 2 años, llegó a urgencias con un sangrado que no se detenía tras una caída leve en el patio de su casa. Los exámenes confirmaron <b>hemofilia</b>: su sangre tarda mucho más de lo normal en coagular.</p>
+        <p>Su papá, Pablo, no tiene la condición. Su mamá, Camila, tampoco presenta síntomas. La familia está confundida: <i>"¿de dónde salió esto, si ninguno de los dos la tiene?"</i></p>
+        <p>Necesitamos que investigues el expediente genético completo de la familia: su vocabulario, las reglas de la herencia, el cromosoma responsable y el árbol familiar.</p>
+        <p class="goal">Al final darás el veredicto: <b>¿qué probabilidad hay de que un futuro hermano o hermana de Mateo nazca también con hemofilia?</b></p>
+      </div>
+    </article>
+
+    <div class="card">
+      <h2>Así funciona cada expediente</h2>
+      <ol class="how">
+        <li><span class="n">1</span><span><b>Lee la pista</b><span>Cada expediente explica un tema con ejemplos y dibujos.</span></span></li>
+        <li><span class="n">2</span><span><b>Investiga</b><span>Toca las casillas del cuadro y las personas del árbol para descubrir información.</span></span></li>
+        <li><span class="n">3</span><span><b>Supera el reto</b><span>Responde las preguntas. Con el puntaje mínimo se abre el siguiente expediente.</span></span></li>
+      </ol>
+    </div>
+
+    <div class="center">
+      <button class="btn sun" type="button" onclick="goTo('ex1')">Abrir el Expediente 1 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
     </div>
   </section>
 
   <!-- ============== EXPEDIENTE 1: VOCABULARIO ============== -->
-  <section class="view" id="view-ex1">
-    <div class="capsule">
-      <h2><span class="num">01</span>El código oculto</h2>
-      <p>Antes de leer el expediente de los Osorio, necesitas dominar el vocabulario básico de la genética. Cada célula guarda el ADN, una larguísima instrucción enrollada en los <b>cromosomas</b>. Dentro de un cromosoma, un <b>gen</b> es el fragmento que guarda la instrucción para una característica concreta &mdash;por ejemplo, si la sangre coagula bien o no.</p>
+  <section class="view" id="view-ex1" aria-label="Expediente 1">
+    <div class="card">
+      <h2><span class="num">1</span>El código oculto</h2>
+      <p>Antes de leer el expediente de los Osorio, necesitas dominar el vocabulario básico de la genética. Cada célula guarda el ADN, una larguísima instrucción enrollada en los <b>cromosomas</b>. Dentro de un cromosoma, un <b>gen</b> es el fragmento que guarda la instrucción para una característica concreta: por ejemplo, si la sangre coagula bien o no.</p>
       <p>Cada gen puede tener distintas "versiones": esas versiones son los <b>alelos</b>. Una persona hereda un alelo de su mamá y otro de su papá.</p>
       <div class="diagram">
         <svg viewBox="0 0 560 160" width="100%" role="img" aria-label="Diagrama de cromosoma, gen y alelos">
           <defs>
-            <style>.dlabel{font:600 12px Lexend,sans-serif;fill:var(--muted)}.dval{font:700 13px 'Space Mono',monospace}</style>
+            <style>.dlabel{font:600 13px 'Source Sans 3',sans-serif;fill:var(--muted)}.dval{font:700 13px 'Space Mono',monospace}</style>
           </defs>
-          <!-- chromosome -->
           <rect x="20" y="55" width="26" height="70" rx="13" fill="var(--surface-3)" stroke="var(--ink)" stroke-width="2"/>
           <text x="33" y="142" text-anchor="middle" class="dlabel">cromosoma</text>
           <line x1="46" y1="90" x2="150" y2="40" stroke="var(--muted)" stroke-width="1.4" stroke-dasharray="3 3"/>
-          <!-- zoom gene -->
-          <rect x="150" y="15" width="140" height="50" rx="8" fill="var(--forest-dim)" stroke="var(--forest)" stroke-width="2"/>
+          <rect x="150" y="15" width="140" height="50" rx="12" fill="var(--forest-dim)" stroke="var(--forest)" stroke-width="2"/>
           <text x="220" y="45" text-anchor="middle" class="dval" fill="var(--forest)">GEN "coagulación"</text>
           <line x1="290" y1="40" x2="360" y2="40" stroke="var(--muted)" stroke-width="1.4" stroke-dasharray="3 3"/>
-          <!-- two alleles -->
-          <rect x="360" y="10" width="180" height="40" rx="8" fill="var(--surface)" stroke="var(--gold)" stroke-width="2"/>
-          <text x="450" y="35" text-anchor="middle" class="dval" fill="var(--gold)">alelo: versión A</text>
-          <rect x="360" y="60" width="180" height="40" rx="8" fill="var(--surface)" stroke="var(--red)" stroke-width="2"/>
+          <rect x="360" y="10" width="180" height="40" rx="12" fill="var(--surface)" stroke="var(--gold)" stroke-width="2"/>
+          <text x="450" y="35" text-anchor="middle" class="dval" fill="var(--gold-text)">alelo: versión A</text>
+          <rect x="360" y="60" width="180" height="40" rx="12" fill="var(--surface)" stroke="var(--red)" stroke-width="2"/>
           <text x="450" y="85" text-anchor="middle" class="dval" fill="var(--red)">alelo: versión B</text>
-          <text x="450" y="118" text-anchor="middle" class="dlabel">un alelo de mamá, otro de papá</text>
+          <text x="450" y="122" text-anchor="middle" class="dlabel">un alelo de mamá, otro de papá</text>
         </svg>
       </div>
       <div class="term-grid">
-        <div class="term"><b>Genotipo</b><span>La combinación exacta de alelos que tiene una persona &mdash;lo escrito en su ADN.</span></div>
-        <div class="term"><b>Fenotipo</b><span>Cómo se expresa ese genotipo &mdash;lo que se ve o lo que ocurre en el cuerpo.</span></div>
+        <div class="term"><b>Genotipo</b><span>La combinación exacta de alelos que tiene una persona: lo escrito en su ADN.</span></div>
+        <div class="term"><b>Fenotipo</b><span>Cómo se expresa ese genotipo: lo que se ve o lo que ocurre en el cuerpo.</span></div>
         <div class="term"><b>Dominante</b><span>Se manifiesta con una sola copia del alelo, aunque la otra sea distinta.</span></div>
         <div class="term"><b>Recesivo</b><span>Solo se manifiesta si no hay una copia dominante que lo tape.</span></div>
       </div>
@@ -312,93 +358,104 @@ footer.credits{margin-top:40px;color:var(--muted);font-size:.76rem;text-align:ce
   </section>
 
   <!-- ============== EXPEDIENTE 2: MENDEL + PUNNETT ============== -->
-  <section class="view" id="view-ex2">
-    <div class="capsule">
-      <h2><span class="num">02</span>Las reglas de Mendel</h2>
-      <p>Gregor Mendel descubrió las reglas de la herencia cruzando miles de plantas de arveja. Vamos a repasar su herramienta más famosa &mdash;el <b>cuadro de Punnett</b>&mdash; con uno de sus propios ejemplos: el color de la semilla.</p>
+  <section class="view" id="view-ex2" aria-label="Expediente 2">
+    <div class="card">
+      <h2><span class="num">2</span>Las reglas de Mendel</h2>
+      <p>Gregor Mendel descubrió las reglas de la herencia cruzando miles de plantas de arveja. Vamos a repasar su herramienta más famosa, el <b>cuadro de Punnett</b>, con uno de sus propios ejemplos: el color de la semilla.</p>
       <p>El alelo <b>A</b> (amarillo) es dominante sobre <b>a</b> (verde). Si cruzamos dos plantas <span class="mono">Aa</span> (amarillas, pero portadoras del alelo verde), así se reparten los alelos en la descendencia:</p>
       <div class="punnett-wrap">
         <table class="punnett" id="punnett-ex2" aria-label="Cuadro de Punnett Aa por Aa"></table>
       </div>
       <p class="punnett-hint">Toca cada casilla para revelar la combinación.</p>
-      <p>Este mismo cuadro &mdash;cambiando las letras por cromosomas X e Y&mdash; es exactamente lo que vamos a usar en el Expediente 3 para investigar la hemofilia.</p>
+      <p>Este mismo cuadro, cambiando las letras por cromosomas X e Y, es exactamente lo que vamos a usar en el Expediente 3 para investigar la hemofilia.</p>
     </div>
     <div class="quiz" id="quiz-ex2"></div>
   </section>
 
   <!-- ============== EXPEDIENTE 3: LIGADO AL SEXO ============== -->
-  <section class="view" id="view-ex3">
-    <div class="capsule">
-      <h2><span class="num">03</span>El cromosoma clave</h2>
+  <section class="view" id="view-ex3" aria-label="Expediente 3">
+    <div class="card">
+      <h2><span class="num">3</span>El cromosoma clave</h2>
       <p>Los humanos tenemos 23 pares de cromosomas. El último par determina el sexo: <span class="mono">XX</span> en las mujeres, <span class="mono">XY</span> en los hombres. El gen de la coagulación que falla en la hemofilia está en el <b>cromosoma X</b>.</p>
-      <p>Usamos <span class="mono">X<sup>H</sup></span> para el alelo normal y <span class="mono">X<sup>h</sup></span> para el alelo de hemofilia (recesivo). Como las mujeres tienen dos cromosomas X, necesitan <b>dos</b> copias de X<sup>h</sup> para estar afectadas &mdash;con una sola copia son <b>portadoras</b>, casi siempre sin síntomas. Los hombres solo tienen un X: con <b>una sola copia</b> de X<sup>h</sup> ya están afectados, porque no tienen un segundo X que lo tape.</p>
+      <p>Usamos <span class="mono">X<sup>H</sup></span> para el alelo normal y <span class="mono">X<sup>h</sup></span> para el alelo de hemofilia (recesivo). Como las mujeres tienen dos cromosomas X, necesitan <b>dos</b> copias de X<sup>h</sup> para estar afectadas; con una sola copia son <b>portadoras</b>, casi siempre sin síntomas. Los hombres solo tienen un X: con <b>una sola copia</b> de X<sup>h</sup> ya están afectados, porque no tienen un segundo X que lo tape.</p>
       <p>Cruce clave: una madre portadora (<span class="mono">X<sup>H</sup>X<sup>h</sup></span>) con un padre sano (<span class="mono">X<sup>H</sup>Y</span>):</p>
       <div class="punnett-wrap">
         <table class="punnett" id="punnett-ex3" aria-label="Cuadro de Punnett madre portadora por padre sano"></table>
       </div>
       <p class="punnett-hint">Toca cada casilla para revelar la combinación.</p>
       <div class="term-grid">
-        <div class="term"><b>Regla de oro n.º 1</b><span>Un padre afectado NUNCA transmite hemofilia a sus hijos varones (ellos reciben su Y, no su X).</span></div>
-        <div class="term"><b>Regla de oro n.º 2</b><span>Un padre afectado SIEMPRE transmite el alelo a todas sus hijas (ellas reciben su único X).</span></div>
+        <div class="term gold"><b>Regla de oro n.º 1</b><span>Un padre afectado NUNCA transmite hemofilia a sus hijos varones (ellos reciben su Y, no su X).</span></div>
+        <div class="term gold"><b>Regla de oro n.º 2</b><span>Un padre afectado SIEMPRE transmite el alelo a todas sus hijas (ellas reciben su único X).</span></div>
       </div>
     </div>
     <div class="quiz" id="quiz-ex3"></div>
   </section>
 
   <!-- ============== EXPEDIENTE 4: PEDIGRÍ ============== -->
-  <section class="view" id="view-ex4">
-    <div class="capsule">
-      <h2><span class="num">04</span>El árbol genealógico</h2>
+  <section class="view" id="view-ex4" aria-label="Expediente 4">
+    <div class="card">
+      <h2><span class="num">4</span>El árbol genealógico</h2>
       <p>Con las reglas claras, es hora de leer el expediente familiar completo. Toca cada persona del árbol para ver su información. Dos personas tienen un signo de interrogación: ese es el misterio que tienes que resolver con lo que ya sabes.</p>
       <div class="pedigree-wrap">
-        <svg id="pedigree-svg" viewBox="0 0 760 640" width="100%" role="img" aria-label="Árbol genealógico de la familia Paredes-Osorio-Rincón"></svg>
+        <svg id="pedigree-svg" viewBox="10 20 560 590" width="100%" role="img" aria-label="Árbol genealógico de la familia Paredes-Osorio-Rincón"></svg>
       </div>
       <div class="ped-legend">
-        <span><svg width="16" height="16"><rect x="1" y="1" width="14" height="14" fill="var(--surface)" stroke="var(--ink)" stroke-width="2"/></svg> hombre</span>
-        <span><svg width="16" height="16"><circle cx="8" cy="8" r="7" fill="var(--surface)" stroke="var(--ink)" stroke-width="2"/></svg> mujer</span>
-        <span><svg width="16" height="16"><rect x="1" y="1" width="14" height="14" fill="var(--red)" stroke="var(--ink)" stroke-width="2"/></svg> afectado/a</span>
-        <span><svg width="16" height="16"><circle cx="8" cy="8" r="7" fill="var(--surface)" stroke="var(--ink)" stroke-width="2"/><circle cx="8" cy="8" r="3" fill="var(--gold)"/></svg> portadora (confirmada)</span>
-        <span><svg width="16" height="16"><circle cx="8" cy="8" r="7" fill="var(--surface)" stroke="var(--ink)" stroke-width="2"/><text x="8" y="11.5" text-anchor="middle" font-size="9" fill="var(--muted)">?</text></svg> estado por investigar</span>
+        <span><svg width="16" height="16" aria-hidden="true"><rect x="1" y="1" width="14" height="14" fill="var(--surface)" stroke="var(--ink)" stroke-width="2"/></svg> hombre</span>
+        <span><svg width="16" height="16" aria-hidden="true"><circle cx="8" cy="8" r="7" fill="var(--surface)" stroke="var(--ink)" stroke-width="2"/></svg> mujer</span>
+        <span><svg width="16" height="16" aria-hidden="true"><rect x="1" y="1" width="14" height="14" fill="var(--red)" stroke="var(--ink)" stroke-width="2"/></svg> afectado/a</span>
+        <span><svg width="16" height="16" aria-hidden="true"><circle cx="8" cy="8" r="7" fill="var(--surface)" stroke="var(--ink)" stroke-width="2"/><circle cx="8" cy="8" r="3" fill="var(--gold)"/></svg> portadora (confirmada)</span>
+        <span><svg width="16" height="16" aria-hidden="true"><circle cx="8" cy="8" r="7" fill="var(--surface)" stroke="var(--ink)" stroke-width="2"/><text x="8" y="11.5" text-anchor="middle" font-size="9" fill="var(--muted)">?</text></svg> estado por investigar</span>
       </div>
-      <div class="ped-info" id="ped-info">Toca a cualquier integrante del árbol para ver su expediente individual.</div>
+      <div class="ped-info" id="ped-info" aria-live="polite">Toca a cualquier integrante del árbol para ver su expediente individual.</div>
     </div>
     <div class="quiz" id="quiz-ex4"></div>
   </section>
 
   <!-- ============== VEREDICTO FINAL ============== -->
-  <section class="view" id="view-final">
-    <div class="capsule">
-      <h2><span class="num">05</span>El veredicto</h2>
-      <p>Con el expediente completo, ya sabemos que <b>Camila es portadora</b> (<span class="mono">X<sup>H</sup>X<sup>h</sup></span>) &mdash;lo confirma el propio caso de Mateo&mdash; y que <b>Pablo no está afectado</b> (<span class="mono">X<sup>H</sup>Y</span>). La familia quiere saber qué pueden esperar si Camila tiene otro hijo o hija.</p>
+  <section class="view" id="view-final" aria-label="Veredicto">
+    <div class="card">
+      <h2><span class="num">5</span>El veredicto</h2>
+      <p>Con el expediente completo, ya sabemos que <b>Camila es portadora</b> (<span class="mono">X<sup>H</sup>X<sup>h</sup></span>), lo confirma el propio caso de Mateo, y que <b>Pablo no está afectado</b> (<span class="mono">X<sup>H</sup>Y</span>). La familia quiere saber qué pueden esperar si Camila tiene otro hijo o hija.</p>
       <div class="punnett-wrap">
         <table class="punnett" id="punnett-final" aria-label="Cuadro de Punnett Camila por Pablo"></table>
       </div>
-      <p class="punnett-hint">Este es el mismo cruce del Expediente 3: úsalo para responder el veredicto.</p>
+      <p class="punnett-hint">Es el mismo cruce del Expediente 3: úsalo para responder el veredicto.</p>
     </div>
     <div class="quiz" id="quiz-final"></div>
 
     <div class="final-stamp" id="final-stamp">
-      <div class="big">CASO RESUELTO</div>
-      <p style="margin:8px 0 0;color:var(--muted);font-size:.88rem">Expediente 1138-H cerrado. Buen trabajo, agente.</p>
+      <div class="seal" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 9.5 18 20 6"/></svg></div>
+      <div class="big">¡Caso resuelto!</div>
+      <p>Expediente 1138-H cerrado. Buen trabajo, agente: ya puedes explicarle a la familia de Mateo cómo se hereda la hemofilia.</p>
+      <a class="btn sun" href="index.html#unidad">Volver al portafolio</a>
     </div>
 
-    <div class="sidebar-box">
+    <div class="world">
       <h3>Conexión con el mundo real</h3>
-      <p>Este patrón de herencia no es inventado: es el mismo que los científicos documentaron en el siglo XIX en la familia real británica. La reina Victoria era portadora de hemofilia, y por los matrimonios entre familias reales europeas, el alelo llegó a las casas reales de Rusia, España y Alemania. Es uno de los árboles genealógicos más estudiados en la historia de la genética humana &mdash;y sigue el mismo patrón que acabas de resolver en el caso de Mateo.</p>
+      <p>Este patrón de herencia no es inventado: es el mismo que los científicos documentaron en la familia real británica. La reina Victoria era portadora de hemofilia y, por los matrimonios entre familias reales europeas, el alelo llegó a las casas reales de Rusia, España y Alemania. Es uno de los árboles genealógicos más estudiados en la historia de la genética humana, y sigue el mismo patrón que acabas de resolver en el caso de Mateo.</p>
     </div>
   </section>
 
-  <footer class="credits">Material didáctico · Google Classroom · Ciencias Naturales, 9.º grado · Institución Educativa Municipal Misael Pastrana Borrero, Saladoblanco (Huila)</footer>
-</div>
+</main>
+
+<footer class="credits">
+  <div class="wrap">
+    <p>Material didáctico · Google Classroom · Ciencias Naturales, grado 9.º · Institución Educativa Municipal Misael Pastrana Borrero, Saladoblanco (Huila)</p>
+    <a class="btn sun" href="index.html#unidad">Volver al portafolio</a>
+  </div>
+</footer>
 
 <script>
 (function(){
 "use strict";
 
-/* ---------------- progress state ---------------- */
+var REDUCE = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ---------------- progreso ---------------- */
 var ORDER = ['intro','ex1','ex2','ex3','ex4','final'];
 var STORE_KEY = 'adg_caso_1138h_progress_v1';
 var progress = {ex1:false, ex2:false, ex3:false, ex4:false, final:false};
+var current = 'intro';
 try{
   var raw = localStorage.getItem(STORE_KEY);
   if(raw){ var saved = JSON.parse(raw); for(var k in progress){ if(saved && typeof saved[k]==='boolean') progress[k]=saved[k]; } }
@@ -415,73 +472,83 @@ function isUnlocked(id){
 }
 
 var TAB_META = {
-  intro:{label:'Briefing', n:'00'},
-  ex1:{label:'Vocabulario', n:'01'},
-  ex2:{label:'Mendel', n:'02'},
-  ex3:{label:'Ligado al X', n:'03'},
-  ex4:{label:'Pedigrí', n:'04'},
-  final:{label:'Veredicto', n:'05'}
+  intro:{label:'Inicio', n:'0'},
+  ex1:{label:'Vocabulario', n:'1'},
+  ex2:{label:'Mendel', n:'2'},
+  ex3:{label:'Ligado al X', n:'3'},
+  ex4:{label:'Pedigrí', n:'4'},
+  final:{label:'Veredicto', n:'5'}
 };
 
 var ICONS = {
-  lock:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="9" rx="1.5"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>',
-  dot:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="7"/></svg>',
-  check:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M4 12.5 9.5 18 20 6"/></svg>'
+  lock:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>',
+  check:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 9.5 18 20 6"/></svg>',
+  home:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11 12 4l8 7v8a1 1 0 0 1-1 1h-4v-6H9v6H5a1 1 0 0 1-1-1z"/></svg>'
 };
+
+/* X^H -> X con superíndice */
+function sup(s){ return String(s).replace(/X\^([Hh])/g, 'X<sup>$1</sup>'); }
 
 function renderTabs(){
   var nav = document.getElementById('tabs');
-  var stamps = document.getElementById('stamps');
-  nav.innerHTML=''; stamps.innerHTML='';
+  nav.innerHTML='';
   ORDER.forEach(function(id){
     var unlocked = isUnlocked(id);
     var done = id==='intro' ? false : !!progress[id];
-    var state = !unlocked ? 'locked' : (done ? 'done' : 'current');
+    var state = !unlocked ? 'locked' : (done ? 'done' : 'open');
     var tab = document.createElement('button');
-    tab.className='tab'; tab.type='button'; tab.setAttribute('role','tab');
+    tab.className='tab'; tab.type='button';
     tab.setAttribute('data-state', state);
-    tab.innerHTML = '<span class="n">'+TAB_META[id].n+'</span><span>'+TAB_META[id].label+'</span>'+(state==='locked'?'<span class="tab-icon">'+ICONS.lock+'</span>':(done?'<span class="tab-icon">'+ICONS.check+'</span>':''));
+    if(id===current) tab.setAttribute('aria-current','step');
+    var dot = id==='intro' ? ICONS.home : (state==='locked' ? ICONS.lock : (done ? ICONS.check : TAB_META[id].n));
+    var sr = state==='locked' ? ' (bloqueado)' : (done ? ' (resuelto)' : '');
+    tab.innerHTML = '<span class="dot" aria-hidden="true">'+dot+'</span><span>'+TAB_META[id].label+'<span style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">'+sr+'</span></span>';
     tab.addEventListener('click', function(){ goTo(id); });
     nav.appendChild(tab);
-
-    if(id!=='intro'){
-      var st = document.createElement('div');
-      st.className='stamp'; st.setAttribute('data-state', state);
-      st.innerHTML = (state==='locked'?ICONS.lock:(state==='done'?ICONS.check:ICONS.dot))+'<b>'+TAB_META[id].label+'</b><span>'+(state==='locked'?'Bloqueado':(state==='done'?'Resuelto':'En curso'))+'</span>';
-      stamps.appendChild(st);
-    }
   });
+  var solved = ['ex1','ex2','ex3','ex4','final'].filter(function(k){ return progress[k]; }).length;
+  document.getElementById('meter-txt').innerHTML = '<b>'+solved+'</b> de 5 expedientes resueltos';
+  document.getElementById('meter-fill').style.width = (solved/5*100)+'%';
+  document.getElementById('meter').setAttribute('aria-valuenow', solved);
+  var activeTab = nav.querySelector('[aria-current="step"]');
+  if(activeTab && nav.scrollWidth > nav.clientWidth){
+    nav.scrollLeft = activeTab.offsetLeft - nav.clientWidth/2 + activeTab.offsetWidth/2;
+  }
 }
 
-window.goTo = function(id){
-  if(!isUnlocked(id)){
-    flashLocked(id);
-    return;
-  }
+function setStatus(){
+  var statusEl = document.getElementById('case-status');
+  var solved = !!progress.final;
+  statusEl.textContent = solved ? 'Caso resuelto' : 'En investigación';
+  statusEl.setAttribute('data-solved', solved ? 'true' : 'false');
+}
+
+window.goTo = function(id, opts){
+  if(!isUnlocked(id)){ flashLocked(id); return; }
+  current = id;
   ORDER.forEach(function(v){
     document.getElementById('view-'+v).classList.toggle('active', v===id);
   });
+  document.getElementById('lock-msg').style.display='none';
   renderTabs();
-  var el = document.getElementById('view-'+id);
-  if(el && el.scrollIntoView) el.scrollIntoView({behavior:'smooth', block:'start'});
-  var statusEl = document.getElementById('case-status');
-  if(statusEl) statusEl.textContent = (id==='final' && progress.final) ? 'CASO RESUELTO' : 'EN INVESTIGACIÓN';
+  setStatus();
+  if(!(opts && opts.noScroll)){
+    var el = document.getElementById('view-'+id);
+    if(el && el.scrollIntoView) el.scrollIntoView({behavior: REDUCE ? 'auto' : 'smooth', block:'start'});
+  }
 };
 
 function flashLocked(id){
   var nav = document.getElementById('tabs');
-  nav.style.transition='transform .08s'; nav.style.transform='translateX(-4px)';
-  setTimeout(function(){ nav.style.transform='translateX(4px)'; }, 80);
-  setTimeout(function(){ nav.style.transform='translateX(0)'; }, 160);
-
+  if(!REDUCE){ nav.classList.remove('shake'); void nav.offsetWidth; nav.classList.add('shake'); }
   var idx = ORDER.indexOf(id);
   var prevId = idx>0 ? ORDER[idx-1] : null;
   var msg = document.getElementById('lock-msg');
   if(msg && prevId && TAB_META[prevId]){
-    msg.textContent = 'Expediente bloqueado: primero debes resolver "'+TAB_META[prevId].label+'" con el puntaje mínimo pedido (usa "Revisar respuestas" y, si te falta, dale "Reintentar").';
-    msg.style.display='block';
+    msg.innerHTML = ICONS.lock + '<span>Este expediente sigue cerrado. Primero resuelve <b>'+TAB_META[prevId].label+'</b> con el puntaje mínimo: toca "Revisar respuestas" y, si te falta, "Reintentar".</span>';
+    msg.style.display='flex';
     clearTimeout(msg._hideTimer);
-    msg._hideTimer = setTimeout(function(){ msg.style.display='none'; }, 6000);
+    msg._hideTimer = setTimeout(function(){ msg.style.display='none'; }, 7000);
   }
 }
 
@@ -494,7 +561,10 @@ var FORM_URLS = {
   'quiz-final': 'https://docs.google.com/forms/d/e/1FAIpQLSed118QS8uw8x1xV6TnYKOd--wuUJ83cf6r76WeuMHuZt0z1w/viewform'
 };
 
-/* ---------------- quiz engine ---------------- */
+var ARROW = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+var LETTERS = ['A','B','C','D','E'];
+
+/* ---------------- motor de retos ---------------- */
 function buildQuiz(containerId, cfg){
   var el = document.getElementById(containerId);
   var state = {answers:new Array(cfg.questions.length).fill(null), checked:false};
@@ -503,28 +573,28 @@ function buildQuiz(containerId, cfg){
   var nextId = (selfIdx>=0 && selfIdx<ORDER.length-1) ? ORDER[selfIdx+1] : null;
 
   function render(){
-    var html = '<div class="quiz-head"><h3>Reto evaluativo</h3><span class="need">Necesitas '+cfg.need+' de '+cfg.questions.length+' correctas para avanzar</span></div>';
+    var html = '<div class="quiz-head"><h3>Reto del expediente</h3><span class="need">Necesitas '+cfg.need+' de '+cfg.questions.length+' correctas</span></div>';
     cfg.questions.forEach(function(q, qi){
-      html += '<div class="q-block"><p class="q-text">'+(qi+1)+'. '+q.text+'</p><div class="q-opts" data-qi="'+qi+'">';
+      html += '<div class="q-block"><p class="q-text">'+(qi+1)+'. '+sup(q.text)+'</p><div class="q-opts" role="group" aria-label="Opciones de la pregunta '+(qi+1)+'" data-qi="'+qi+'">';
       q.options.forEach(function(opt, oi){
-        html += '<button type="button" class="opt" data-qi="'+qi+'" data-oi="'+oi+'">'+
-                '<svg class="mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" style="visibility:hidden"><path d="M4 12.5 9.5 18 20 6"/></svg>'+
-                '<span>'+opt+'</span></button>';
+        html += '<button type="button" class="opt" aria-pressed="false" data-qi="'+qi+'" data-oi="'+oi+'">'+
+                '<span class="letter-b" aria-hidden="true">'+LETTERS[oi]+'</span>'+
+                '<span>'+sup(opt)+'</span></button>';
       });
       html += '</div><div class="q-explain" id="'+containerId+'-explain-'+qi+'"></div></div>';
     });
     html += '<div class="quiz-actions"><button type="button" class="btn" id="'+containerId+'-check">Revisar respuestas</button>'+
             '<button type="button" class="btn secondary" id="'+containerId+'-retry" style="display:none">Reintentar</button>'+
-            '<span class="quiz-result" id="'+containerId+'-result"></span></div>';
+            '<span class="quiz-result" id="'+containerId+'-result" aria-live="polite"></span></div>';
     if(nextId && TAB_META[nextId]){
-      html += '<div class="quiz-actions" id="'+containerId+'-nextwrap" style="display:none">'+
-              '<button type="button" class="btn" id="'+containerId+'-nextbtn">Siguiente: '+TAB_META[nextId].label+' →</button>'+
-              '<span class="quiz-result">¡Expediente resuelto! Toca el botón para continuar con el siguiente.</span></div>';
+      html += '<div class="next-box" id="'+containerId+'-nextwrap" style="display:none"><div class="quiz-actions" style="margin-top:0">'+
+              '<button type="button" class="btn sun" id="'+containerId+'-nextbtn">Siguiente: '+TAB_META[nextId].label+' '+ARROW+'</button>'+
+              '<span>¡Expediente resuelto! Toca el botón para continuar.</span></div></div>';
     }
     if(FORM_URLS[containerId]){
       html += '<div class="quiz-actions" id="'+containerId+'-formwrap" style="display:none">'+
-              '<a class="btn secondary" href="'+FORM_URLS[containerId]+'" target="_blank" rel="noopener" id="'+containerId+'-formlink">Abrir tu expediente evaluado →</a>'+
-              '<span class="quiz-result">Este es el formulario oficial que tu profesor revisará. Complétalo ahora que lo dominas.</span></div>';
+              '<a class="btn secondary" href="'+FORM_URLS[containerId]+'" target="_blank" rel="noopener" id="'+containerId+'-formlink">Abrir tu expediente evaluado '+ARROW+'</a>'+
+              '<span class="quiz-result">Es el formulario oficial que tu profesor revisará. Complétalo ahora que dominas el tema.</span></div>';
     }
     el.innerHTML = html;
 
@@ -533,8 +603,9 @@ function buildQuiz(containerId, cfg){
         if(state.checked) return;
         var qi = +btn.getAttribute('data-qi');
         state.answers[qi] = +btn.getAttribute('data-oi');
-        el.querySelectorAll('.opt[data-qi="'+qi+'"]').forEach(function(b){ b.removeAttribute('data-picked'); });
+        el.querySelectorAll('.opt[data-qi="'+qi+'"]').forEach(function(b){ b.removeAttribute('data-picked'); b.setAttribute('aria-pressed','false'); });
         btn.setAttribute('data-picked','true');
+        btn.setAttribute('aria-pressed','true');
       });
     });
     document.getElementById(containerId+'-check').addEventListener('click', checkAnswers);
@@ -544,15 +615,13 @@ function buildQuiz(containerId, cfg){
       render();
     });
     var nextBtn = document.getElementById(containerId+'-nextbtn');
-    if(nextBtn){
-      nextBtn.addEventListener('click', function(){ goTo(nextId); });
-    }
+    if(nextBtn){ nextBtn.addEventListener('click', function(){ goTo(nextId); }); }
   }
 
   function checkAnswers(){
     var unanswered = state.answers.some(function(a){ return a===null; });
     var resultEl = document.getElementById(containerId+'-result');
-    if(unanswered){ resultEl.textContent = 'Responde todas las preguntas antes de revisar.'; return; }
+    if(unanswered){ resultEl.className='quiz-result'; resultEl.textContent = 'Responde todas las preguntas antes de revisar.'; return; }
     state.checked = true;
     var correctCount = 0;
     cfg.questions.forEach(function(q, qi){
@@ -562,46 +631,53 @@ function buildQuiz(containerId, cfg){
       el.querySelectorAll('.opt[data-qi="'+qi+'"]').forEach(function(b){
         var oi = +b.getAttribute('data-oi');
         b.disabled = true;
+        b.removeAttribute('data-picked');
         if(oi===q.correct) b.setAttribute('data-reveal','correct');
         else if(oi===picked) b.setAttribute('data-reveal','wrong');
       });
       var ex = document.getElementById(containerId+'-explain-'+qi);
-      ex.textContent = (isCorrect ? 'Correcto. ' : 'Casi. ') + q.explain;
+      ex.innerHTML = '<b>'+(isCorrect ? '¡Correcto! ' : 'Casi. ')+'</b>'+sup(q.explain);
+      ex.classList.toggle('bad', !isCorrect);
       ex.classList.add('show');
     });
     document.getElementById(containerId+'-check').style.display='none';
     document.getElementById(containerId+'-retry').style.display='inline-flex';
     var passed = correctCount >= cfg.need;
-    resultEl.textContent = 'Obtuviste '+correctCount+' de '+cfg.questions.length+' correctas.'+(passed?' ¡Expediente resuelto!':' Te falta reforzar algunos puntos — vuelve a intentarlo.');
+    resultEl.className = 'quiz-result' + (passed ? ' pass' : '');
+    resultEl.textContent = 'Obtuviste '+correctCount+' de '+cfg.questions.length+' correctas.'+(passed?' ¡Expediente resuelto!':' Te falta reforzar algunos puntos: lee las explicaciones y vuelve a intentarlo.');
     var formWrap = document.getElementById(containerId+'-formwrap');
     if(formWrap) formWrap.style.display = passed ? 'flex' : 'none';
     var nextWrap = document.getElementById(containerId+'-nextwrap');
-    if(nextWrap) nextWrap.style.display = passed ? 'flex' : 'none';
+    if(nextWrap) nextWrap.style.display = passed ? 'block' : 'none';
     if(passed && cfg.onPass) cfg.onPass();
   }
 
   render();
 }
 
-/* ---------------- punnett builder (reveal-on-click) ---------------- */
+/* ---------------- cuadro de Punnett (tocar para revelar) ---------------- */
 function buildPunnett(tableId, momAlleles, dadAlleles, fmt){
   var t = document.getElementById(tableId);
   var html = '<tr><td class="corner"></td>';
-  dadAlleles.forEach(function(a){ html += '<th>'+fmt(a)+'</th>'; });
+  dadAlleles.forEach(function(a){ html += '<th scope="col">'+fmt(a)+'</th>'; });
   html += '</tr>';
   momAlleles.forEach(function(m){
-    html += '<tr><th>'+fmt(m)+'</th>';
+    html += '<tr><th scope="row">'+fmt(m)+'</th>';
     dadAlleles.forEach(function(d){
-      html += '<td class="cell" data-revealed="false" data-result="'+fmt(m)+fmt(d)+'"></td>';
+      html += '<td class="cell" tabindex="0" role="button" aria-label="Casilla oculta: toca para revelar" data-revealed="false" data-result="'+fmt(m)+fmt(d)+'"></td>';
     });
     html += '</tr>';
   });
   t.innerHTML = html;
   t.querySelectorAll('td.cell').forEach(function(cell){
-    cell.addEventListener('click', function(){
+    function reveal(){
+      if(cell.getAttribute('data-revealed')==='true') return;
       cell.setAttribute('data-revealed','true');
       cell.innerHTML = cell.getAttribute('data-result');
-    });
+      cell.removeAttribute('role'); cell.removeAttribute('aria-label'); cell.removeAttribute('tabindex');
+    }
+    cell.addEventListener('click', reveal);
+    cell.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); reveal(); } });
   });
 }
 function fmtPea(a){ return a; }
@@ -616,7 +692,7 @@ buildPunnett('punnett-ex2', ['A','a'], ['A','a'], fmtPea);
 buildPunnett('punnett-ex3', ['XH','Xh'], ['XH','Y'], fmtX);
 buildPunnett('punnett-final', ['XH','Xh'], ['XH','Y'], fmtX);
 
-/* ---------------- pedigree ---------------- */
+/* ---------------- pedigrí ---------------- */
 var PEOPLE = [
   {id:'ignacio', name:'Ignacio Paredes', sex:'M', status:'affected', x:260, y:60, role:'Bisabuelo'},
   {id:'mercedes', name:'Mercedes Vargas', sex:'F', status:'unaffected', x:460, y:60, role:'Bisabuela'},
@@ -638,6 +714,7 @@ var STATUS_TEXT = {
   'carrier-hidden': '¿Portadora? Resuelve las pistas del Expediente 4 para descubrirlo.',
   'carrier-confirmed': 'Confirmada como portadora (X<sup>H</sup>X<sup>h</sup>) por el expediente familiar.'
 };
+var selectedPerson = null;
 
 function pedStatus(p){
   if(p.status==='carrier-hidden' && progress.ex4) return 'carrier-confirmed';
@@ -675,31 +752,35 @@ function drawPedigree(){
     var st = pedStatus(p);
     var fill = st==='affected' ? 'var(--red)' : 'var(--surface)';
     var shape = p.sex==='M'
-      ? '<rect x="'+(p.x-18)+'" y="'+(p.y-18)+'" width="36" height="36" fill="'+fill+'"/>'
+      ? '<rect x="'+(p.x-18)+'" y="'+(p.y-18)+'" width="36" height="36" rx="3" fill="'+fill+'"/>'
       : '<circle cx="'+p.x+'" cy="'+p.y+'" r="18" fill="'+fill+'"/>';
     var mark = '';
     if(st==='carrier-confirmed'){
-      mark = '<circle cx="'+p.x+'" cy="'+p.y+'" r="5" fill="var(--gold)"/>';
+      mark = '<circle cx="'+p.x+'" cy="'+p.y+'" r="6" fill="var(--gold)"/>';
     } else if(st==='carrier-hidden'){
-      mark = '<text x="'+p.x+'" y="'+(p.y+5)+'" text-anchor="middle" font-size="15" fill="var(--muted)" font-weight="700">?</text>';
+      mark = '<text x="'+p.x+'" y="'+(p.y+6)+'" text-anchor="middle" font-size="17" fill="var(--muted)" font-weight="800">?</text>';
     }
-    parts.push('<g class="ped-node" data-id="'+p.id+'">'+shape+mark+
-      '<text x="'+p.x+'" y="'+(p.y+34)+'" text-anchor="middle" font-size="11">'+p.name.split(' ')[0]+'</text>'+
+    parts.push('<g class="ped-node'+(p.id===selectedPerson?' sel':'')+'" data-id="'+p.id+'" tabindex="0" role="button" aria-label="'+p.name+', '+p.role+'">'+shape+mark+
+      '<text x="'+p.x+'" y="'+(p.y+38)+'" text-anchor="middle" font-size="14">'+p.name.split(' ')[0]+'</text>'+
       '</g>');
   });
 
   svg.innerHTML = parts.join('');
   svg.querySelectorAll('.ped-node').forEach(function(g){
-    g.addEventListener('click', function(){
+    function show(){
       var id = g.getAttribute('data-id');
+      selectedPerson = id;
+      svg.querySelectorAll('.ped-node').forEach(function(n){ n.classList.toggle('sel', n===g); });
       var p = PEOPLE.filter(function(x){return x.id===id;})[0];
       var st = pedStatus(p);
-      document.getElementById('ped-info').innerHTML = '<b>'+p.name+'</b> &middot; '+p.role+'<br>'+STATUS_TEXT[st];
-    });
+      document.getElementById('ped-info').innerHTML = '<b>'+p.name+'</b> · '+p.role+'<br>'+STATUS_TEXT[st];
+    }
+    g.addEventListener('click', show);
+    g.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); show(); } });
   });
 }
 
-/* ---------------- question banks ---------------- */
+/* ---------------- bancos de preguntas ---------------- */
 buildQuiz('quiz-ex1', {
   need:4,
   onPass:function(){ progress.ex1=true; saveProgress(); renderTabs(); },
@@ -719,7 +800,7 @@ buildQuiz('quiz-ex2', {
     {text:'En el cruce Aa × Aa, ¿qué proporción de la descendencia será verde (aa)?', options:['1/4','1/2','3/4','Ninguna'], correct:0, explain:'Solo la combinación aa (1 de las 4 casillas) da semilla verde.'},
     {text:'¿Qué proporción será amarilla (AA o Aa)?', options:['1/4','1/2','3/4','4/4'], correct:2, explain:'3 de las 4 combinaciones posibles llevan al menos un alelo A dominante.'},
     {text:'Si cruzamos AA (amarillo puro) × aa (verde), ¿de qué color serán TODAS las semillas?', options:['Verdes','Amarillas','Mitad y mitad','Ninguna germina'], correct:1, explain:'Todas heredan un A de un padre: con un solo alelo dominante ya se expresa amarillo.'},
-    {text:'¿Por qué el cuadro de Punnett es útil?', options:['Porque predice con certeza el fenotipo de cada hijo','Porque muestra las combinaciones posibles y sus probabilidades','Porque mide el ADN directamente','Porque solo sirve para plantas'], correct:1, explain:'El cuadro muestra probabilidades, no certezas individuales — por eso hablamos de "1 de cada 4", no de resultados garantizados.'}
+    {text:'¿Por qué el cuadro de Punnett es útil?', options:['Porque predice con certeza el fenotipo de cada hijo','Porque muestra las combinaciones posibles y sus probabilidades','Porque mide el ADN directamente','Porque solo sirve para plantas'], correct:1, explain:'El cuadro muestra probabilidades, no certezas individuales: por eso hablamos de "1 de cada 4", no de resultados garantizados.'}
   ]
 });
 
@@ -740,16 +821,17 @@ buildQuiz('quiz-ex4', {
   questions:[
     {text:'¿Por qué sabemos con certeza que Rosa Elena es portadora, aunque nunca haya tenido síntomas?', options:['Porque todas las mujeres son portadoras', 'Porque su padre Ignacio estaba afectado y todo padre afectado transmite el alelo a TODAS sus hijas', 'Porque su hijo Daniel nació sano', 'No se puede saber con certeza'], correct:1, explain:'Un padre afectado transmite su único X (con el alelo h) a cada una de sus hijas, sin excepción.'},
     {text:'¿Qué evidencia confirma que Camila es portadora?', options:['Que ella presenta síntomas leves', 'Que su hijo Mateo nació afectado, y eso solo es posible si la madre aportó el alelo h', 'Que su esposo Pablo es portador', 'Que su madre Rosa Elena tuvo síntomas'], correct:1, explain:'Pablo no está afectado, así que el alelo h de Mateo solo pudo venir de Camila: ella es portadora.'},
-    {text:'Daniel (tío de Mateo) está afectado. ¿Qué confirma esto sobre Rosa Elena?', options:['Que Rosa Elena está afectada también', 'Que Rosa Elena es portadora, porque ella tuvo que aportarle el alelo h a Daniel', 'Nada: es solo coincidencia', 'Que Manuel es portador'], correct:1, explain:'Para que un hijo varón esté afectado, la madre debe tener al menos una copia del alelo — otra confirmación de que Rosa Elena es portadora.'}
+    {text:'Daniel (tío de Mateo) está afectado. ¿Qué confirma esto sobre Rosa Elena?', options:['Que Rosa Elena está afectada también', 'Que Rosa Elena es portadora, porque ella tuvo que aportarle el alelo h a Daniel', 'Nada: es solo coincidencia', 'Que Manuel es portador'], correct:1, explain:'Para que un hijo varón esté afectado, la madre debe tener al menos una copia del alelo: otra confirmación de que Rosa Elena es portadora.'}
   ]
 });
 
 buildQuiz('quiz-final', {
   need:3,
   onPass:function(){
-    progress.final=true; saveProgress(); renderTabs();
-    document.getElementById('final-stamp').classList.add('show');
-    document.getElementById('case-status').textContent='CASO RESUELTO';
+    progress.final=true; saveProgress(); renderTabs(); setStatus();
+    var stamp = document.getElementById('final-stamp');
+    stamp.classList.add('show');
+    if(stamp.scrollIntoView) stamp.scrollIntoView({behavior: REDUCE ? 'auto' : 'smooth', block:'center'});
   },
   questions:[
     {text:'Si Camila y Pablo tienen otro hijo VARÓN, ¿qué probabilidad hay de que nazca con hemofilia?', options:['0%','25%','50%','100%'], correct:2, explain:'Es exactamente el mismo cruce del Expediente 3: 50% de los hijos varones heredan X^h Y.'},
@@ -759,10 +841,10 @@ buildQuiz('quiz-final', {
   ]
 });
 
-/* ---------------- boot ---------------- */
-renderTabs();
+/* ---------------- arranque ---------------- */
+if(progress.final) document.getElementById('final-stamp').classList.add('show');
 drawPedigree();
-goTo('intro');
+goTo('intro', {noScroll:true});
 
 })();
 </script>
