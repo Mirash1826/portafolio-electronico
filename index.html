@@ -4,102 +4,244 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap">
 <style>
 :root{
-  --bg:#f2f5f1; --surface:#ffffff; --ink:#16241d; --muted:#51625a; --line:#d5ddd6;
-  --brand:#1f5a40; --brand-ink:#ffffff; --gold:#b07d16; --gold-soft:#f5e9c8; --tint:#e4eee7;
+  --bg:#f4f6ef; --surface:#ffffff; --ink:#14231b; --muted:#4d5f55; --line:#d9e2d9;
+  --brand:#1f5a40; --brand-ink:#ffffff; --field:#174631; --field-ink:#ffffff;
+  --gold:#b07d16; --gold-text:#8a5f0a; --sun:#e8b54a; --gold-soft:#f5e9c8; --tint:#e4eee7; --leaf:#d8e8dd;
   --focus:#0b6bcb;
   --f-display:'Bricolage Grotesque','Segoe UI',system-ui,sans-serif;
   --f-body:'Source Sans 3','Segoe UI',system-ui,sans-serif;
+  --r:18px; --r-sm:12px;
+  --shadow:0 1px 2px rgba(16,40,28,.06),0 10px 28px -14px rgba(16,40,28,.22);
+  --shadow-up:0 2px 4px rgba(16,40,28,.08),0 18px 36px -16px rgba(16,40,28,.30);
+  --ease-out:cubic-bezier(.23,1,.32,1);
+  --ease-io:cubic-bezier(.77,0,.175,1);
 }
 @media (prefers-color-scheme:dark){
   :root:not([data-theme="light"]){
     color-scheme:dark;
-    --bg:#0f1a15; --surface:#16251e; --ink:#e8f0ea; --muted:#a3b5aa; --line:#2b4136;
-    --brand:#6fc79b; --brand-ink:#0d1a13; --gold:#e0b04a; --gold-soft:#3a3016; --tint:#1c3026;
+    --bg:#0f1a15; --surface:#16251e; --ink:#e8f0ea; --muted:#a9bbb0; --line:#2b4136;
+    --brand:#6fc79b; --brand-ink:#0d1a13; --field:#0b2219; --field-ink:#eef6f0;
+    --gold:#e0b04a; --gold-text:#e9c066; --sun:#e8b54a; --gold-soft:#3a3016; --tint:#1c3026; --leaf:#1f3a2c;
     --focus:#7db8ff;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 28px -14px rgba(0,0,0,.6);
+    --shadow-up:0 2px 4px rgba(0,0,0,.45),0 18px 36px -16px rgba(0,0,0,.7);
   }
 }
 :root[data-theme="dark"]{
   color-scheme:dark;
-  --bg:#0f1a15; --surface:#16251e; --ink:#e8f0ea; --muted:#a3b5aa; --line:#2b4136;
-  --brand:#6fc79b; --brand-ink:#0d1a13; --gold:#e0b04a; --gold-soft:#3a3016; --tint:#1c3026;
+  --bg:#0f1a15; --surface:#16251e; --ink:#e8f0ea; --muted:#a9bbb0; --line:#2b4136;
+  --brand:#6fc79b; --brand-ink:#0d1a13; --field:#0b2219; --field-ink:#eef6f0;
+  --gold:#e0b04a; --gold-text:#e9c066; --sun:#e8b54a; --gold-soft:#3a3016; --tint:#1c3026; --leaf:#1f3a2c;
   --focus:#7db8ff;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 28px -14px rgba(0,0,0,.6);
+  --shadow-up:0 2px 4px rgba(0,0,0,.45),0 18px 36px -16px rgba(0,0,0,.7);
 }
 *{box-sizing:border-box}
-body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:17px;line-height:1.6;margin:0}
-h1,h2,h3,h4{font-family:var(--f-display);line-height:1.15;text-wrap:balance;margin:0}
+html{scrollbar-color:var(--brand) var(--tint);-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:1.0625rem;line-height:1.6;margin:0;caret-color:var(--brand)}
+::selection{background:var(--sun);color:#14231b}
+h1,h2,h3,h4{font-family:var(--f-display);line-height:1.12;text-wrap:balance;margin:0;letter-spacing:-.01em}
 p{margin:0}
-a{color:var(--brand)}
-:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
-.wrap{max-width:1080px;margin:0 auto;padding-inline:16px}
+a{color:var(--brand);text-underline-offset:3px;text-decoration-thickness:1.5px}
+:focus-visible{outline:3px solid var(--focus);outline-offset:3px;border-radius:6px}
+.wrap{max-width:1120px;margin:0 auto;padding-inline:clamp(16px,4vw,32px)}
+button{-webkit-tap-highlight-color:transparent}
 
 /* Header + menu */
-header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;background:var(--brand);color:var(--brand-ink)}
-.bar{display:flex;align-items:center;gap:12px;padding-block:8px}
-.brand{display:flex;align-items:center;gap:10px;background:none;border:0;color:inherit;font:inherit;cursor:pointer;padding:0;text-align:left}
-.brand img{width:38px;height:38px;border-radius:50%;background:#fff;padding:2px}
-.brand b{font-family:var(--f-display);font-size:1rem;line-height:1.1;display:block}
-.brand span{font-size:.75rem;opacity:.85;display:block}
-.burger{margin-left:auto;background:transparent;border:1.5px solid currentColor;color:inherit;border-radius:8px;padding:6px 12px;font:600 .9rem var(--f-body);cursor:pointer}
-nav.menu{display:none;flex-direction:column;width:100%;padding-bottom:10px}
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;background:var(--field);color:var(--field-ink);box-shadow:0 6px 18px -12px rgba(0,0,0,.45)}
+.bar{display:flex;align-items:center;gap:12px;padding-block:10px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:12px;background:none;border:0;color:inherit;font:inherit;cursor:pointer;padding:4px 6px 4px 4px;text-align:left;border-radius:14px;transition:background-color 160ms ease}
+.brand img{width:42px;height:42px;border-radius:50%;background:#fff;padding:2px}
+.brand b{font-family:var(--f-display);font-size:1.05rem;line-height:1.1;display:block}
+.brand span{font-size:.8rem;opacity:.85;display:block}
+.burger{margin-left:auto;display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.12);border:0;color:inherit;border-radius:999px;padding:9px 16px;font:700 .95rem var(--f-body);cursor:pointer;transition:transform 160ms var(--ease-out),background-color 160ms ease}
+.burger svg{width:18px;height:18px}
+.burger:active{transform:scale(.97)}
+nav.menu{display:none;flex-direction:column;width:100%;padding-bottom:12px}
 nav.menu.open{display:flex}
-.bar{flex-wrap:wrap}
 .m-item{position:relative}
-.m-btn{width:100%;text-align:left;background:none;border:0;color:inherit;font:700 1rem var(--f-display);padding:10px 4px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(255,255,255,.18)}
-.m-btn::after{content:"\25BE";font-size:.8em;opacity:.8}
-.drop{display:none;flex-direction:column;padding:0 0 6px 12px}
+.m-btn{width:100%;text-align:left;background:none;border:0;color:inherit;font:700 1.02rem var(--f-display);padding:12px 6px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(255,255,255,.14);border-radius:0;transition:background-color 160ms ease}
+.m-btn::after{content:"";width:8px;height:8px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:translateY(-2px) rotate(45deg);opacity:.85;margin-left:8px;transition:transform 200ms var(--ease-out)}
+.m-item.open .m-btn::after{transform:translateY(2px) rotate(225deg)}
+.drop{display:none;flex-direction:column;padding:0 0 8px 12px}
 .m-item.open .drop{display:flex}
-.drop button{background:none;border:0;color:inherit;text-align:left;font:400 .95rem var(--f-body);padding:6px 4px;cursor:pointer;border-radius:6px}
-.drop button:hover,.drop button[aria-current="page"]{background:rgba(255,255,255,.16)}
-@media (min-width:860px){
+.drop button{background:none;border:0;color:inherit;text-align:left;font:600 1rem var(--f-body);padding:9px 12px;cursor:pointer;border-radius:10px;transition:background-color 140ms ease}
+.drop button[aria-current="page"]{background:rgba(255,255,255,.16)}
+@media (hover:hover) and (pointer:fine){
+  .brand:hover{background:rgba(255,255,255,.08)}
+  .burger:hover{background:rgba(255,255,255,.2)}
+  .drop button:hover{background:rgba(255,255,255,.12)}
+}
+@media (min-width:900px){
   .burger{display:none}
-  nav.menu{display:flex;flex-direction:row;width:auto;margin-left:auto;padding:0;gap:2px}
-  .m-btn{border:0;padding:10px 12px;border-radius:8px;width:auto;gap:6px}
-  .m-btn:hover,.m-item.open .m-btn{background:rgba(255,255,255,.16)}
-  .drop{position:absolute;right:0;top:100%;min-width:250px;background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:6px;box-shadow:0 12px 30px rgba(0,0,0,.22)}
-  .drop button:hover,.drop button[aria-current="page"]{background:var(--tint)}
+  nav.menu{display:flex;flex-direction:row;width:auto;margin-left:auto;padding:0;gap:4px}
+  .m-btn{border:0;padding:10px 14px;border-radius:999px;width:auto;gap:4px}
+  .m-item.open .m-btn{background:rgba(255,255,255,.16)}
+  .drop{position:absolute;right:0;top:calc(100% + 8px);min-width:270px;background:var(--surface);color:var(--ink);border-radius:16px;padding:8px;box-shadow:var(--shadow-up);transform-origin:top right;transition:opacity 160ms var(--ease-out),transform 160ms var(--ease-out)}
+  @starting-style{.m-item.open .drop{opacity:0;transform:scale(.97) translateY(-4px)}}
+  .drop button[aria-current="page"]{background:var(--tint);color:var(--brand)}
+}
+@media (min-width:900px) and (hover:hover) and (pointer:fine){
+  .m-btn:hover{background:rgba(255,255,255,.12)}
+  .drop button:hover{background:var(--tint)}
 }
 
 /* Views */
-main{padding-block:28px 56px}
+main{padding-block:28px 40px}
 .view{display:none}
 .view.active{display:block}
-.eyebrow{font:600 .78rem var(--f-body);letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}
-.page-title{font-size:clamp(1.8rem,4.5vw,2.7rem);font-weight:800;margin:6px 0 8px}
-.lead{color:var(--muted);max-width:68ch;margin-bottom:24px}
+.view.active>.page-title,.view.active>.lead{animation:rise 360ms var(--ease-out) both}
+.view.active>.lead{animation-delay:50ms}
+@keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.page-title{font-size:clamp(2.1rem,5.2vw,3.4rem);font-weight:800;letter-spacing:-.025em;line-height:1.04;margin:14px 0 12px;max-width:22ch}
+.lead{color:var(--ink);font-size:clamp(1.08rem,1.6vw,1.22rem);line-height:1.55;max-width:60ch;margin-bottom:28px}
 .prose{max-width:68ch}
 .prose p+p{margin-top:1em}
-.chip{display:inline-block;font:600 .78rem var(--f-body);padding:3px 10px;border-radius:99px;background:var(--gold-soft);color:var(--ink);border:1px solid var(--gold)}
-.btn{font:700 .95rem var(--f-body);background:var(--brand);color:var(--brand-ink);border:0;border-radius:8px;padding:10px 18px;cursor:pointer}
-.btn.alt{background:transparent;color:var(--brand);border:1.5px solid var(--brand)}
+.chip{display:inline-block;font:600 .85rem var(--f-body);padding:4px 12px;border-radius:99px;background:var(--gold-soft);color:var(--ink)}
+.btn{display:inline-flex;align-items:center;gap:8px;font:700 1rem var(--f-body);background:var(--brand);color:var(--brand-ink);border:0;border-radius:999px;padding:12px 22px;cursor:pointer;text-decoration:none;transition:transform 160ms var(--ease-out),background-color 160ms ease,box-shadow 160ms ease}
+.btn:active{transform:scale(.97)}
+.btn.alt{background:transparent;color:var(--brand);box-shadow:inset 0 0 0 2px var(--brand)}
+.btn.sun{background:var(--sun);color:#14231b}
+.btn.ghost{background:rgba(255,255,255,.12);color:var(--field-ink)}
 .btn:disabled{opacity:.5;cursor:default}
+@media (hover:hover) and (pointer:fine){
+  .btn:hover{box-shadow:var(--shadow-up)}
+  .btn.alt:hover{background:var(--tint);box-shadow:inset 0 0 0 2px var(--brand)}
+  .btn.ghost:hover{background:rgba(255,255,255,.2);box-shadow:none}
+}
 
-/* Home */
-.hero{display:grid;gap:28px;grid-template-columns:1fr;align-items:center;padding-block:8px 28px}
-@media (min-width:860px){.hero{grid-template-columns:200px 1fr}}
-.hero .crest{width:min(200px,60%);height:auto;margin:0 auto}@media (min-width:860px){.hero .crest{width:100%}}
-.hero h1{font-size:clamp(1.55rem,3.6vw,2.4rem);font-weight:800}
-.inst{color:var(--muted);margin-bottom:10px;font-size:.98rem}
-.people{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));margin-top:22px}
-.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px}
-.card h3{font-size:1rem;margin-bottom:8px;color:var(--brand)}
-.card ul{margin:0;padding:0;list-style:none;display:grid;gap:4px}
-.gallery{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));margin-top:26px}
-.gallery figure{margin:0;border-radius:12px;overflow:hidden;border:1px solid var(--line);background:var(--surface)}
-.gallery svg{display:block;width:100%;height:auto}
-.gallery figure{display:flex;flex-direction:column}
-.gallery img{display:block;width:100%;height:auto;aspect-ratio:16/10;object-fit:cover}
-.gallery figcaption{margin-top:auto}
-.gallery figcaption{padding:8px 12px;font-size:.88rem;color:var(--muted)}
-.logo-row{margin-top:26px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
-.logo-row img{height:64px;background:#fff;border-radius:8px;padding:4px}
-.enter{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));margin-top:26px}
-.enter button{text-align:left;background:var(--tint);border:1px solid var(--line);color:var(--ink);border-radius:12px;padding:14px;cursor:pointer;font:inherit}
-.enter button b{display:block;font-family:var(--f-display);font-size:1.1rem;color:var(--brand)}
-.enter button span{font-size:.88rem;color:var(--muted)}
+/* Ruta (ubicación dentro del portafolio) */
+.route{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:0 0 4px;padding:0;list-style:none}
+.route li{display:flex;align-items:center;gap:6px}
+.route li+li::before{content:"";width:18px;height:2px;border-radius:2px;background:var(--line)}
+.route button{display:inline-flex;align-items:center;gap:8px;border:0;background:var(--surface);color:var(--muted);font:600 .92rem var(--f-body);padding:6px 14px 6px 6px;border-radius:999px;cursor:pointer;box-shadow:var(--shadow);transition:transform 160ms var(--ease-out),background-color 160ms ease,color 160ms ease}
+.route button:active{transform:scale(.97)}
+.route .dot{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;background:var(--tint);color:var(--brand);font:800 .8rem var(--f-display)}
+.route [aria-current="step"]{background:var(--brand);color:var(--brand-ink)}
+.route [aria-current="step"] .dot{background:var(--sun);color:#14231b}
+@media (hover:hover) and (pointer:fine){.route button:not([aria-current]):hover{color:var(--brand);background:var(--tint)}}
+@media (max-width:560px){.route li+li::before{width:8px}.route button{padding-right:10px;font-size:.85rem}}
+
+/* Paginador anterior / siguiente */
+.pager-nav{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:56px}
+.pager-nav button{display:flex;flex-direction:column;gap:4px;text-align:left;background:var(--surface);border:0;border-radius:var(--r);padding:18px 20px;cursor:pointer;color:var(--ink);font:inherit;box-shadow:var(--shadow);transition:transform 160ms var(--ease-out),box-shadow 200ms ease}
+.pager-nav button:active{transform:scale(.98)}
+.pager-nav .dir{font-size:.92rem;color:var(--muted);display:flex;align-items:center;gap:6px}
+.pager-nav b{font:700 1.15rem var(--f-display);color:var(--brand)}
+.pager-nav .next{text-align:right;align-items:flex-end;grid-column:2}
+.pager-nav svg{width:16px;height:16px}
+@media (hover:hover) and (pointer:fine){.pager-nav button:hover{box-shadow:var(--shadow-up);transform:translateY(-2px)}}
+@media (max-width:560px){.pager-nav{grid-template-columns:1fr}.pager-nav .next{grid-column:1}}
+
+/* ===== Inicio ===== */
+.home-hero{position:relative;display:grid;gap:clamp(20px,4vw,48px);grid-template-columns:1fr;align-items:center;background:var(--field);color:var(--field-ink);border-radius:28px;padding:clamp(22px,5vw,56px);overflow:hidden;box-shadow:var(--shadow-up)}
+@media (min-width:900px){.home-hero{grid-template-columns:1.12fr .88fr;align-items:stretch}}
+.home-id{display:flex;align-items:center;gap:12px;margin-bottom:22px}
+.home-id img{width:56px;height:56px;border-radius:50%;background:#fff;padding:3px}
+.home-id p{font-size:.95rem;line-height:1.35;opacity:.9}
+.home-hero h1{font-size:clamp(2.1rem,4.6vw,3.6rem);font-weight:800;letter-spacing:-.03em;line-height:1.02;max-width:17ch}
+.home-hero .home-sub{margin-top:20px;font-size:clamp(1.05rem,1.5vw,1.2rem);line-height:1.55;max-width:46ch;opacity:.95}
+.home-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+.home-pic{margin:0;position:relative;border-radius:22px;overflow:hidden;aspect-ratio:4/3;background:#0b2219;box-shadow:0 20px 40px -20px rgba(0,0,0,.6)}
+@media (min-width:900px){.home-pic{aspect-ratio:auto;min-height:380px}}
+.home-pic img{width:100%;height:100%;object-fit:cover;display:block;animation:settle 900ms var(--ease-out) both}
+@keyframes settle{from{transform:scale(1.06);opacity:.4}to{transform:none;opacity:1}}
+.home-pic figcaption{position:absolute;left:14px;bottom:14px;background:rgba(9,22,15,.72);color:#fff;font-size:.88rem;padding:6px 12px;border-radius:999px}
+
+.home-title{display:grid;gap:14px;margin-top:clamp(40px,6vw,72px);grid-template-columns:1fr}
+@media (min-width:900px){.home-title{grid-template-columns:.8fr 1.2fr;align-items:start}}
+.home-title h2{font-size:clamp(1.5rem,2.6vw,2rem);font-weight:800;letter-spacing:-.02em}
+.home-title .statement{font-family:var(--f-display);font-size:clamp(1.15rem,2vw,1.5rem);line-height:1.35;font-weight:600;color:var(--ink)}
+.home-title .inst{margin-top:12px;color:var(--muted);font-size:.98rem}
+
+.home-sec{margin-top:clamp(48px,7vw,88px)}
+.home-sec>h2{font-size:clamp(1.6rem,3.2vw,2.4rem);font-weight:800;letter-spacing:-.02em;max-width:24ch}
+.home-sec>.sec-sub{margin-top:10px;font-size:1.1rem;max-width:58ch}
+
+/* Guía (mascota) */
+.guide{display:flex;gap:16px;align-items:flex-end;margin-top:22px}
+.guide svg{flex:none;width:88px;height:auto}
+.bubble{position:relative;background:var(--gold-soft);color:var(--ink);border-radius:20px 20px 20px 6px;padding:14px 18px;max-width:52ch;font-size:1.02rem;line-height:1.5}
+.bubble b{font-family:var(--f-display)}
+
+/* Ruta de 4 paradas */
+.trail{position:relative;margin-top:30px}
+.trail ol{list-style:none;margin:0;padding:0;display:grid;gap:16px;grid-template-columns:1fr;position:relative;z-index:1}
+@media (min-width:760px){.trail ol{grid-template-columns:repeat(4,1fr);gap:18px}}
+.trail-line{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;display:none}
+@media (min-width:760px){.trail-line{display:block}}
+.trail-line path{fill:none;stroke:var(--sun);stroke-width:6;stroke-linecap:round;stroke-dasharray:2 16}
+.stop{width:100%;height:100%;display:grid;grid-template-rows:auto auto 1fr auto;gap:10px;text-align:left;background:var(--surface);border:0;border-radius:22px;padding:20px;cursor:pointer;color:var(--ink);font:inherit;box-shadow:var(--shadow);transition:transform 200ms var(--ease-out),box-shadow 200ms ease}
+.stop:active{transform:scale(.98)}
+.stop .stop-ico{width:56px;height:56px;border-radius:18px;display:grid;place-items:center;color:#fff}
+.stop .stop-ico svg{width:30px;height:30px}
+.trail li:nth-child(1) .stop-ico{background:var(--brand)}
+.trail li:nth-child(2) .stop-ico{background:var(--gold)}
+.trail li:nth-child(3) .stop-ico{background:#2f7d5b}
+.trail li:nth-child(4) .stop-ico{background:#8a5f0a}
+.stop .n{font:700 .92rem var(--f-body);color:var(--muted)}
+.stop .stop-t{display:block;font:800 1.45rem/1.15 var(--f-display);color:var(--ink);letter-spacing:-.01em;margin-bottom:6px}
+.stop .stop-d{display:block;color:var(--muted);font-size:.98rem;line-height:1.45}
+.stop .go{display:inline-flex;align-items:center;gap:6px;font-weight:700;color:var(--brand)}
+.stop .go svg{width:16px;height:16px;transition:transform 200ms var(--ease-out)}
+@media (hover:hover) and (pointer:fine){
+  .stop:hover{transform:translateY(-4px);box-shadow:var(--shadow-up)}
+  .stop:hover .go svg{transform:translateX(4px)}
+}
+.js-anim .trail li{opacity:0;transform:translateY(16px)}
+.js-anim .trail.in li{opacity:1;transform:none;transition:opacity 420ms var(--ease-out),transform 420ms var(--ease-out)}
+.js-anim .trail.in li:nth-child(2){transition-delay:70ms}
+.js-anim .trail.in li:nth-child(3){transition-delay:140ms}
+.js-anim .trail.in li:nth-child(4){transition-delay:210ms}
+
+/* Equipo */
+.team{display:grid;gap:clamp(18px,3vw,32px);grid-template-columns:1fr;margin-top:26px;background:var(--surface);border-radius:24px;padding:clamp(20px,3.5vw,36px);box-shadow:var(--shadow)}
+@media (min-width:860px){.team{grid-template-columns:1.3fr 1fr}}
+.team h3{font-size:1.1rem;color:var(--muted);font-family:var(--f-body);font-weight:700;margin-bottom:14px}
+.people-list{list-style:none;margin:0;padding:0;display:grid;gap:12px;grid-template-columns:1fr}
+@media (min-width:560px){.people-list{grid-template-columns:1fr 1fr}}
+.person{display:flex;align-items:center;gap:12px;font-weight:600;font-size:1.02rem;line-height:1.3}
+.ini{flex:none;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;font:800 .95rem var(--f-display);background:var(--tint);color:var(--brand)}
+.person:nth-child(even) .ini{background:var(--gold-soft);color:var(--gold-text)}
+.team-side{display:grid;gap:18px;align-content:start}
+.team-side .role{background:var(--bg);border-radius:16px;padding:14px 16px}
+.team-side .role span{display:block;font-size:.9rem;color:var(--muted);margin-bottom:2px}
+.team-side .role b{font-family:var(--f-display);font-size:1.1rem}
+
+/* Mosaico de imágenes */
+.mosaic{display:grid;gap:16px;grid-template-columns:1fr;margin-top:26px}
+@media (min-width:760px){.mosaic{grid-template-columns:1.4fr 1fr}}
+.mosaic figure{margin:0;position:relative;border-radius:22px;overflow:hidden;background:var(--tint);box-shadow:var(--shadow)}
+.mosaic img{display:block;width:100%;height:100%;object-fit:cover;aspect-ratio:4/3}
+.mosaic figcaption{position:absolute;left:14px;bottom:14px;right:14px;width:max-content;max-width:calc(100% - 28px);background:rgba(9,22,15,.74);color:#fff;font-size:.92rem;padding:7px 14px;border-radius:999px}
+.home-logos{display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin-top:28px;color:var(--muted)}
+.home-logos img{height:64px;background:#fff;border-radius:12px;padding:6px;box-shadow:var(--shadow)}
+
+/* Pie de página */
+footer.foot{margin-top:40px;background:var(--field);color:var(--field-ink);padding-block:clamp(36px,6vw,64px) 28px}
+.foot-name{font:800 clamp(1.8rem,5vw,3.4rem)/1 var(--f-display);letter-spacing:-.03em;max-width:18ch}
+.foot-sub{margin-top:12px;opacity:.85;max-width:56ch}
+.foot-links{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+.foot-links button{background:rgba(255,255,255,.1);border:0;color:inherit;font:600 .95rem var(--f-body);padding:9px 16px;border-radius:999px;cursor:pointer;transition:transform 160ms var(--ease-out),background-color 160ms ease}
+.foot-links button:active{transform:scale(.97)}
+@media (hover:hover) and (pointer:fine){.foot-links button:hover{background:rgba(255,255,255,.2)}}
+.foot-meta{margin-top:30px;padding-top:18px;border-top:1px solid rgba(255,255,255,.14);font-size:.9rem;opacity:.8}
+
+@media (prefers-reduced-motion:reduce){
+  .view.active>.page-title,.view.active>.lead,.home-pic img{animation:none}
+  .js-anim .trail li{opacity:1;transform:none}
+  *{transition-duration:0ms !important}
+}
+
+/* Tarjetas genéricas */
+.card{background:var(--surface);border-radius:var(--r);padding:20px;box-shadow:var(--shadow)}
+.card h3{font-size:1.12rem;margin-bottom:8px;color:var(--brand)}
+.card ul{margin:0;padding:0;list-style:none;display:grid;gap:6px}
+.card p+p{margin-top:.5em}
 
 /* Avatars */
 .avatars{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));align-items:start}
-.av{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px;display:grid;gap:12px}
+.av{background:var(--surface);border-radius:var(--r);padding:18px;display:grid;gap:12px;box-shadow:var(--shadow)}
 .av-img{width:100%;height:auto;display:block;border-radius:10px;aspect-ratio:1/1;object-fit:cover}
 .av.talking .av-img{animation:bob 1.6s ease-in-out infinite}
 @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
@@ -113,7 +255,7 @@ main{padding-block:28px 56px}
 @keyframes talk{from{transform:scaleY(.35)}to{transform:scaleY(1.1)}}
 @keyframes nod{0%,100%{transform:translateY(0)}50%{transform:translateY(-2px)}}
 @media (prefers-reduced-motion:reduce){.av.talking .mouth-open,.av.talking .head{animation:none}}
-.sub{min-height:5.2em;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:.95rem}
+.sub{min-height:5.2em;background:var(--bg);border-radius:12px;padding:10px 12px;font-size:.95rem}
 .sub mark{background:var(--gold-soft);color:var(--ink);border-radius:3px;padding:0 2px}
 .controls{display:flex;gap:10px;flex-wrap:wrap}
 .av h3{font-size:1.15rem}
@@ -144,9 +286,9 @@ main{padding-block:28px 56px}
 @media (min-width:860px){.ebook{grid-template-columns:230px 1fr}}
 .toc{display:flex;flex-wrap:wrap;gap:6px}
 @media (min-width:860px){.toc{flex-direction:column;flex-wrap:nowrap;position:sticky;top:90px;align-self:start}}
-.toc button{text-align:left;background:var(--surface);border:1px solid var(--line);color:var(--ink);border-radius:8px;padding:8px 12px;cursor:pointer;font:600 .9rem var(--f-body)}
+.toc button{text-align:left;background:var(--surface);border:0;color:var(--ink);border-radius:999px;padding:9px 16px;cursor:pointer;font:600 .95rem var(--f-body);box-shadow:var(--shadow)}
 .toc button[aria-current="true"]{background:var(--brand);color:var(--brand-ink);border-color:var(--brand)}
-.page{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:clamp(18px,4vw,36px)}
+.page{background:var(--surface);border-radius:var(--r);box-shadow:var(--shadow);padding:clamp(18px,4vw,36px)}
 .page h2{font-size:1.7rem;margin-bottom:14px}
 .page h3{font-size:1.15rem;margin:22px 0 8px;color:var(--brand)}
 .page p{max-width:68ch;text-align:left}
@@ -158,18 +300,19 @@ main{padding-block:28px 56px}
 
 /* Design sections */
 .grid2{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
-.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+.tbl{overflow-x:auto;border-radius:var(--r);background:var(--surface);box-shadow:var(--shadow)}
 table{border-collapse:collapse;width:100%;min-width:560px;font-size:.95rem}
 th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
-th{background:var(--tint);font-family:var(--f-display);font-size:.9rem}
+th{background:var(--tint);font-family:var(--f-display);font-size:.95rem;color:var(--ink)}
+tbody th{font-weight:700}
 tr:last-child td{border-bottom:0}
-.flow{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));counter-reset:f}
-.flow .step{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;position:relative}
-.flow .step::before{counter-increment:f;content:counter(f);position:absolute;top:-12px;left:14px;background:var(--gold);color:#fff;font:800 .9rem var(--f-display);width:26px;height:26px;border-radius:50%;display:grid;place-items:center}
-.step h3{font-size:1.05rem;margin:4px 0 8px;color:var(--brand)}
+.flow{display:grid;gap:22px 16px;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));counter-reset:f;padding-top:8px}
+.flow .step{background:var(--surface);border-radius:var(--r);padding:24px 20px 20px;position:relative;box-shadow:var(--shadow)}
+.flow .step::before{counter-increment:f;content:counter(f);position:absolute;top:-14px;left:18px;background:var(--sun);color:#14231b;font:800 1rem var(--f-display);width:32px;height:32px;border-radius:50%;display:grid;place-items:center;box-shadow:0 0 0 4px var(--bg)}
+.step h3{font-size:1.15rem;margin:4px 0 8px;color:var(--brand)}
 .step ul{margin:8px 0 0;padding-left:1.1em;font-size:.93rem}
-.step .goal{font-size:.9rem;color:var(--muted);font-style:italic}
-.video{aspect-ratio:16/9;max-width:100%;background:linear-gradient(135deg,var(--brand),#0f3323);border-radius:14px;display:grid;place-items:center;color:#fff;text-align:center;padding:16px}
+.step .goal{font-size:.95rem;color:var(--muted)}
+.video{aspect-ratio:16/9;max-width:100%;background:var(--field);border-radius:var(--r);box-shadow:var(--shadow);display:grid;place-items:center;color:#fff;text-align:center;padding:16px}
 .video svg{width:64px;height:64px}
 .todo{border:1.5px dashed var(--gold);background:var(--gold-soft);color:var(--ink);border-radius:10px;padding:10px 14px;font-size:.92rem}
 
@@ -179,37 +322,34 @@ tr:last-child td{border-bottom:0}
 .meth-stats .stat{font-size:2.1rem}
 .meth-stats .stat-label{font-size:.82rem;color:var(--muted);margin-top:4px;line-height:1.3}
 .phase-nav{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0}
-.phase-btn{display:flex;align-items:center;gap:8px;border:2px solid var(--line);background:var(--surface);border-radius:999px;padding:7px 16px 7px 7px;cursor:pointer;font:700 .85rem var(--f-body);color:var(--ink)}
+.phase-btn{display:flex;align-items:center;gap:8px;border:2px solid transparent;background:var(--surface);border-radius:999px;padding:7px 18px 7px 7px;cursor:pointer;font:700 .95rem var(--f-body);color:var(--ink);box-shadow:var(--shadow);transition:transform 160ms var(--ease-out),background-color 160ms ease,border-color 160ms ease}
+.phase-btn:active{transform:scale(.97)}
 .phase-btn .pk-ico{width:30px;height:30px;flex:0 0 30px}
 .phase-btn[aria-selected="true"]{border-color:var(--brand);background:var(--tint);color:var(--brand)}
-.phase-panel{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:22px 20px 20px;position:relative}
+.phase-panel{background:var(--surface);border-radius:var(--r);box-shadow:var(--shadow);padding:22px 20px 20px;position:relative}
 .phase-panel .num{position:absolute;top:-15px;left:20px;background:var(--brand);color:var(--brand-ink);font:800 .9rem var(--f-display);width:30px;height:30px;border-radius:50%;display:grid;place-items:center}
 .phase-panel h3{margin:4px 0 4px;color:var(--brand);font-size:1.15rem}
 .phase-panel .evid{margin-top:14px;padding-top:12px;border-top:1px dashed var(--line);font-size:.9rem;color:var(--muted)}
 .phase-grid{display:grid;gap:18px;grid-template-columns:1fr 1fr;margin-top:12px}
-.phase-grid .col h4{margin:0 0 6px;font-size:.78rem;text-transform:uppercase;letter-spacing:.06em;display:flex;align-items:center;gap:6px}
+.phase-grid .col h4{margin:0 0 6px;font-size:1rem;display:flex;align-items:center;gap:6px}
 .phase-grid .col.cuanti h4{color:var(--brand)}
 .phase-grid .col.cuali h4{color:var(--gold)}
 .phase-grid ul{margin:0;padding-left:1.1em;font-size:.92rem;color:var(--ink)}
 .phase-grid ul li{margin-bottom:4px}
 @media (max-width:640px){.phase-grid{grid-template-columns:1fr}}
 .tri{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(210px,1fr))}
-.tri .card{border-top:4px solid var(--brand)}
-.tri .card:nth-child(2){border-top-color:var(--gold)}
-.tri .card:nth-child(3){border-top-color:var(--red,#9c3327)}
 
 /* Credits */
 .refs{display:grid;gap:12px;max-width:80ch}
 .refs p{padding-left:2.2em;text-indent:-2.2em;font-size:.95rem;overflow-wrap:anywhere}
-.cc{display:flex;gap:16px;align-items:center;flex-wrap:wrap;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px}
+.cc{display:flex;gap:16px;align-items:center;flex-wrap:wrap;background:var(--surface);border-radius:var(--r);padding:20px;box-shadow:var(--shadow)}
 .cc .badge{font:800 1rem var(--f-display);background:var(--ink);color:var(--bg);border-radius:8px;padding:10px 12px;letter-spacing:.06em}
 .tree{list-style:none;margin:0;padding:0}
 .tree ul{list-style:none;margin:6px 0 6px 12px;padding-left:16px;border-left:2px solid var(--line);display:grid;gap:4px}
-.tree>li{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 16px;margin-bottom:10px}
+.tree>li{background:var(--surface);border-radius:var(--r);padding:16px 20px;margin-bottom:12px;box-shadow:var(--shadow)}
 .tree>li>button{font:700 1.05rem var(--f-display);color:var(--brand)}
 .tree button{background:none;border:0;cursor:pointer;color:var(--ink);font:inherit;padding:2px 4px;text-align:left;text-decoration:underline;text-decoration-color:var(--line);text-underline-offset:3px}
 .tree button:hover{text-decoration-color:var(--brand)}
-footer.foot{border-top:1px solid var(--line);padding-block:22px;color:var(--muted);font-size:.88rem}
 
 /* ===== Póster digital ===== */
 .pk{display:grid;gap:16px}
@@ -222,9 +362,9 @@ footer.foot{border-top:1px solid var(--line);padding-block:22px;color:var(--mute
 .pk-rule{width:64px;height:4px;border-radius:2px;background:#f0c674;margin-bottom:16px}
 
 .pk-cols{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));align-items:start}
-.pk-card{background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.pk-card{background:var(--surface);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow)}
 .pk-head{display:flex;align-items:center;gap:12px;background:var(--brand);color:var(--brand-ink);padding:12px 18px}
-.pk-head h3{margin:0;font:700 .95rem/1.2 var(--f-body);letter-spacing:.08em;text-transform:uppercase}
+.pk-head h3{margin:0;font:700 1.08rem/1.2 var(--f-display)}
 .pk-head .pk-ico{width:30px;height:30px;flex:0 0 30px;background:rgba(255,255,255,.18)}
 .pk-body{padding:16px 18px;display:grid;gap:14px}
 
@@ -250,7 +390,7 @@ footer.foot{border-top:1px solid var(--line);padding-block:22px;color:var(--mute
 .pk-goal .pk-deco{color:#fff}
 .pk-goal .pk-deco-a{width:170px;height:170px;right:-30px;top:-36px;opacity:.13;transform:rotate(8deg)}
 .pk-goal .pk-ico{width:62px;height:62px;flex:0 0 62px;background:var(--gold-soft);color:var(--brand)}
-.pk-goal h3{margin:0 0 8px;font:700 .95rem/1.2 var(--f-body);letter-spacing:.08em;text-transform:uppercase;color:var(--gold-soft)}
+.pk-goal h3{margin:0 0 8px;font:700 1.1rem/1.2 var(--f-display);color:var(--gold-soft)}
 .pk-goal p{margin:0;font-size:1.02rem;line-height:1.55}
 
 .pk-steps{display:grid;gap:12px}
@@ -258,8 +398,8 @@ footer.foot{border-top:1px solid var(--line);padding-block:22px;color:var(--mute
 .pk-step b{width:34px;height:34px;border-radius:50%;background:var(--gold);color:var(--brand-ink);display:grid;place-items:center;font:700 1rem/1 var(--f-display)}
 .pk-step p{margin:0;font-size:.94rem;color:var(--ink)}
 
-.pk-refs{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px}
-.pk-refs h3{display:flex;align-items:center;gap:10px;margin:0 0 12px;font:700 .9rem/1.2 var(--f-body);letter-spacing:.08em;text-transform:uppercase;color:var(--brand)}
+.pk-refs{background:var(--surface);border-radius:var(--r);padding:20px;box-shadow:var(--shadow)}
+.pk-refs h3{display:flex;align-items:center;gap:10px;margin:0 0 12px;font:700 1.08rem/1.2 var(--f-display);color:var(--brand)}
 .pk-refs .pk-ico{width:30px;height:30px;background:var(--brand)}
 .pk-refs ul{margin:0;padding-left:1.15em;display:grid;gap:7px}
 .pk-refs li{font-size:.88rem;color:var(--muted);line-height:1.5}
@@ -275,27 +415,25 @@ footer.foot{border-top:1px solid var(--line);padding-block:22px;color:var(--mute
 
 /* Aparición progresiva al desplazarse */
 .js-anim .rv{opacity:0;transform:translateY(16px) scale(.985)}
-.js-anim .rv.in{opacity:1;transform:none;transition:opacity .6s ease,transform .6s cubic-bezier(.2,.7,.3,1)}
+.js-anim .rv.in{opacity:1;transform:none;transition:opacity 500ms var(--ease-out),transform 500ms var(--ease-out)}
 @media (prefers-reduced-motion:reduce){
   .js-anim .rv,.js-anim .rv.in{opacity:1;transform:none;transition:none}
 }
 
 .av-video-card{padding:0;overflow:hidden}
 .av-video-card h3{padding:16px 18px 0;margin:0 0 12px}
-.av-video-wrap{position:relative;margin:0 18px 18px;border-radius:12px;overflow:hidden;background:#0b1310;box-shadow:0 14px 30px -16px rgba(15,36,26,.5);border:1px solid var(--line)}
-.av-video-wrap::before{content:"";position:absolute;left:0;right:0;top:0;height:4px;background:linear-gradient(90deg,var(--brand),var(--gold));z-index:2}
+.av-video-wrap{position:relative;margin:0 18px 18px;border-radius:14px;overflow:hidden;background:#0b1310}
 .av-video{display:block;width:100%;height:auto;aspect-ratio:16/9;background:#000}
-.av-badge{position:absolute;top:14px;left:14px;z-index:2;background:var(--brand);color:var(--brand-ink);font:700 .68rem/1 var(--f-body);letter-spacing:.08em;text-transform:uppercase;padding:5px 10px;border-radius:999px;box-shadow:0 2px 6px rgba(0,0,0,.25)}
+.av-badge{position:absolute;top:14px;left:14px;z-index:2;background:var(--sun);color:#14231b;font:700 .85rem/1 var(--f-body);padding:6px 12px;border-radius:999px}
 .ebook-media{margin-top:28px}
 .ebook-media h2{font:800 1.1rem/1.2 var(--f-display);margin:0 0 4px;color:var(--brand)}
 .ebook-media .sub{margin:0 0 16px;color:var(--muted);font-size:.92rem}
 .media-grid{display:grid;gap:22px;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));align-items:start}
-.media-card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px;display:grid;gap:12px}
+.media-card{background:var(--surface);border-radius:var(--r);padding:18px;display:grid;gap:12px;box-shadow:var(--shadow)}
 .media-card h3{font-size:1.15rem;padding:0;margin:0}
-.media-video-wrap{position:relative;margin:0;border-radius:12px;overflow:hidden;background:#0b1310;box-shadow:0 14px 30px -16px rgba(15,36,26,.5);border:1px solid var(--line)}
-.media-video-wrap::before{content:"";position:absolute;left:0;right:0;top:0;height:4px;background:linear-gradient(90deg,var(--brand),var(--gold));z-index:2}
+.media-video-wrap{position:relative;margin:0;border-radius:14px;overflow:hidden;background:#0b1310}
 .media-video{display:block;width:100%;height:auto;aspect-ratio:16/9;background:#000}
-.media-badge{position:absolute;top:14px;left:14px;z-index:2;background:var(--brand);color:var(--brand-ink);font:700 .68rem/1 var(--f-body);letter-spacing:.08em;text-transform:uppercase;padding:5px 10px;border-radius:999px;box-shadow:0 2px 6px rgba(0,0,0,.25)}
+.media-badge{position:absolute;top:14px;left:14px;z-index:2;background:var(--sun);color:#14231b;font:700 .85rem/1 var(--f-body);padding:6px 12px;border-radius:999px}
 .media-link{display:block;position:relative;aspect-ratio:16/9;background:#0b1310}
 .media-link-cover{display:block;width:100%;height:100%;object-fit:cover}
 .media-link-cta{position:absolute;left:0;right:0;bottom:0;display:flex;align-items:center;justify-content:center;gap:8px;padding:10px 14px;background:linear-gradient(0deg,rgba(9,20,14,.88),rgba(9,20,14,.55) 70%,transparent);color:#fff;font:700 .85rem/1 var(--f-body);letter-spacing:.01em}
@@ -309,7 +447,7 @@ footer.foot{border-top:1px solid var(--line);padding-block:22px;color:var(--mute
         <img src="img/escudo-universidad.jpg" alt="Escudo de la Universidad de Cartagena">
         <span><b>Portafolio electrónico</b><span>Universidad de Cartagena</span></span>
       </button>
-      <button class="burger" id="burger" aria-expanded="false" aria-controls="menu">Menú</button>
+      <button class="burger" id="burger" aria-expanded="false" aria-controls="menu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>Menú</button>
       <nav class="menu" id="menu" aria-label="Menú principal">
         <div class="m-item"><button class="m-btn" aria-haspopup="true">Identificando</button>
           <div class="drop"><button data-go="avatar">Avatar</button><button data-go="poster">Póster digital</button></div></div>
@@ -328,56 +466,103 @@ footer.foot{border-top:1px solid var(--line);padding-block:22px;color:var(--mute
 
 <!-- INICIO -->
 <section class="view active" id="v-inicio">
-  <div class="hero">
-    <img class="crest" src="img/escudo-universidad.jpg" alt="Escudo de la Universidad de Cartagena">
+  <div class="home-hero">
     <div>
-      <div class="eyebrow">Proyecto de Aula I · Portafolio electrónico</div>
-      <h1 style="margin:8px 0 12px">Fortalecimiento del rendimiento académico en Ciencias Naturales mediante una estrategia pedagógica mediada por Google Classroom en estudiantes de grado noveno de la Institución Educativa Municipal Misael Pastrana Borrero en Saladoblanco, Huila</h1>
-      <p class="inst">Facultad de Ciencias Sociales y Educación · Maestría en Recursos Digitales Aplicados a la Educación · Universidad de Cartagena</p>
+      <div class="home-id">
+        <img src="img/escudo-universidad.jpg" alt="Escudo de la Universidad de Cartagena">
+        <p>Universidad de Cartagena<br>Maestría en Recursos Digitales Aplicados a la Educación</p>
+      </div>
+      <h1>Ciencias Naturales con Google Classroom</h1>
+      <p class="home-sub">Portafolio de nuestro trabajo de grado con los estudiantes de grado noveno de la Institución Educativa Municipal Misael Pastrana Borrero, en Saladoblanco (Huila).</p>
+      <div class="home-cta">
+        <button class="btn sun" data-go="avatar">Empezar el recorrido <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <button class="btn ghost" data-go="mapa">Ver el mapa del portafolio</button>
+      </div>
     </div>
-  </div>
-
-  <div class="people">
-    <div class="card"><h3>Estudiantes</h3>
-      <ul><li>Dora Magally Barragán Polanco</li><li>Jhorman Leonardo Gutiérrez Rojas</li><li>Luz Stefanny Martínez Castillo</li><li>Vanesa Sofía Timaná Hurtado</li></ul></div>
-    <div class="card"><h3>Docente tutora de la asignatura</h3>
-      <p>Zohami Judith Ardila Ramos</p>
-      <p class="note" style="margin-top:6px">Proyecto de Aula I</p></div>
-    <div class="card"><h3>Director del trabajo de grado</h3>
-      <p id="dir-name">Por definir</p></div>
-  </div>
-
-  <div class="gallery" aria-label="Imágenes alusivas al portafolio">
-    <figure data-slot="hero-1">
-      <img src="img/aula-classroom.jpg" alt="Aula virtual: estudiantes trabajando en Google Classroom">
-      <figcaption>Aula virtual en Google Classroom</figcaption>
-    </figure>
-    <figure data-slot="hero-2">
-      <img src="img/laboratorio.jpg" style="width:100%;height:auto;border-radius:12px;display:block" alt="Laboratorio de ciencias naturales"/>
-      <figcaption>Pensamiento científico en Ciencias Naturales</figcaption>
-    </figure>
-    <figure data-slot="hero-3">
-      <img src="img/paisaje-huila.jpg" style="width:100%;height:auto;border-radius:12px;display:block" alt="Paisaje del Huila con montañas y vegetación"/>
+    <figure class="home-pic">
+      <img src="img/paisaje-huila.jpg" alt="Paisaje del Huila con montañas, río y vegetación">
       <figcaption>Saladoblanco, Huila</figcaption>
     </figure>
   </div>
 
-  <div class="logo-row">
-    <img src="img/logo-maestria.png" alt="Maestría en Recursos Digitales Aplicados a la Educación">
-    <p class="note">Saladoblanco, Huila, Colombia · 8 de junio de 2026</p>
+  <div class="home-title">
+    <h2>Título del trabajo de grado</h2>
+    <div>
+      <p class="statement">Fortalecimiento del rendimiento académico en Ciencias Naturales mediante una estrategia pedagógica mediada por Google Classroom en estudiantes de grado noveno de la Institución Educativa Municipal Misael Pastrana Borrero en Saladoblanco, Huila</p>
+      <p class="inst">Facultad de Ciencias Sociales y Educación · Maestría en Recursos Digitales Aplicados a la Educación · Universidad de Cartagena · Proyecto de Aula I</p>
+    </div>
   </div>
 
-  <div class="enter">
-    <button data-go="avatar"><b>Identificando</b><span>Avatares y póster digital</span></button>
-    <button data-go="ebook"><b>Referenciando</b><span>E-book del Capítulo 2</span></button>
-    <button data-go="unidad"><b>Diseñando</b><span>Unidad, infografía, diseño instruccional, producto y video</span></button>
-    <button data-go="referencias"><b>Créditos</b><span>Referencias, agradecimientos, licencia y mapa</span></button>
-  </div>
+  <section class="home-sec" aria-labelledby="ruta-t">
+    <h2 id="ruta-t">La ruta del portafolio</h2>
+    <div class="guide">
+      <svg viewBox="0 0 150 165" aria-hidden="true" focusable="false">
+        <path d="M55 120 L48 145" stroke="var(--brand)" stroke-width="6" stroke-linecap="round" fill="none"/>
+        <path d="M85 120 L92 145" stroke="var(--brand)" stroke-width="6" stroke-linecap="round" fill="none"/>
+        <ellipse cx="46" cy="148" rx="8" ry="4" fill="var(--brand)"/>
+        <ellipse cx="94" cy="148" rx="8" ry="4" fill="var(--brand)"/>
+        <path d="M35 90 Q10 95 8 75" stroke="var(--gold)" stroke-width="6" stroke-linecap="round" fill="none"/>
+        <path d="M105 90 Q130 95 132 75" stroke="var(--gold)" stroke-width="6" stroke-linecap="round" fill="none"/>
+        <line x1="103" y1="103" x2="135" y2="140" stroke="var(--gold)" stroke-width="12" stroke-linecap="round"/>
+        <circle cx="70" cy="70" r="48" fill="var(--surface)" stroke="var(--gold)" stroke-width="8"/>
+        <path d="M55 40 Q70 55 55 70 Q70 85 55 100" fill="none" stroke="var(--brand)" stroke-width="2.5"/>
+        <path d="M85 40 Q70 55 85 70 Q70 85 85 100" fill="none" stroke="var(--brand)" stroke-width="2.5"/>
+        <line x1="58" y1="47" x2="82" y2="47" stroke="var(--brand)" stroke-width="2"/>
+        <line x1="58" y1="70" x2="82" y2="70" stroke="var(--brand)" stroke-width="2"/>
+        <line x1="58" y1="93" x2="82" y2="93" stroke="var(--brand)" stroke-width="2"/>
+        <circle cx="58" cy="60" r="5" fill="#16241d"/>
+        <circle cx="82" cy="60" r="5" fill="#16241d"/>
+        <circle cx="59.5" cy="58" r="1.6" fill="#fff"/>
+        <circle cx="83.5" cy="58" r="1.6" fill="#fff"/>
+        <path d="M58 82 Q70 92 82 82" stroke="#16241d" stroke-width="3" stroke-linecap="round" fill="none"/>
+      </svg>
+      <p class="bubble"><b>¡Hola!</b> Recorre el portafolio en orden, como un camino de cuatro paradas. En cada página encontrarás arriba en qué parada vas y, al final, el botón para seguir a la siguiente.</p>
+    </div>
+    <div class="trail">
+      <svg class="trail-line" viewBox="0 0 1000 200" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path d="M60 110 C 220 30, 300 190, 470 100 S 760 30, 940 110"/></svg>
+      <ol>
+        <li><button class="stop" data-go="avatar"><span class="stop-ico"><svg viewBox="0 0 24 24"><use href="#i-people"/></svg></span><span class="n">Parada 1</span><span><span class="stop-t">Identificando</span><span class="stop-d">Conoce el proyecto con dos avatares en video y el póster digital.</span></span><span class="go">Entrar <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button></li>
+        <li><button class="stop" data-go="ebook"><span class="stop-ico"><svg viewBox="0 0 24 24"><use href="#i-book"/></svg></span><span class="n">Parada 2</span><span><span class="stop-t">Referenciando</span><span class="stop-d">Lee el e-book del Capítulo 2, mira el video y escucha el podcast.</span></span><span class="go">Entrar <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button></li>
+        <li><button class="stop" data-go="unidad"><span class="stop-ico"><svg viewBox="0 0 24 24"><use href="#i-dna"/></svg></span><span class="n">Parada 3</span><span><span class="stop-t">Diseñando</span><span class="stop-d">Explora la unidad didáctica, la infografía, el diseño instruccional, el producto y el video.</span></span><span class="go">Entrar <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button></li>
+        <li><button class="stop" data-go="referencias"><span class="stop-ico"><svg viewBox="0 0 24 24"><use href="#i-list"/></svg></span><span class="n">Parada 4</span><span><span class="stop-t">Créditos</span><span class="stop-d">Referencias, agradecimientos, licencia y mapa de navegación.</span></span><span class="go">Entrar <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="home-sec" aria-labelledby="equipo-t">
+    <h2 id="equipo-t">Quiénes hacemos este proyecto</h2>
+    <div class="team">
+      <div>
+        <h3>Estudiantes de la maestría</h3>
+        <ul class="people-list">
+          <li class="person"><span class="ini" aria-hidden="true">DB</span>Dora Magally Barragán Polanco</li>
+          <li class="person"><span class="ini" aria-hidden="true">JG</span>Jhorman Leonardo Gutiérrez Rojas</li>
+          <li class="person"><span class="ini" aria-hidden="true">LM</span>Luz Stefanny Martínez Castillo</li>
+          <li class="person"><span class="ini" aria-hidden="true">VT</span>Vanesa Sofía Timaná Hurtado</li>
+        </ul>
+      </div>
+      <div class="team-side">
+        <div class="role"><span>Docente tutora de Proyecto de Aula I</span><b>Zohami Judith Ardila Ramos</b></div>
+        <div class="role"><span>Director del trabajo de grado</span><b id="dir-name">Por definir</b></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="home-sec" aria-labelledby="img-t">
+    <h2 id="img-t">El proyecto en imágenes</h2>
+    <div class="mosaic">
+      <figure><img src="img/aula-classroom.jpg" alt="Aula virtual: estudiantes trabajando en Google Classroom" loading="lazy"><figcaption>Aula virtual en Google Classroom</figcaption></figure>
+      <figure><img src="img/laboratorio.jpg" alt="Laboratorio de Ciencias Naturales" loading="lazy"><figcaption>Pensamiento científico en Ciencias Naturales</figcaption></figure>
+    </div>
+    <div class="home-logos">
+      <img src="img/logo-maestria.png" alt="Maestría en Recursos Digitales Aplicados a la Educación">
+      <p>Saladoblanco, Huila, Colombia · 8 de junio de 2026</p>
+    </div>
+  </section>
 </section>
 
 <!-- AVATAR -->
 <section class="view" id="v-avatar">
-  <div class="eyebrow">Identificando</div>
   <h1 class="page-title">Avatares</h1>
   <p class="lead">Dos avatares en video presentan el trabajo de grado y el problema de investigación.</p>
   <div class="avatars">
@@ -406,7 +591,6 @@ footer.foot{border-top:1px solid var(--line);padding-block:22px;color:var(--mute
 
 <!-- POSTER -->
 <section class="view" id="v-poster">
-  <div class="eyebrow">Identificando</div>
   <h1 class="page-title">Póster digital</h1>
   <p class="lead">Justificación, metodología y objetivos del trabajo de grado en una sola vista.</p>
 
@@ -519,7 +703,6 @@ footer.foot{border-top:1px solid var(--line);padding-block:22px;color:var(--mute
 
 <!-- EBOOK -->
 <section class="view" id="v-ebook">
-  <div class="eyebrow">Referenciando</div>
   <h1 class="page-title">E-book: Capítulo 2</h1>
   <div class="ebook-media rv">
   <div class="media-grid">
@@ -559,7 +742,6 @@ footer.foot{border-top:1px solid var(--line);padding-block:22px;color:var(--mute
 
 <!-- UNIDAD DIDACTICA -->
 <section class="view" id="v-unidad">
-  <div class="eyebrow">Diseñando</div>
   <h1 class="page-title">Unidad didáctica</h1>
   <p class="lead">Estructura de la unidad que se implementará en Google Classroom con el grado noveno.</p>
 
@@ -588,7 +770,7 @@ footer.foot{border-top:1px solid var(--line);padding-block:22px;color:var(--mute
       <path d="M58 82 Q70 92 82 82" stroke="#16241d" stroke-width="3" stroke-linecap="round" fill="none"/>
     </svg>
     <div style="flex:1;min-width:220px">
-      <h3 style="margin:0 0 6px">¡Hola, agente! 🔎🧬</h3>
+      <h3 style="margin:0 0 6px">¡Hola, agente!</h3>
       <p style="margin:0;color:var(--muted);font-size:.95rem">Esta ficha arma, paso a paso, la unidad que resolverás como un verdadero detective genético. Cada fila cuenta una parte del plan — búscalas numeradas del 1 al 9.</p>
     </div>
   </div>
@@ -666,7 +848,6 @@ footer.foot{border-top:1px solid var(--line);padding-block:22px;color:var(--mute
 
 <!-- INFOGRAFIA -->
 <section class="view" id="v-infografia">
-  <div class="eyebrow">Diseñando</div>
   <h1 class="page-title">Infografía: propuesta metodológica</h1>
   <p class="lead">Así se investiga el fortalecimiento del rendimiento académico en Ciencias Naturales: un <b>enfoque mixto</b> (cuantitativo + cualitativo), bajo el modelo de <b>Investigación-Acción Pedagógica (IAP)</b>, con una estrategia de <b>Aprendizaje Basado en Problemas (ABP)</b> mediada por Google Classroom.</p>
 
@@ -744,7 +925,6 @@ footer.foot{border-top:1px solid var(--line);padding-block:22px;color:var(--mute
 
 <!-- DISENO INSTRUCCIONAL -->
 <section class="view" id="v-disenoinst">
-  <div class="eyebrow">Diseñando</div>
   <h1 class="page-title">Diseño instruccional</h1>
   <p class="lead">El recurso digital se diseñó bajo el <b>Aprendizaje Basado en Problemas (ABP)</b>, mediado por Google Classroom como Entorno Virtual de Aprendizaje (EVA). No es un repositorio de documentos: cada secuencia parte de una situación problema real del contexto de Saladoblanco y lleva al estudiante a investigar, analizar y proponer soluciones.</p>
 
@@ -778,7 +958,6 @@ footer.foot{border-top:1px solid var(--line);padding-block:22px;color:var(--mute
 
 <!-- PRODUCTO FINAL -->
 <section class="view" id="v-producto">
-  <div class="eyebrow">Diseñando</div>
   <h1 class="page-title">Producto final</h1>
   <p class="lead">El producto es una estrategia pedagógica mediada por Google Classroom para fortalecer el rendimiento en Ciencias Naturales de grado noveno.</p>
   <div class="grid2">
@@ -790,7 +969,6 @@ footer.foot{border-top:1px solid var(--line);padding-block:22px;color:var(--mute
 
 <!-- VIDEO -->
 <section class="view" id="v-video">
-  <div class="eyebrow">Diseñando</div>
   <h1 class="page-title">Video tutorial</h1>
   <p class="lead">Guion de un tutorial breve para que estudiantes y docentes se ubiquen en el curso de Google Classroom.</p>
   <div class="video" role="img" aria-label="Espacio reservado para el video tutorial">
@@ -810,7 +988,6 @@ footer.foot{border-top:1px solid var(--line);padding-block:22px;color:var(--mute
 
 <!-- REFERENCIAS -->
 <section class="view" id="v-referencias">
-  <div class="eyebrow">Créditos</div>
   <h1 class="page-title">Referencias bibliográficas</h1>
   <p class="lead">Normas APA, séptima edición.</p>
   <div class="refs"><p>Abreu Amador, M., &amp; Mejía de la Cruz, W. (2020). Factores que influyen en el bajo rendimiento escolar en la asignatura Ciencias de la Naturaleza, de 2do de secundaria, del Instituto Politécnico Max Henríquez Ureña, en el año escolar 2019-2020 [Trabajo de grado, Universidad Nacional Pedro Henríquez Ureña]. Repositorio Institucional UNPHU. https://repositorio.unphu.edu.do/items/31fed557-f07c-404b-b21a-e9282d60e6e4</p><p>Cabrera Pardo, L. N., Salazar Piñerez, J. T., &amp; Suarez Acevedo, C. M. (2022). Fortalecimiento de las competencias científicas en el área de Ciencias Naturales, mediante la aplicación de una unidad didáctica basada en prácticas de laboratorio, para estudiantes de grado cuarto de la Institución Educativa Juan Cristóbal Martínez del municipio San Juan de Girón-Santander [Trabajo de grado, Corporación Universitaria Minuto de Dios]. Repositorio Institucional UNIMINUTO.</p><p>Coll, C. (2009). Aprender y enseñar con las TIC: expectativas, realidad y potencialidades. En R. Carneiro, J. C. Toscano, y T. Díaz (Coords.), Los desafíos de las TIC para el cambio educativo (pp. 113-126). OEI-Fundación Santillana.</p><p>Cruz Benítez, J. E., &amp; Fernández Díaz, O. R. (2024). Fortalecimiento de la competencia de indagación en el área de Ciencias Naturales de los estudiantes del grado noveno de la Institución Educativa San Andrés Tello mediante un espacio virtual de aprendizaje y el uso de recursos educativos digitales (RED) [Trabajo de grado de maestría, Universidad de Cartagena]. Repositorio Institucional Unicartagena.</p><p>Education Endowment Foundation. (2019). Using Digital Technology to Improve Learning [Uso de la tecnología digital para mejorar el aprendizaje]. EEF Guidance Report.</p><p>Falla Cuéllar, D. F., &amp; Cruz Herrera, L. A. (2020). Actitudes de los estudiantes y propuesta alternativa para la enseñanza-aprendizaje de las Ciencias Naturales en las instituciones educativas de la ciudad de Neiva-Huila. Revista PACA, 10, 83–100. https://doi.org/10.25054/2027257X.2880</p><p>Furman, M. (2021). Enseñar distinto: Guía para innovar en el aula. Siglo XXI Editores.</p><p>Gualguán Luna, G. (s.f.). Causas del bajo rendimiento en las áreas de Ciencias Sociales y Ciencias Naturales [Trabajo de grado, Universidad Católica de Manizales]. Repositorio de la Universidad Católica de Manizales. https://repositorio.ucm.edu.co/server/api/core/bitstreams/8cf5675e-52a9-4a73-b626-8022db3c1168/content</p><p>Instituto Colombiano para la Evaluación de la Educación [ICFES]. (2023). Informe Nacional de Resultados de las Pruebas Saber 11 - 2023. Ministerio de Educación Nacional.</p><p>Instituto Colombiano para la Evaluación de la Educación [ICFES]. (2024). Reporte de resultados Saber 11 por Entidades Territoriales Certificadas. Ministerio de Educación Nacional.</p><p>Leiton Leiton, D. R., Tamayo León, J. A., Ramírez González, E. G., Engracia Carvallo, D. E., &amp; Ramírez González, S. Y. (2024). Estrategia metodológica para el mejoramiento del rendimiento académico en la asignatura de ciencias naturales en los estudiantes de educación básica. Estudios y Perspectivas Revista Científica y Académica, 4(2). https://doi.org/10.61384/r.c.a..v4i2.221</p><p>Melo-Solarte, D. S., &amp; Díaz, P. A. (2018). El aprendizaje significativo y la evaluación formativa a través de Google Classroom. Revista Iberoamericana de Educación, 76(2), 53-70.</p><p>Ministerio de Educación Nacional [MEN]. (2016). Derechos Básicos de Aprendizaje: Ciencias Naturales. Bogotá, Colombia: Panamericana Formas e Impresos S.A.</p><p>Organización de las Naciones Unidas para la Educación, la Ciencia y la Cultura [UNESCO]. (2023). Informe de Seguimiento de la Educación en el Mundo 2023: La tecnología en la educación: ¿Una herramienta en los términos de quién?. París: UNESCO.</p><p>Organización para la Cooperación y el Desarrollo Económicos [OCDE]. (2023). Resultados de PISA 2022 (Volumen I): El estado del aprendizaje y la equidad en la educación. OECD Publishing.</p><p>Pacheco, O. (2023, 20 de febrero). El trabajo práctico como estrategia para el fortalecimiento del aprendizaje de las ciencias naturales en estudiantes de séptimo grado en la Institución Etnoeducativa Makumake [Trabajo de grado, Universidad Mariana]. Repositorio Institucional Unimariana. https://repositorio.umariana.edu.co/items/6ad0cdc8-1a0e-4566-95b6-fb08f02ea4ca</p><p>Quintero-Fierro, Y. K., &amp; Vargas-Zúñiga, K. T. (2023). Refuerzo pedagógico como estrategia para el mejoramiento del aprendizaje en Ciencias Naturales. Revista Electrónica EDUCyT, 14(Número extra), 789–795.</p><p>Quintero Trujillo, Ó. I. (2023). Uso de una estrategia pedagógica basada en la gamificación para el fortalecimiento del aprendizaje de las Ciencias Naturales de los estudiantes del grado noveno de la Institución Educativa San Antonio del Pescado del municipio de Garzón-Huila [Tesis de grado, Universidad Surcolombiana]. Repositorio Institucional USCO.</p><p>Santana Santana, R. B. (2024). Estrategia para mejorar el rendimiento académico en las ciencias de la naturaleza en estudiantes de segundo de secundaria. UCE Ciencia. Revista de Postgrado, 12(2). https://uceciencia.edu.do/index.php/OJS/article/view/371</p><p>Vargas, L. A. C. (2024). Rendimiento académico en el área de Ciencias Naturales en estudiantes de bachillerato. REDHECS: Revista Electrónica de Humanidades, Educación y Comunicación Social, 32(25), 10–24. https://dialnet.unirioja.es/servlet/articulo?codigo=10161601</p><p>Yahya, S. M., &amp; Ayasrah, M. N. (2018). Causes of 8th grade students&#x27; low achievement in TIMSS Study-2015 from science teachers and educational supervisors. Review of European Studies, 10(1), 124–139. https://doi.org/10.5539/res.v10n1p124</p></div>
@@ -818,7 +995,6 @@ footer.foot{border-top:1px solid var(--line);padding-block:22px;color:var(--mute
 
 <!-- AGRADECIMIENTOS -->
 <section class="view" id="v-agradecimientos">
-  <div class="eyebrow">Créditos</div>
   <h1 class="page-title">Agradecimientos</h1>
   <div class="prose">
     <p>A la Universidad de Cartagena y a la Maestría en Recursos Digitales Aplicados a la Educación por la formación recibida.</p>
@@ -830,7 +1006,6 @@ footer.foot{border-top:1px solid var(--line);padding-block:22px;color:var(--mute
 
 <!-- LICENCIA -->
 <section class="view" id="v-licencia">
-  <div class="eyebrow">Créditos</div>
   <h1 class="page-title">Licenciamiento</h1>
   <div class="cc">
     <div class="badge">CC BY-NC-SA 4.0</div>
@@ -842,7 +1017,6 @@ footer.foot{border-top:1px solid var(--line);padding-block:22px;color:var(--mute
 
 <!-- MAPA -->
 <section class="view" id="v-mapa">
-  <div class="eyebrow">Créditos</div>
   <h1 class="page-title">Mapa de navegación</h1>
   <p class="lead">Toca cualquier apartado para ir a él.</p>
   <ul class="tree">
@@ -860,7 +1034,14 @@ footer.foot{border-top:1px solid var(--line);padding-block:22px;color:var(--mute
 </section>
 
 </main>
-<footer class="foot"><div class="wrap">Portafolio electrónico · Proyecto de Aula I · Universidad de Cartagena · CC BY-NC-SA 4.0</div></footer>
+<footer class="foot"><div class="wrap">
+  <p class="foot-name">Ciencias Naturales con Google Classroom</p>
+  <p class="foot-sub">Portafolio electrónico del trabajo de grado · Maestría en Recursos Digitales Aplicados a la Educación · Universidad de Cartagena</p>
+  <nav class="foot-links" aria-label="Paradas del portafolio">
+    <button data-go="inicio">Inicio</button><button data-go="avatar">Identificando</button><button data-go="ebook">Referenciando</button><button data-go="unidad">Diseñando</button><button data-go="referencias">Créditos</button><button data-go="mapa">Mapa</button>
+  </nav>
+  <p class="foot-meta">Proyecto de Aula I · Saladoblanco, Huila · CC BY-NC-SA 4.0</p>
+</div></footer>
 
 <script>
 (function(){
@@ -1005,6 +1186,53 @@ footer.foot{border-top:1px solid var(--line);padding-block:22px;color:var(--mute
     }
     armar();
     window.addEventListener('hashchange', function(){ setTimeout(armar, 80); });
+  })();
+
+  // ===== Ruta del portafolio y botones anterior / siguiente =====
+  (function(){
+    var STAGES = [
+      {go:'avatar', name:'Identificando', views:['avatar','poster']},
+      {go:'ebook', name:'Referenciando', views:['ebook']},
+      {go:'unidad', name:'Diseñando', views:['unidad','infografia','disenoinst','producto','video']},
+      {go:'referencias', name:'Créditos', views:['referencias','agradecimientos','licencia','mapa']}
+    ];
+    var ORDER = ['inicio'];
+    STAGES.forEach(function(st){ ORDER = ORDER.concat(st.views); });
+    var ARROW_R = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    var ARROW_L = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    function title(id){
+      if(id==='inicio') return 'Inicio';
+      var h = document.querySelector('#v-'+id+' h1');
+      return h ? h.textContent.trim() : id;
+    }
+    ORDER.forEach(function(id, i){
+      if(id==='inicio') return;
+      var sec = document.getElementById('v-'+id);
+      if(!sec) return;
+      var route = document.createElement('ol');
+      route.className = 'route';
+      route.setAttribute('aria-label', 'Paradas del portafolio');
+      route.innerHTML = STAGES.map(function(st, k){
+        var cur = st.views.indexOf(id) !== -1;
+        return '<li><button data-go="'+st.go+'"'+(cur?' aria-current="step"':'')+'><span class="dot">'+(k+1)+'</span>'+st.name+'</button></li>';
+      }).join('');
+      sec.insertBefore(route, sec.firstElementChild);
+      var prev = ORDER[i-1], next = ORDER[i+1] || 'inicio';
+      var nav = document.createElement('nav');
+      nav.className = 'pager-nav';
+      nav.setAttribute('aria-label', 'Seguir el recorrido');
+      nav.innerHTML =
+        '<button class="prev" data-go="'+prev+'"><span class="dir">'+ARROW_L+'Anterior</span><b>'+title(prev)+'</b></button>' +
+        '<button class="next" data-go="'+next+'"><span class="dir">'+(ORDER[i+1]?'Siguiente':'Volver al comienzo')+ARROW_R+'</span><b>'+title(next)+'</b></button>';
+      sec.appendChild(nav);
+    });
+    // Aparición escalonada de las paradas en el inicio
+    var trail = document.querySelector('.trail');
+    if(trail && document.documentElement.classList.contains('js-anim') && 'IntersectionObserver' in window){
+      var io = new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ trail.classList.add('in'); io.disconnect(); } }); }, {threshold:0.15});
+      io.observe(trail);
+      setTimeout(function(){ var r = trail.getBoundingClientRect(); if(r.top < window.innerHeight) trail.classList.add('in'); }, 900);
+    } else if(trail){ trail.classList.add('in'); }
   })();
 
   go((location.hash||'#inicio').slice(1), true);
