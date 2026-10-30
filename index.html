@@ -173,6 +173,31 @@ tr:last-child td{border-bottom:0}
 .video svg{width:64px;height:64px}
 .todo{border:1.5px dashed var(--gold);background:var(--gold-soft);color:var(--ink);border-radius:10px;padding:10px 14px;font-size:.92rem}
 
+/* Infografia / metodologia */
+.meth-stats{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));margin:16px 0}
+.meth-stats .card{text-align:center}
+.meth-stats .stat{font-size:2.1rem}
+.meth-stats .stat-label{font-size:.82rem;color:var(--muted);margin-top:4px;line-height:1.3}
+.phase-nav{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0}
+.phase-btn{display:flex;align-items:center;gap:8px;border:2px solid var(--line);background:var(--surface);border-radius:999px;padding:7px 16px 7px 7px;cursor:pointer;font:700 .85rem var(--f-body);color:var(--ink)}
+.phase-btn .pk-ico{width:30px;height:30px;flex:0 0 30px}
+.phase-btn[aria-selected="true"]{border-color:var(--brand);background:var(--tint);color:var(--brand)}
+.phase-panel{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:22px 20px 20px;position:relative}
+.phase-panel .num{position:absolute;top:-15px;left:20px;background:var(--brand);color:var(--brand-ink);font:800 .9rem var(--f-display);width:30px;height:30px;border-radius:50%;display:grid;place-items:center}
+.phase-panel h3{margin:4px 0 4px;color:var(--brand);font-size:1.15rem}
+.phase-panel .evid{margin-top:14px;padding-top:12px;border-top:1px dashed var(--line);font-size:.9rem;color:var(--muted)}
+.phase-grid{display:grid;gap:18px;grid-template-columns:1fr 1fr;margin-top:12px}
+.phase-grid .col h4{margin:0 0 6px;font-size:.78rem;text-transform:uppercase;letter-spacing:.06em;display:flex;align-items:center;gap:6px}
+.phase-grid .col.cuanti h4{color:var(--brand)}
+.phase-grid .col.cuali h4{color:var(--gold)}
+.phase-grid ul{margin:0;padding-left:1.1em;font-size:.92rem;color:var(--ink)}
+.phase-grid ul li{margin-bottom:4px}
+@media (max-width:640px){.phase-grid{grid-template-columns:1fr}}
+.tri{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(210px,1fr))}
+.tri .card{border-top:4px solid var(--brand)}
+.tri .card:nth-child(2){border-top-color:var(--gold)}
+.tri .card:nth-child(3){border-top-color:var(--red,#9c3327)}
+
 /* Credits */
 .refs{display:grid;gap:12px;max-width:80ch}
 .refs p{padding-left:2.2em;text-indent:-2.2em;font-size:.95rem;overflow-wrap:anywhere}
@@ -402,6 +427,8 @@ footer.foot{border-top:1px solid var(--line);padding-block:22px;color:var(--mute
     <symbol id="i-book" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6.6C10.4 5 7.9 4.5 3.8 4.5v13c4.1 0 6.6.5 8.2 2 1.6-1.5 4.1-2 8.2-2v-13c-4.1 0-6.6.5-8.2 2.1z"/><path d="M12 6.6v12.9"/></g></symbol>
     <symbol id="i-dna" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3c0 4 10 4 10 8s-10 4-10 8"/><path d="M17 3c0 4-10 4-10 8s10 4 10 8"/><path d="M8.5 7h7M8 12h8M8.5 17h7"/></g></symbol>
     <symbol id="i-flask" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2h4M9 2v6.5L4.5 18a2 2 0 0 0 1.8 3h11.4a2 2 0 0 0 1.8-3L15 8.5V2"/><path d="M7.5 15h9"/></g></symbol>
+    <symbol id="i-cycle" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12a8 8 0 0 1 14.5-4.5M20 12a8 8 0 0 1-14.5 4.5"/><path d="M18.5 3v4.5H14M5.5 21v-4.5H10"/></g></symbol>
+    <symbol id="i-balance" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M7 7l-4 7a4 4 0 0 0 8 0zM17 7l-4 7a4 4 0 0 0 8 0zM5 7h14M9 3h6"/></g></symbol>
   </defs></svg>
 
   <div class="pk">
@@ -641,30 +668,111 @@ footer.foot{border-top:1px solid var(--line);padding-block:22px;color:var(--mute
 <section class="view" id="v-infografia">
   <div class="eyebrow">Diseñando</div>
   <h1 class="page-title">Infografía: propuesta metodológica</h1>
-  <p class="lead">Las cuatro fases de la propuesta siguen los objetivos específicos del trabajo de grado.</p>
-  <div class="flow">
-    <div class="step"><h3>Diagnosticar</h3><p class="goal">Objetivo específico 1</p><ul><li>Revisar registros académicos 2024</li><li>Aplicar prueba diagnóstica de Ciencias Naturales</li><li>Identificar niveles de desempeño</li></ul></div>
-    <div class="step"><h3>Diseñar</h3><p class="goal">Objetivo específico 2</p><ul><li>Definir la unidad didáctica</li><li>Organizar el curso en Google Classroom</li><li>Elaborar recursos y rúbricas</li></ul></div>
-    <div class="step"><h3>Implementar</h3><p class="goal">Objetivo específico 3</p><ul><li>Desarrollar la unidad con noveno</li><li>Acompañar y retroalimentar en Classroom</li><li>Registrar evidencias del proceso</li></ul></div>
-    <div class="step"><h3>Evaluar</h3><p class="goal">Objetivo específico 4</p><ul><li>Comparar resultados antes y después</li><li>Analizar participación y motivación</li><li>Formular conclusiones y mejoras</li></ul></div>
+  <p class="lead">Así se investiga el fortalecimiento del rendimiento académico en Ciencias Naturales: un <b>enfoque mixto</b> (cuantitativo + cualitativo), bajo el modelo de <b>Investigación-Acción Pedagógica (IAP)</b>, con una estrategia de <b>Aprendizaje Basado en Problemas (ABP)</b> mediada por Google Classroom.</p>
+
+  <div class="meth-stats">
+    <div class="card"><div class="stat">Mixto</div><div class="stat-label">Enfoque: cuantitativo + cualitativo</div></div>
+    <div class="card"><div class="stat">82</div><div class="stat-label">Estudiantes de grado noveno (población)</div></div>
+    <div class="card"><div class="stat">40</div><div class="stat-label">Muestra: grupo intacto 9-1</div></div>
+    <div class="card"><div class="stat">5</div><div class="stat-label">Fases del ciclo de investigación-acción</div></div>
   </div>
-  <p class="note" style="margin-top:16px">Pregunta que orienta el proceso: ¿de qué manera la implementación de una estrategia pedagógica mediada por Google Classroom fortalece el rendimiento académico en Ciencias Naturales?</p>
+
+  <h2 style="font-size:1.4rem;margin:28px 0 6px">La ruta metodológica: un ciclo de 5 fases</h2>
+  <p class="lead" style="margin-bottom:14px">Toca cada fase para ver su componente cuantitativo, su componente cualitativo y la evidencia que produce.</p>
+  <div class="phase-nav" id="phase-nav" role="tablist" aria-label="Fases de la investigación">
+    <button type="button" class="phase-btn" data-phase="diag"><span class="pk-ico" style="background:var(--brand)"><svg><use href="#i-search"/></svg></span>1. Diagnóstico</button>
+    <button type="button" class="phase-btn" data-phase="diseno"><span class="pk-ico" style="background:var(--gold)"><svg><use href="#i-gear"/></svg></span>2. Diseño</button>
+    <button type="button" class="phase-btn" data-phase="implem"><span class="pk-ico" style="background:var(--brand)"><svg><use href="#i-laptop"/></svg></span>3. Implementación</button>
+    <button type="button" class="phase-btn" data-phase="evalua"><span class="pk-ico" style="background:var(--gold)"><svg><use href="#i-chart"/></svg></span>4. Evaluación</button>
+    <button type="button" class="phase-btn" data-phase="reflex"><span class="pk-ico" style="background:var(--brand)"><svg><use href="#i-cycle"/></svg></span>5. Reflexión</button>
+  </div>
+  <div class="phase-panel" id="phase-panel"></div>
+
+  <h2 style="font-size:1.4rem;margin:28px 0 12px">Instrumentos de recolección</h2>
+  <div class="grid2">
+    <div class="card"><h3><span class="pk-ico" style="width:22px;height:22px;flex:0 0 22px;background:var(--brand);display:inline-grid;margin-right:6px;vertical-align:-5px"><svg><use href="#i-list"/></svg></span>Instrumento 1 · Pre-test</h3><p>Cuestionario diagnóstico de 15 a 20 preguntas de selección múltiple, alineado a los DBA de Ciencias Naturales. Mide uso comprensivo del conocimiento, explicación de fenómenos e indagación.</p></div>
+    <div class="card"><h3><span class="pk-ico" style="width:22px;height:22px;flex:0 0 22px;background:var(--gold);display:inline-grid;margin-right:6px;vertical-align:-5px"><svg><use href="#i-chart"/></svg></span>Instrumento 2 · Post-test</h3><p>Cuestionario final, equivalente en dificultad y estructura al pre-test, aplicado al cierre para medir la ganancia académica de la muestra.</p></div>
+    <div class="card"><h3><span class="pk-ico" style="width:22px;height:22px;flex:0 0 22px;background:var(--brand);display:inline-grid;margin-right:6px;vertical-align:-5px"><svg><use href="#i-book"/></svg></span>Instrumento 3 · Diario de campo</h3><p>Registro narrativo que el docente diligencia después de cada sesión, con una parte descriptiva, una reflexiva y una de ajuste pedagógico.</p></div>
+    <div class="card"><h3><span class="pk-ico" style="width:22px;height:22px;flex:0 0 22px;background:var(--gold);display:inline-grid;margin-right:6px;vertical-align:-5px"><svg><use href="#i-people"/></svg></span>Instrumento 4 · Encuesta de percepción</h3><p>Escala Likert (usabilidad, claridad didáctica y motivación) más preguntas abiertas, aplicada al finalizar la estrategia pedagógica.</p></div>
+  </div>
+
+  <h2 style="font-size:1.4rem;margin:28px 0 12px">Cómo se analizan los datos</h2>
+  <div class="grid2">
+    <div class="card"><h3>Datos cuantitativos</h3><ul><li>Estadística descriptiva: medias, mediana y desviación estándar.</li><li>Prueba de normalidad de Shapiro-Wilk.</li><li>Comparación pre-post con t de Student o Wilcoxon, según la normalidad.</li><li>Factor g de Hake, para la ganancia real de aprendizaje.</li><li>Software: PSPP y JASP (libres).</li></ul></div>
+    <div class="card"><h3>Datos cualitativos</h3><ul><li>Análisis de contenido categorial y temático.</li><li>Codificación abierta y axial del diario de campo y la encuesta.</li><li>Categorías: usabilidad e interacción en el EVA; motivación hacia las Ciencias Naturales.</li><li>Software: QDA Miner Lite.</li></ul></div>
+  </div>
+
+  <h2 style="font-size:1.4rem;margin:28px 0 12px">Triangulación: tres miradas que se cruzan</h2>
+  <div class="tri">
+    <div class="card"><h3><span class="pk-ico" style="width:22px;height:22px;flex:0 0 22px;background:var(--brand);display:inline-grid;margin-right:6px;vertical-align:-5px"><svg><use href="#i-chart"/></svg></span>Cuantitativa</h3><p>Pre-test, post-test y escala Likert: muestran <i>cuánto</i> cambió el rendimiento y la percepción del grupo.</p></div>
+    <div class="card"><h3><span class="pk-ico" style="width:22px;height:22px;flex:0 0 22px;background:var(--gold);display:inline-grid;margin-right:6px;vertical-align:-5px"><svg><use href="#i-book"/></svg></span>Cualitativa</h3><p>Diario de campo y preguntas abiertas: explican el <i>por qué</i> y el <i>cómo</i> de esos resultados.</p></div>
+    <div class="card"><h3><span class="pk-ico" style="width:22px;height:22px;flex:0 0 22px;background:#9c3327;display:inline-grid;margin-right:6px;vertical-align:-5px"><svg><use href="#i-target"/></svg></span>Teórico-conceptual</h3><p>Aprendizaje significativo, los DBA del MEN y las orientaciones de la UNESCO sobre mediación digital.</p></div>
+  </div>
+
+  <p class="note" style="margin-top:20px">Pregunta que orienta todo el proceso: ¿de qué manera la implementación de una estrategia pedagógica mediada por Google Classroom fortalece el rendimiento académico en Ciencias Naturales de los estudiantes de grado noveno?</p>
 </section>
+<script>
+(function(){
+  var PHASES = {
+    diag:{n:1,title:'Diagnóstico de la práctica',cuanti:['Prueba diagnóstica inicial (Pre-test) alineada a los DBA.','Niveles de desempeño: bajo, básico, alto y superior.','Frecuencias y porcentajes del grupo.'],cuali:['Observación pedagógica participante.','Diario de campo: motivación y dificultades.','Condiciones reales de acceso a recursos digitales.'],evid:'Evidencia: resultados iniciales y línea base del grupo.'},
+    diseno:{n:2,title:'Diseño y planificación de la estrategia',cuanti:['Validación por juicio de expertos del post-test.','Rúbricas de desempeño para las actividades.','Matrices de registro académico.'],cuali:['Matriz del diario de campo pedagógico.','Cuestionario de percepción (preguntas cerradas y abiertas).','Secuencias didácticas basadas en ABP.'],evid:'Evidencia: instrumentos validados y aula de Google Classroom lista.'},
+    implem:{n:3,title:'Implementación y acción pedagógica',cuanti:['Calificaciones de actividades y cuestionarios interactivos.','Avances registrados en las rúbricas de desempeño.','Participación analítica en la plataforma.'],cuali:['Participación, interacción y autonomía estudiantil.','Dificultades de comprensión y colaboración entre pares.','Registro sistemático en el diario de campo.'],evid:'Evidencia: registros de Classroom, productos digitales y diario de campo.'},
+    evalua:{n:4,title:'Evaluación del impacto pedagógico',cuanti:['Prueba de evaluación final (Post-test).','Estadística descriptiva: medias, frecuencias y niveles de desempeño.'],cuali:['Encuesta de percepción aplicada al cierre.','Sistematización del diario de campo pedagógico.'],evid:'Evidencia: variaciones observadas y primera triangulación de resultados.'},
+    reflex:{n:5,title:'Reflexión y documentación del proceso',cuanti:['Sistematización final de pre-test, post-test y rúbricas.','Consolidación de los registros de cumplimiento en Classroom.'],cuali:['Interpretación de los registros narrativos del diario de campo.','Análisis de las respuestas abiertas de la encuesta.'],evid:'Evidencia: conclusiones y recomendaciones pedagógicas para la institución.'}
+  };
+  function esc(s){return s}
+  function render(id){
+    var p = PHASES[id]; if(!p) return;
+    var panel = document.getElementById('phase-panel');
+    if(!panel) return;
+    panel.innerHTML = '<div class="num">'+p.n+'</div><h3>'+p.title+'</h3>'+
+      '<div class="phase-grid">'+
+        '<div class="col cuanti"><h4>Cuantitativo</h4><ul>'+p.cuanti.map(function(t){return '<li>'+t+'</li>'}).join('')+'</ul></div>'+
+        '<div class="col cuali"><h4>Cualitativo</h4><ul>'+p.cuali.map(function(t){return '<li>'+t+'</li>'}).join('')+'</ul></div>'+
+      '</div>'+
+      '<div class="evid">'+p.evid+'</div>';
+    document.querySelectorAll('.phase-btn').forEach(function(b){ b.setAttribute('aria-selected', b.getAttribute('data-phase')===id ? 'true':'false'); });
+  }
+  document.addEventListener('click', function(e){
+    var b = e.target.closest('.phase-btn');
+    if(b){ render(b.getAttribute('data-phase')); }
+  });
+  if(document.getElementById('phase-panel')) render('diag');
+})();
+</script>
 
 <!-- DISENO INSTRUCCIONAL -->
 <section class="view" id="v-disenoinst">
   <div class="eyebrow">Diseñando</div>
   <h1 class="page-title">Diseño instruccional</h1>
-  <p class="lead">Se organiza con el modelo ADDIE (análisis, diseño, desarrollo, implementación y evaluación) y se relaciona con cada objetivo específico.</p>
+  <p class="lead">El recurso digital se diseñó bajo el <b>Aprendizaje Basado en Problemas (ABP)</b>, mediado por Google Classroom como Entorno Virtual de Aprendizaje (EVA). No es un repositorio de documentos: cada secuencia parte de una situación problema real del contexto de Saladoblanco y lleva al estudiante a investigar, analizar y proponer soluciones.</p>
+
+  <h2 style="font-size:1.4rem;margin:28px 0 12px">Los 4 momentos de cada secuencia</h2>
+  <div class="flow">
+    <div class="step"><h3 style="display:flex;align-items:center;gap:8px"><span class="pk-ico" style="width:28px;height:28px;flex:0 0 28px;background:var(--gold)"><svg><use href="#i-search"/></svg></span>Exploración</h3><p class="goal">Saberes previos y problema</p><ul><li>Dilemas, preguntas o fenómenos cercanos a la vida de los estudiantes.</li><li>Activan conocimientos previos y la formulación de hipótesis.</li></ul></div>
+    <div class="step"><h3 style="display:flex;align-items:center;gap:8px"><span class="pk-ico" style="width:28px;height:28px;flex:0 0 28px;background:var(--brand)"><svg><use href="#i-dna"/></svg></span>Construcción</h3><p class="goal">Conocimiento e indagación</p><ul><li>Lecturas científicas, infografías y simulaciones.</li><li>Explicaciones orientadoras del docente.</li></ul></div>
+    <div class="step"><h3 style="display:flex;align-items:center;gap:8px"><span class="pk-ico" style="width:28px;height:28px;flex:0 0 28px;background:var(--gold)"><svg><use href="#i-flask"/></svg></span>Aplicación</h3><p class="goal">Práctica y solución</p><ul><li>Búsqueda colaborativa de alternativas en equipo.</li><li>Análisis de datos y elaboración de productos digitales.</li></ul></div>
+    <div class="step"><h3 style="display:flex;align-items:center;gap:8px"><span class="pk-ico" style="width:28px;height:28px;flex:0 0 28px;background:var(--brand)"><svg><use href="#i-balance"/></svg></span>Reflexión</h3><p class="goal">Evaluación formativa</p><ul><li>Retroalimentación, autoevaluación y coevaluación.</li><li>Verificación de los avances frente al problema planteado.</li></ul></div>
+  </div>
+
+  <h2 style="font-size:1.4rem;margin:28px 0 12px">Cómo se construyó el entorno virtual</h2>
   <div class="tbl"><table>
-    <thead><tr><th>Fase</th><th>Qué se hace</th><th>Objetivo relacionado</th></tr></thead>
+    <thead><tr><th>Fase</th><th>Qué se hace</th></tr></thead>
     <tbody>
-      <tr><td><b>Análisis</b></td><td>Contexto de la institución, perfil de los 25 estudiantes de noveno, necesidades y conectividad; diagnóstico del rendimiento en Ciencias Naturales.</td><td>1. Diagnosticar</td></tr>
-      <tr><td><b>Diseño</b></td><td>Objetivos de aprendizaje alineados con los DBA, secuencia de actividades, estrategia de evaluación formativa y estructura del curso en Classroom.</td><td>2. Diseñar</td></tr>
-      <tr><td><b>Desarrollo</b></td><td>Elaboración de materiales, guías, cuestionarios y rúbricas; carga y organización por temas en Google Classroom.</td><td>2. Diseñar</td></tr>
-      <tr><td><b>Implementación</b></td><td>Trabajo con los estudiantes, acompañamiento docente permanente, comunicación y retroalimentación en la plataforma.</td><td>3. Implementar</td></tr>
-      <tr><td><b>Evaluación</b></td><td>Comparación de resultados con el diagnóstico, análisis de participación y ajustes a la estrategia.</td><td>4. Evaluar</td></tr>
+      <tr><td><b>1. Diagnóstico y caracterización</b></td><td>Se aplica el pre-test para fijar la línea base y reconocer las brechas conceptuales que orientan el diseño de las actividades.</td></tr>
+      <tr><td><b>2. Diseño y organización del EVA</b></td><td>Se crea el aula en Google Classroom por módulos ABP, con títulos claros e instrucciones precisas; inducción al aula y pactos de convivencia digital.</td></tr>
+      <tr><td><b>3. Implementación (acción pedagógica)</b></td><td>Se desarrollan las secuencias ABP en el aula física y virtual, combinando indagación, análisis y elaboración de productos.</td></tr>
+      <tr><td><b>4. Acompañamiento y monitoreo</b></td><td>El docente retroalimenta de forma continua, refuerza dudas frecuentes y ajusta la estrategia según el ritmo real del grupo.</td></tr>
+      <tr><td><b>5. Evaluación y triangulación</b></td><td>Se aplica el post-test y la encuesta de percepción, y se cruzan los resultados con el diario de campo para valorar el impacto.</td></tr>
     </tbody></table></div>
+
+  <h2 style="font-size:1.4rem;margin:28px 0 12px">Principios que guiaron el diseño</h2>
+  <div class="grid2">
+    <div class="card"><h3>Alineación curricular</h3><p>Cada secuencia responde a los Derechos Básicos de Aprendizaje (DBA) de Ciencias Naturales de grado noveno (MEN, 2016).</p></div>
+    <div class="card"><h3>Mediación pedagógica real</h3><p>Classroom organiza, retroalimenta y da seguimiento: no es solo un lugar para dejar archivos.</p></div>
+    <div class="card"><h3>Evaluación formativa</h3><p>Rúbricas claras y retroalimentación oportuna, antes que calificaciones aisladas al final.</p></div>
+    <div class="card"><h3>Flexibilidad</h3><p>Los tiempos y actividades se ajustan a la conectividad y al ritmo real de los estudiantes de Saladoblanco.</p></div>
+  </div>
 </section>
 
 <!-- PRODUCTO FINAL -->
