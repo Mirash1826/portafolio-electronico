@@ -438,6 +438,101 @@ tr:last-child td{border-bottom:0}
 .media-link-cover{display:block;width:100%;height:100%;object-fit:cover}
 .media-link-cta{position:absolute;left:0;right:0;bottom:0;display:flex;align-items:center;justify-content:center;gap:8px;padding:10px 14px;background:linear-gradient(0deg,rgba(9,20,14,.88),rgba(9,20,14,.55) 70%,transparent);color:#fff;font:700 .85rem/1 var(--f-body);letter-spacing:.01em}
 .media-link:hover .media-link-cta{background:linear-gradient(0deg,rgba(9,20,14,.95),rgba(9,20,14,.7) 70%,transparent)}
+
+/* ===== Ilustraciones de cada parada ===== */
+:root{--sc-sky:#dcedf0;--sc-hill:#cfe5d3;--sc-hill2:#b7d8c0;--coral:#de7356;--sky:#4f9fc2;--leaf2:#5fae78;--paper:#ffffff;--ink-soft:#2c4a3b;--sc-dev:#1f4a36}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--sc-sky:#13282c;--sc-hill:#183526;--sc-hill2:#1e4230;--coral:#ef8d70;--sky:#6db8d6;--leaf2:#6fc79b;--paper:#203a2e;--ink-soft:#c7dccf;--sc-dev:#356b52}}
+:root[data-theme="dark"]{--sc-sky:#13282c;--sc-hill:#183526;--sc-hill2:#1e4230;--coral:#ef8d70;--sky:#6db8d6;--leaf2:#6fc79b;--paper:#203a2e;--ink-soft:#c7dccf;--sc-dev:#356b52}
+.scene{position:relative;margin:0 0 30px;border-radius:22px;overflow:hidden;box-shadow:var(--shadow);background:var(--sc-sky);max-width:100%}
+.scene svg{display:block;width:100%;height:auto;aspect-ratio:960/280}
+.sv-sun{fill:var(--sun)}
+
+.scene-tag{position:absolute;left:14px;top:14px;background:var(--surface);color:var(--brand);font:700 .82rem var(--f-body);padding:5px 12px;border-radius:99px;box-shadow:var(--shadow)}
+.sv-t{font:800 20px var(--f-display);fill:var(--ink)}
+.sv-sm{font-size:15px;letter-spacing:.06em}
+.sv-inv{fill:var(--brand-ink)}
+.sv-big{font:800 34px var(--f-display);fill:var(--brand)}
+.sv-g{font:800 22px var(--f-display);fill:var(--ink)}
+.sv-sup{font-size:13px}
+.sv-q{font:800 24px var(--f-display);fill:var(--gold-text)}
+.sv-stamp{font:800 13px var(--f-body);fill:var(--coral);letter-spacing:.12em}
+.scene .fl,.scene .fl2,.cycle .fl{animation:svfl 5s ease-in-out infinite;transform-box:fill-box}
+.scene .fl2{animation-duration:6.5s;animation-delay:-2s}
+.scene .tw,.cycle .tw{animation:svtw 2.6s ease-in-out infinite}
+.scene .tw2{animation:svtw 3.4s ease-in-out infinite -1s}
+.scene .tw3{animation:svtw 4.2s ease-in-out infinite -2s}
+.scene .spin-slow{animation:svspin 22s linear infinite}
+.scene .clap{animation:svclap 3s ease-in-out infinite;transform-box:view-box}
+.scene .grow{animation:svgrow 6s ease-in-out infinite;transform-origin:420px 237px;transform-box:view-box}
+@keyframes svfl{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+@keyframes svtw{0%,100%{opacity:1}50%{opacity:.35}}
+@keyframes svspin{to{transform:rotate(360deg)}}
+@keyframes svclap{0%,80%,100%{transform:rotate(0)}88%{transform:rotate(-14deg)}}
+@keyframes svgrow{0%{transform:scaleX(.2)}60%,100%{transform:scaleX(1.6)}}
+@media (prefers-reduced-motion:reduce){.scene *,.cycle *{animation:none !important}}
+
+/* Etiquetas en las sesiones */
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.tag{font:700 .78rem var(--f-body);padding:3px 10px;border-radius:99px;background:var(--tint);color:var(--brand)}
+.tag.i{background:var(--gold-soft);color:var(--gold-text)}
+.sec-h{font-size:1.4rem;margin:34px 0 12px}
+.sec-p{color:var(--muted);max-width:66ch;margin:-4px 0 16px}
+
+/* Ciclo IAP interactivo */
+.cycle-wrap{display:grid;gap:20px;grid-template-columns:minmax(0,360px) minmax(0,1fr);align-items:center}
+@media (max-width:760px){.cycle-wrap{grid-template-columns:1fr}.cycle{max-width:340px;margin:0 auto}}
+.cycle{width:100%;height:auto;display:block}
+.cnode{cursor:pointer}
+.cnode circle{fill:var(--surface);stroke:var(--brand);stroke-width:3;transition:fill 160ms ease}
+.cnode text{font:800 22px var(--f-display);fill:var(--brand);pointer-events:none}
+.cnode .cl{font:700 13px var(--f-body);fill:var(--ink)}
+.cnode.on circle{fill:var(--brand)}
+.cnode.on text:not(.cl){fill:var(--brand-ink)}
+.cnode:focus-visible{outline:none}
+.cnode:focus-visible circle{stroke:var(--focus);stroke-width:5}
+.c-ring{fill:none;stroke:var(--line);stroke-width:10}
+.c-arc{fill:none;stroke:var(--gold);stroke-width:4;stroke-linecap:round}
+.c-mid{font:800 30px var(--f-display);fill:var(--brand)}
+.c-sub{font:600 13px var(--f-body);fill:var(--muted)}
+.c-arrow{fill:var(--gold)}
+
+/* Triángulo de triangulación */
+.tri-fig{max-width:520px;margin:0 auto 14px}
+.tri-fig svg{width:100%;height:auto;display:block}
+.tri-fig .v{font:800 15px var(--f-display);fill:var(--ink)}
+.tri-fig .vs{font:600 12px var(--f-body);fill:var(--muted)}
+
+/* TPACK */
+.tpack{display:grid;gap:18px;grid-template-columns:minmax(0,300px) minmax(0,1fr);align-items:center}
+@media (max-width:760px){.tpack{grid-template-columns:1fr}.tpack svg{max-width:300px;margin:0 auto}}
+.tpack svg{width:100%;height:auto;display:block}
+.tpack .tl{font:800 18px var(--f-display);fill:var(--ink)}
+.tpack .ts{font:600 11px var(--f-body);fill:var(--ink)}
+
+/* ADDIE */
+.addie{display:grid;gap:10px;grid-template-columns:repeat(5,minmax(0,1fr));counter-reset:none}
+@media (max-width:820px){.addie{grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}}
+.addie .a-st{background:var(--surface);border-radius:var(--r-sm);box-shadow:var(--shadow);padding:16px 14px;min-width:0}
+.addie .a-l{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;font:800 1.3rem var(--f-display);background:var(--sun);color:#14231b;margin-bottom:8px}
+.addie .a-st:nth-child(even) .a-l{background:var(--brand);color:var(--brand-ink)}
+.addie h3{font-size:1rem;color:var(--brand);margin-bottom:4px}
+.addie p{font-size:.9rem;color:var(--muted)}
+
+/* Ética */
+.ethic{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.ethic .card{border-top:4px solid var(--brand)}
+.ethic .card:nth-child(even){border-top-color:var(--gold)}
+
+/* Buscador de referencias */
+.ref-tools{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:0 0 18px}
+.ref-tools input{flex:1 1 260px;min-width:0;font:inherit;padding:11px 16px;border-radius:999px;border:2px solid var(--line);background:var(--surface);color:var(--ink)}
+.ref-tools input:focus{outline:none;border-color:var(--brand)}
+.ref-count{font-size:.9rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.refs a{overflow-wrap:anywhere}
+.refs p[hidden]{display:none}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+@media (max-width:560px){.scene-tag{position:static;display:inline-block;margin:0 10px 10px;font-size:.78rem}}
 </style></head><body>
 
 <header class="top">
@@ -565,6 +660,22 @@ tr:last-child td{border-bottom:0}
 <section class="view" id="v-avatar">
   <h1 class="page-title">Avatares</h1>
   <p class="lead">Dos avatares en video presentan el trabajo de grado y el problema de investigación.</p>
+  <figure class="scene" aria-label="Dos avatares conversan frente a una pantalla de video"><svg viewBox="0 0 960 280" role="img" aria-label="Dos avatares conversan frente a una pantalla de video" focusable="false" preserveAspectRatio="xMidYMid meet"><rect width="960" height="280" fill="var(--sc-sky)"/><circle cx="860" cy="58" r="30" fill="var(--sun)" opacity=".85" class="tw"/><path d="M0 220 C 140 170 260 200 380 185 S 620 150 760 190 S 900 175 960 185 V280 H0Z" fill="var(--sc-hill2)"/><path d="M0 245 C 160 215 300 240 460 228 S 760 205 960 232 V280 H0Z" fill="var(--sc-hill)"/>
+<g class="fl"><rect x="370" y="52" width="220" height="140" rx="18" fill="var(--sc-dev)"/>
+<rect x="384" y="66" width="192" height="112" rx="10" fill="var(--brand)" opacity=".35"/>
+<circle cx="480" cy="122" r="30" fill="var(--sun)"/><path d="M470 106 L498 122 L470 138Z" fill="var(--sc-dev)"/>
+<rect x="455" y="192" width="50" height="10" rx="4" fill="var(--sc-dev)"/></g>
+<g><circle cx="230" cy="150" r="34" fill="var(--coral)"/><circle cx="230" cy="140" r="22" fill="var(--paper)"/>
+<circle cx="222" cy="138" r="3" fill="var(--ink)"/><circle cx="238" cy="138" r="3" fill="var(--ink)"/><path d="M222 148 Q230 155 238 148" stroke="var(--ink)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+<rect x="198" y="182" width="64" height="44" rx="20" fill="var(--coral)"/></g>
+<g class="fl2"><rect x="120" y="70" width="120" height="44" rx="16" fill="var(--paper)"/><path d="M200 112 L214 128 L218 110Z" fill="var(--paper)"/>
+<text x="180" y="99" text-anchor="middle" class="sv-t">¡Hola!</text></g>
+<g><circle cx="730" cy="150" r="34" fill="var(--sky)"/><circle cx="730" cy="140" r="22" fill="var(--paper)"/>
+<circle cx="722" cy="138" r="3" fill="var(--ink)"/><circle cx="738" cy="138" r="3" fill="var(--ink)"/><path d="M722 149 H738" stroke="var(--ink)" stroke-width="2.5" stroke-linecap="round"/>
+<rect x="698" y="182" width="64" height="44" rx="20" fill="var(--sky)"/></g>
+<g class="fl"><rect x="720" y="62" width="150" height="44" rx="16" fill="var(--paper)"/><path d="M752 104 L742 122 L768 106Z" fill="var(--paper)"/>
+<text x="795" y="91" text-anchor="middle" class="sv-t">¿El problema?</text></g>
+<g class="tw" transform="translate(330 70) scale(1.2)"><path d="M0 -10 L3 -3 L10 0 L3 3 L0 10 L-3 3 L-10 0 L-3 -3Z" fill="var(--sun)"/></g><g class="tw2" transform="translate(640 210) scale(0.9)"><path d="M0 -10 L3 -3 L10 0 L3 3 L0 10 L-3 3 L-10 0 L-3 -3Z" fill="var(--sun)"/></g><g class="tw3" transform="translate(560 40) scale(0.7)"><path d="M0 -10 L3 -3 L10 0 L3 3 L0 10 L-3 3 L-10 0 L-3 -3Z" fill="var(--sun)"/></g></svg><figcaption class="scene-tag">Parada 1 · Identificando</figcaption></figure>
   <div class="avatars">
     <article class="av av-video-card" id="av1">
       <h3>Avatar 1 · El trabajo de grado</h3>
@@ -630,9 +741,9 @@ tr:last-child td{border-bottom:0}
           <div class="pk-head"><span class="pk-ico"><svg><use href="#i-doc"/></svg></span><h3>Justificación del proyecto</h3></div>
           <div class="pk-body">
             <div class="pk-item rv"><span class="pk-ico"><svg><use href="#i-net"/></svg></span><div><h4>Visión multicausal</h4><p>El bajo rendimiento resulta de la interacción entre metodologías tradicionales, motivación y contexto escolar.</p></div></div>
-            <div class="pk-item rv"><span class="pk-ico"><svg><use href="#i-brain"/></svg></span><div><h4>Fundamentación teórica</h4><p>Impulsa el aprendizaje significativo (Ausubel) y mediado socialmente (Vygotsky), basado en indagación científica.</p></div></div>
+            <div class="pk-item rv"><span class="pk-ico"><svg><use href="#i-brain"/></svg></span><div><h4>Fundamentación teórica</h4><p>Aprendizaje significativo (Ausubel et al., 1983) y mediado socialmente (Vygotsky, 1978), con indagación científica (National Research Council, 2012).</p></div></div>
             <div class="pk-item rv"><span class="pk-ico"><svg><use href="#i-people"/></svg></span><div><h4>Impacto académico y social</h4><p>Intervención en grado noveno para consolidar competencias clave antes de la educación media.</p></div></div>
-            <div class="pk-item rv"><span class="pk-ico"><svg><use href="#i-laptop"/></svg></span><div><h4>Mediación tecnológica</h4><p>Google Classroom estructurado intencionalmente para organizar recursos y fomentar el aprendizaje autónomo.</p></div></div>
+            <div class="pk-item rv"><span class="pk-ico"><svg><use href="#i-laptop"/></svg></span><div><h4>Mediación tecnológica</h4><p>Google Classroom organiza una estrategia de Aprendizaje Basado en Problemas (ABP), con recursos, seguimiento y retroalimentación.</p></div></div>
             <div class="pk-item rv"><span class="pk-ico"><svg><use href="#i-bank"/></svg></span><div><h4>Aporte institucional</h4><p>Genera evidencia empírica y metodologías aplicables a la institución y a contextos similares.</p></div></div>
           </div>
         </article>
@@ -651,11 +762,11 @@ tr:last-child td{border-bottom:0}
         <article class="pk-card rv">
           <div class="pk-head"><span class="pk-ico"><svg><use href="#i-gear"/></svg></span><h3>Metodología</h3></div>
           <div class="pk-body">
-            <div class="pk-item rv"><span class="pk-ico"><svg><use href="#i-search"/></svg></span><div><h4>Enfoque</h4><p>Mixto (cuantitativo y cualitativo).</p></div></div>
-            <div class="pk-item rv"><span class="pk-ico"><svg><use href="#i-doc"/></svg></span><div><h4>Tipo de investigación</h4><p>Aplicada, descriptiva y explicativa.</p></div></div>
-            <div class="pk-item rv"><span class="pk-ico"><svg><use href="#i-people"/></svg></span><div><h4>Población y muestra</h4><p>Estudiantes de grado noveno de la Institución Educativa Municipal Misael Pastrana Borrero.</p></div></div>
-            <div class="pk-item rv"><span class="pk-ico"><svg><use href="#i-clip"/></svg></span><div><h4>Instrumentos</h4><p>Pruebas de diagnóstico y de salida, encuestas, observación y análisis documental.</p></div></div>
-            <div class="pk-item rv"><span class="pk-ico"><svg><use href="#i-target"/></svg></span><div><h4>Fases de intervención</h4><p>Diagnóstico → Diseño → Implementación → Evaluación → Reflexión.</p></div></div>
+            <div class="pk-item rv"><span class="pk-ico"><svg><use href="#i-search"/></svg></span><div><h4>Enfoque y modelo</h4><p>Mixto (cuantitativo y cualitativo), con el modelo de Investigación-Acción Pedagógica (IAP).</p></div></div>
+            <div class="pk-item rv"><span class="pk-ico"><svg><use href="#i-doc"/></svg></span><div><h4>Tipo de investigación</h4><p>Aplicada, con alcance descriptivo.</p></div></div>
+            <div class="pk-item rv"><span class="pk-ico"><svg><use href="#i-people"/></svg></span><div><h4>Población y muestra</h4><p>82 estudiantes de grado noveno. Muestra no probabilística: el grupo intacto 9-1, con 40 estudiantes.</p></div></div>
+            <div class="pk-item rv"><span class="pk-ico"><svg><use href="#i-clip"/></svg></span><div><h4>Instrumentos</h4><p>Pre-test y post-test gemelos, diario de campo pedagógico, encuesta de percepción y registro de seguimiento en Google Classroom.</p></div></div>
+            <div class="pk-item rv"><span class="pk-ico"><svg><use href="#i-target"/></svg></span><div><h4>Fases de la investigación</h4><p>Diagnóstico → Diseño → Implementación → Evaluación → Reflexión.</p></div></div>
           </div>
         </article>
 
@@ -675,10 +786,10 @@ tr:last-child td{border-bottom:0}
           <div class="pk-head"><span class="pk-ico"><svg><use href="#i-list"/></svg></span><h3>Objetivos específicos</h3></div>
           <div class="pk-body">
             <div class="pk-steps">
-              <div class="pk-step rv"><b>1</b><p>Diagnosticar el nivel actual de rendimiento académico.</p></div>
-              <div class="pk-step rv"><b>2</b><p>Diseñar la estrategia pedagógica mediada por la plataforma.</p></div>
-              <div class="pk-step rv"><b>3</b><p>Implementar la propuesta didáctica estructurada en el aula.</p></div>
-              <div class="pk-step rv"><b>4</b><p>Evaluar el impacto de la intervención en el desempeño.</p></div>
+              <div class="pk-step rv"><b>1</b><p>Diagnosticar el nivel actual de rendimiento académico en Ciencias Naturales.</p></div>
+              <div class="pk-step rv"><b>2</b><p>Diseñar una estrategia pedagógica mediada por Google Classroom.</p></div>
+              <div class="pk-step rv"><b>3</b><p>Implementar la estrategia con los estudiantes de grado noveno.</p></div>
+              <div class="pk-step rv"><b>4</b><p>Evaluar el impacto de la estrategia en el rendimiento académico.</p></div>
             </div>
           </div>
         </article>
@@ -689,11 +800,12 @@ tr:last-child td{border-bottom:0}
     <div class="pk-refs rv">
       <h3><span class="pk-ico"><svg><use href="#i-book"/></svg></span>Referencias principales (APA 7)</h3>
       <ul>
-        <li>Ausubel, D. P. (2002). <cite>Adquisición y retención del conocimiento</cite>. Paidós.</li>
-        <li>Vygotsky, L. S. (1978). <cite>El desarrollo de los procesos psicológicos superiores</cite>. Crítica.</li>
-        <li>Cabero-Almenara, J. y Palacios-Rodríguez, A. (2021). Tecnología educativa y formación docente. <cite>Revista EDUTEC, 76</cite>, 1-14.</li>
-        <li>Area-Moreira, M. (2018). Las aulas virtuales en la docencia universitaria. <cite>RIED, 21</cite>(1), 1-18.</li>
-        <li>Ministerio de Educación Nacional. (2016). <cite>Derechos Básicos de Aprendizaje. Ciencias Naturales</cite>.</li>
+        <li>Ausubel, D. P., Novak, J. D., y Hanesian, H. (1983). <cite>Psicología educativa: Un punto de vista cognoscitivo</cite> (2.ª ed.). Trillas.</li>
+        <li>Barrows, H. S. (1986). A taxonomy of problem-based learning methods. <cite>Medical Education, 20</cite>(6), 481–486.</li>
+        <li>Hernández-Sampieri, R., y Mendoza Torres, C. P. (2018). <cite>Metodología de la investigación: Las rutas cuantitativa, cualitativa y mixta</cite>. McGraw-Hill Interamericana.</li>
+        <li>Latorre, A. (2005). <cite>La investigación-acción: Conocer y cambiar la práctica educativa</cite> (3.ª ed.). Graó.</li>
+        <li>Ministerio de Educación Nacional. (2016). <cite>Derechos básicos de aprendizaje: Ciencias naturales</cite> (V.1).</li>
+        <li>Vygotsky, L. S. (1978). <cite>Mind in society: The development of higher psychological processes</cite>. Harvard University Press.</li>
       </ul>
     </div>
 
@@ -704,6 +816,22 @@ tr:last-child td{border-bottom:0}
 <!-- EBOOK -->
 <section class="view" id="v-ebook">
   <h1 class="page-title">E-book: Capítulo 2</h1>
+  <p class="lead">El marco referencial en tres formatos: el e-book con los contextos y las teorías, un video sobre innovación educativa y el podcast.</p>
+  <figure class="scene" aria-label="Un libro abierto con audífonos de podcast y una pantalla de video"><svg viewBox="0 0 960 280" role="img" aria-label="Un libro abierto con audífonos de podcast y una pantalla de video" focusable="false" preserveAspectRatio="xMidYMid meet"><rect width="960" height="280" fill="var(--sc-sky)"/><circle cx="860" cy="58" r="30" fill="var(--sun)" opacity=".85" class="tw"/><path d="M0 220 C 140 170 260 200 380 185 S 620 150 760 190 S 900 175 960 185 V280 H0Z" fill="var(--sc-hill2)"/><path d="M0 245 C 160 215 300 240 460 228 S 760 205 960 232 V280 H0Z" fill="var(--sc-hill)"/>
+<g class="fl"><path d="M330 210 Q405 186 480 206 V96 Q405 76 330 100Z" fill="var(--paper)"/>
+<path d="M630 210 Q555 186 480 206 V96 Q555 76 630 100Z" fill="var(--paper)"/>
+<path d="M480 96 V206" stroke="var(--line)" stroke-width="3"/>
+<g stroke="var(--line)" stroke-width="5" stroke-linecap="round"><path d="M350 120 Q405 104 462 116"/><path d="M350 142 Q405 126 462 138"/><path d="M350 164 Q405 148 440 156"/>
+<path d="M498 116 Q555 104 610 120"/><path d="M498 138 Q555 126 610 142"/></g>
+<rect x="520" y="152" width="70" height="34" rx="6" fill="var(--tint)"/><path d="M528 180 L548 164 L562 174 L582 158" stroke="var(--brand)" stroke-width="4" fill="none" stroke-linecap="round"/></g>
+<g class="spin-slow" style="transform-origin:480px 52px"><ellipse cx="480" cy="52" rx="34" ry="12" fill="none" stroke="var(--brand)" stroke-width="3"/>
+<ellipse cx="480" cy="52" rx="34" ry="12" fill="none" stroke="var(--brand)" stroke-width="3" transform="rotate(60 480 52)"/>
+<ellipse cx="480" cy="52" rx="34" ry="12" fill="none" stroke="var(--brand)" stroke-width="3" transform="rotate(120 480 52)"/></g>
+<circle cx="480" cy="52" r="6" fill="var(--coral)"/>
+<g class="fl2"><path d="M150 150 a50 50 0 0 1 100 0" fill="none" stroke="var(--sc-dev)" stroke-width="10" stroke-linecap="round"/>
+<rect x="136" y="142" width="26" height="44" rx="10" fill="var(--coral)"/><rect x="238" y="142" width="26" height="44" rx="10" fill="var(--coral)"/></g>
+<g class="fl"><rect x="700" y="110" width="150" height="96" rx="14" fill="var(--sc-dev)"/><circle cx="775" cy="158" r="22" fill="var(--sun)"/><path d="M767 146 L789 158 L767 170Z" fill="var(--sc-dev)"/></g>
+<g class="fl"><path transform="translate(300 70) rotate(-30)" d="M0 0 C 10 -14 26 -14 34 0 C 26 14 10 14 0 0Z" fill="var(--leaf2)"/></g><g class="fl2"><path transform="translate(640 60) rotate(200)" d="M0 0 C 10 -14 26 -14 34 0 C 26 14 10 14 0 0Z" fill="var(--leaf2)"/></g><g class="tw" transform="translate(560 230) scale(0.8)"><path d="M0 -10 L3 -3 L10 0 L3 3 L0 10 L-3 3 L-10 0 L-3 -3Z" fill="var(--sun)"/></g><g class="tw2" transform="translate(380 40) scale(0.9)"><path d="M0 -10 L3 -3 L10 0 L3 3 L0 10 L-3 3 L-10 0 L-3 -3Z" fill="var(--sun)"/></g></svg><figcaption class="scene-tag">Parada 2 · Referenciando</figcaption></figure>
   <div class="ebook-media rv">
   <div class="media-grid">
     <article class="media-card">
@@ -743,7 +871,46 @@ tr:last-child td{border-bottom:0}
 <!-- UNIDAD DIDACTICA -->
 <section class="view" id="v-unidad">
   <h1 class="page-title">Unidad didáctica</h1>
-  <p class="lead">Estructura de la unidad que se implementará en Google Classroom con el grado noveno.</p>
+  <p class="lead">Estructura de la unidad de herencia genética que se implementará en Google Classroom con el grado 9-1, bajo el Aprendizaje Basado en Problemas.</p>
+  <figure class="scene" aria-label="Expediente del caso de Mateo, un cuadro de Punnett con preguntas por resolver, un árbol genealógico y una lupa"><svg viewBox="0 0 960 280" role="img" aria-label="Expediente del caso de Mateo, un cuadro de Punnett con preguntas por resolver, un árbol genealógico y una lupa" focusable="false" preserveAspectRatio="xMidYMid meet"><rect width="960" height="280" fill="var(--sc-sky)"/><circle cx="860" cy="58" r="30" fill="var(--sun)" opacity=".85" class="tw"/><path d="M0 220 C 140 170 260 200 380 185 S 620 150 760 190 S 900 175 960 185 V280 H0Z" fill="var(--sc-hill2)"/><path d="M0 245 C 160 215 300 240 460 228 S 760 205 960 232 V280 H0Z" fill="var(--sc-hill)"/>
+<g class="fl"><rect x="80" y="72" width="200" height="150" rx="12" fill="var(--gold)"/>
+<path d="M80 84 Q80 72 92 72 H160 L176 56 H230 Q242 56 242 68 V72" fill="var(--gold)"/>
+<rect x="94" y="88" width="172" height="122" rx="8" fill="var(--paper)"/>
+<text x="180" y="116" text-anchor="middle" class="sv-t sv-sm">EXPEDIENTE</text>
+<text x="180" y="150" text-anchor="middle" class="sv-big">Mateo</text>
+<rect x="114" y="168" width="132" height="8" rx="4" fill="var(--line)"/><rect x="114" y="184" width="96" height="8" rx="4" fill="var(--line)"/>
+<rect x="196" y="176" width="66" height="26" rx="6" fill="none" stroke="var(--coral)" stroke-width="3" transform="rotate(-10 229 189)"/>
+<text x="229" y="194" text-anchor="middle" class="sv-stamp" transform="rotate(-10 229 189)">CASO</text></g>
+
+<g transform="translate(330 66)">
+<rect width="196" height="160" rx="14" fill="var(--paper)"/>
+<text x="98" y="26" text-anchor="middle" class="sv-t sv-sm">Cuadro de Punnett</text>
+<text x="88" y="54" text-anchor="middle" class="sv-g">X<tspan class="sv-sup" dy="-6">H</tspan></text>
+<text x="146" y="48" text-anchor="middle" class="sv-g">Y</text>
+<text x="30" y="92" text-anchor="middle" class="sv-g">X<tspan class="sv-sup" dy="-6">H</tspan></text>
+<text x="30" y="134" text-anchor="middle" class="sv-g">X<tspan class="sv-sup" dy="-6">h</tspan></text>
+<rect x="60" y="62" width="56" height="40" rx="6" fill="var(--tint)"/><rect x="118" y="62" width="56" height="40" rx="6" fill="var(--tint)"/>
+<rect x="60" y="104" width="56" height="40" rx="6" fill="var(--tint)"/><rect x="118" y="104" width="56" height="40" rx="6" fill="var(--gold-soft)"/>
+<text x="88" y="90" text-anchor="middle" class="sv-q">?</text><text x="146" y="90" text-anchor="middle" class="sv-q">?</text>
+<text x="88" y="132" text-anchor="middle" class="sv-q">?</text><text x="146" y="132" text-anchor="middle" class="sv-q tw">?</text>
+</g>
+
+<g transform="translate(580 64)">
+<path d="M60 30 H110 M88 30 V62 M40 62 H136 M40 62 V82 M136 62 V82 M40 118 V136" stroke="var(--ink-soft)" stroke-width="3" fill="none"/>
+<rect x="24" y="12" width="36" height="36" rx="4" fill="var(--paper)" stroke="var(--ink-soft)" stroke-width="3"/>
+<circle cx="128" cy="30" r="18" fill="var(--paper)" stroke="var(--ink-soft)" stroke-width="3"/><path d="M128 12 A18 18 0 0 1 128 48Z" fill="var(--coral)"/>
+<circle cx="40" cy="100" r="18" fill="var(--paper)" stroke="var(--ink-soft)" stroke-width="3"/><path d="M40 82 A18 18 0 0 1 40 118Z" fill="var(--coral)"/>
+<rect x="118" y="82" width="36" height="36" rx="4" fill="var(--paper)" stroke="var(--ink-soft)" stroke-width="3"/>
+<rect x="22" y="136" width="36" height="36" rx="4" fill="var(--coral)" stroke="var(--ink-soft)" stroke-width="3"/>
+<text x="68" y="161" class="sv-t sv-sm">Mateo</text>
+</g>
+
+<g class="fl2"><g transform="translate(820 70)">
+<circle cx="40" cy="40" r="36" fill="var(--paper)" opacity=".55" stroke="var(--sc-dev)" stroke-width="10"/>
+<path d="M28 18 Q40 30 28 42 Q40 54 28 64 M52 18 Q40 30 52 42 Q40 54 52 64" stroke="var(--brand)" stroke-width="3" fill="none"/>
+<line x1="66" y1="66" x2="104" y2="104" stroke="var(--sc-dev)" stroke-width="14" stroke-linecap="round"/>
+</g></g>
+<g class="tw" transform="translate(300 46) scale(0.9)"><path d="M0 -10 L3 -3 L10 0 L3 3 L0 10 L-3 3 L-10 0 L-3 -3Z" fill="var(--sun)"/></g><g class="tw2" transform="translate(560 240) scale(0.8)"><path d="M0 -10 L3 -3 L10 0 L3 3 L0 10 L-3 3 L-10 0 L-3 -3Z" fill="var(--sun)"/></g><g class="tw3" transform="translate(930 240) scale(0.9)"><path d="M0 -10 L3 -3 L10 0 L3 3 L0 10 L-3 3 L-10 0 L-3 -3Z" fill="var(--sun)"/></g></svg><figcaption class="scene-tag">Parada 3 · El Misterio Clínico</figcaption></figure>
 
   <div class="card" style="display:flex;gap:18px;align-items:center;flex-wrap:wrap;background:var(--tint);border-color:var(--gold);margin-bottom:22px">
     <svg viewBox="0 0 150 165" width="110" height="121" aria-hidden="true" focusable="false" style="flex:none">
@@ -794,7 +961,7 @@ tr:last-child td{border-bottom:0}
       <tr><th><span style="display:inline-flex;align-items:center;gap:8px"><span class="pk-ico" style="width:24px;height:24px;flex:0 0 24px;background:var(--brand)"><svg><use href="#i-brain"/></svg></span>6. Competencias generales</span></th><td><ul>
         <li>Explicación de fenómenos.</li>
         <li>Indagación.</li>
-        <li>Uso comprensivo del conocimiento científico (competencias científicas MEN / ICFES).</li>
+        <li>Uso comprensivo del conocimiento científico (competencias científicas del MEN y del Icfes).</li>
       </ul></td></tr>
       <tr><th><span style="display:inline-flex;align-items:center;gap:8px"><span class="pk-ico" style="width:24px;height:24px;flex:0 0 24px;background:var(--gold)"><svg><use href="#i-search"/></svg></span>7. Competencias específicas</span></th><td><ul>
         <li>Identifica patrones de herencia genética a partir de cruces y árboles genealógicos.</li>
@@ -808,14 +975,17 @@ tr:last-child td{border-bottom:0}
         <li>Lectura de árboles genealógicos (pedigríes) y portadoras.</li>
         <li>Estudio de caso: la hemofilia como enfermedad hereditaria ligada al sexo.</li>
       </ul></td></tr>
-      <tr><th><span style="display:inline-flex;align-items:center;gap:8px"><span class="pk-ico" style="width:24px;height:24px;flex:0 0 24px;background:var(--gold)"><svg><use href="#i-clip"/></svg></span>Referentes de calidad</span></th><td>Derechos Básicos de Aprendizaje de Ciencias Naturales (MEN, 2016) y estándares de competencias del área.</td></tr>
+      <tr><th><span style="display:inline-flex;align-items:center;gap:8px"><span class="pk-ico" style="width:24px;height:24px;flex:0 0 24px;background:var(--brand)"><svg><use href="#i-book"/></svg></span>Estándar y DBA</span></th><td>Estándar del grupo de grados 8.° y 9.°: explicar el almacenamiento y la transmisión del material hereditario (MEN, 2004). DBA de grado noveno sobre los principios genéticos mendelianos y post-mendelianos (MEN, 2016).</td></tr>
       <tr><th><span style="display:inline-flex;align-items:center;gap:8px"><span class="pk-ico" style="width:24px;height:24px;flex:0 0 24px;background:var(--brand)"><svg><use href="#i-net"/></svg></span>Propósito</span></th><td>Fortalecer la comprensión conceptual, la participación y el desempeño académico mediante actividades contextualizadas y evaluación formativa.</td></tr>
-      <tr><th><span style="display:inline-flex;align-items:center;gap:8px"><span class="pk-ico" style="width:24px;height:24px;flex:0 0 24px;background:var(--gold)"><svg><use href="#i-laptop"/></svg></span>Plataforma</span></th><td>Google Classroom: material, tareas, cuestionarios, anuncios y comentarios de retroalimentación.</td></tr>
+      <tr><th><span style="display:inline-flex;align-items:center;gap:8px"><span class="pk-ico" style="width:24px;height:24px;flex:0 0 24px;background:var(--gold)"><svg><use href="#i-cycle"/></svg></span>Enfoque didáctico</span></th><td>Aprendizaje Basado en Problemas (ABP), con cuatro momentos en cada sesión: exploración y planteamiento del problema, construcción del conocimiento e indagación, aplicación y propuesta de solución, y reflexión y evaluación formativa.</td></tr>
+      <tr><th><span style="display:inline-flex;align-items:center;gap:8px"><span class="pk-ico" style="width:24px;height:24px;flex:0 0 24px;background:var(--gold)"><svg><use href="#i-laptop"/></svg></span>Plataforma</span></th><td>Google Classroom con cuentas institucionales: material, tareas, cuestionarios de Google Forms, anuncios, rúbricas y comentarios de retroalimentación. Se privilegian materiales livianos por la conectividad de la zona rural.</td></tr>
       <tr><th><span style="display:inline-flex;align-items:center;gap:8px"><span class="pk-ico" style="width:24px;height:24px;flex:0 0 24px;background:var(--brand)"><svg><use href="#i-chart"/></svg></span>9. Evaluación</span></th><td><ul>
-        <li><b>Diagnóstica:</b> cuestionario inicial de saberes previos.</li>
-        <li><b>Formativa:</b> cinco formularios de Google Forms (uno por expediente), con retroalimentación automática, enlazados a la unidad interactiva "El Misterio Clínico".</li>
-        <li><b>Sumativa:</b> comparación de resultados frente al diagnóstico.</li>
-        <li><b>Instrumento:</b> rúbrica analítica con criterios de dominio conceptual, aplicación (cuadros de Punnett y pedigríes) y argumentación científica.</li>
+        <li><b>Diagnóstica:</b> pre-test de 20 preguntas de selección múltiple (Instrumento 1). No tiene valor en la calificación del periodo.</li>
+        <li><b>Formativa:</b> cinco formularios de Google Forms (uno por expediente), con retroalimentación automática, enlazados a la unidad interactiva "El Misterio Clínico". Las notas y entregas quedan en el registro de seguimiento en Google Classroom (Instrumento 5).</li>
+        <li><b>Sumativa:</b> post-test gemelo del pre-test (Instrumento 2). Se comparan promedios, niveles de desempeño y la ganancia de aprendizaje (factor g de Hake).</li>
+        <li><b>Escala:</b> nota de 1,0 a 5,0 (1,0 + 0,2 × aciertos) y niveles Bajo, Básico, Alto y Superior del SIEE institucional.</li>
+        <li><b>Seguimiento cualitativo:</b> diario de campo pedagógico después de cada sesión (Instrumento 3) y encuesta de percepción al cierre (Instrumento 4).</li>
+        <li><b>Rúbrica:</b> criterios de dominio conceptual, aplicación (cuadros de Punnett y pedigríes) y argumentación científica.</li>
       </ul></td></tr>
     </tbody></table></div>
 
@@ -835,74 +1005,109 @@ tr:last-child td{border-bottom:0}
   </div>
 
   <h2 style="font-size:1.4rem;margin:28px 0 12px">¿Cómo se va a desarrollar esta unidad?</h2>
-  <p class="lead" style="margin-bottom:16px">La unidad se trabaja en <b>seis sesiones de clase</b>, apoyadas en Google Classroom y guiadas por la página interactiva "El Misterio Clínico". En cada sesión se resuelve un expediente del caso antes de pasar al siguiente, siempre con el acompañamiento del docente.</p>
+  <p class="lead" style="margin-bottom:16px">La unidad se trabaja en <b>seis sesiones de clase</b>, apoyadas en Google Classroom y guiadas por la página interactiva "El Misterio Clínico". En cada sesión se resuelve un expediente del caso antes de pasar al siguiente, siempre con el acompañamiento del docente. Las etiquetas muestran el momento del ABP y el instrumento que se usa.</p>
   <div class="flow">
-    <div class="step"><h3 style="display:flex;align-items:center;gap:8px"><span class="pk-ico" style="width:28px;height:28px;flex:0 0 28px;background:var(--gold)"><svg><use href="#i-book"/></svg></span>Bienvenida al caso</h3><p class="goal">Sesión 1 · Motivación y diagnóstico</p><ul><li>El docente presenta en Classroom el caso de Mateo, un niño de 2 años diagnosticado con hemofilia.</li><li>Los estudiantes entran a la página del caso y leen el expediente inicial ("briefing").</li><li>Responden un cuestionario diagnóstico para ver qué tanto saben de genética antes de empezar.</li></ul></div>
-    <div class="step"><h3 style="display:flex;align-items:center;gap:8px"><span class="pk-ico" style="width:28px;height:28px;flex:0 0 28px;background:var(--brand)"><svg><use href="#i-book"/></svg></span>Expediente 1 · Vocabulario</h3><p class="goal">Sesión 2 · Gen, alelo, genotipo y fenotipo</p><ul><li>En clase, con una guía y el acompañamiento del docente, trabajan los conceptos básicos de la herencia genética.</li><li>Resuelven el reto del Expediente 1 en la página (mínimo 4 de 5 preguntas) y completan el formulario oficial de Google que revisa el profesor.</li></ul></div>
-    <div class="step"><h3 style="display:flex;align-items:center;gap:8px"><span class="pk-ico" style="width:28px;height:28px;flex:0 0 28px;background:var(--gold)"><svg><use href="#i-gear"/></svg></span>Expediente 2 · Las reglas de Mendel</h3><p class="goal">Sesión 3 · El cuadro de Punnett</p><ul><li>Practican el cuadro de Punnett con el ejemplo clásico de Mendel: semillas amarillas y verdes.</li><li>Trabajan en parejas o en grupos pequeños y luego resuelven el Expediente 2.</li></ul></div>
-    <div class="step"><h3 style="display:flex;align-items:center;gap:8px"><span class="pk-ico" style="width:28px;height:28px;flex:0 0 28px;background:var(--brand)"><svg><use href="#i-dna"/></svg></span>Expediente 3 · El cromosoma clave</h3><p class="goal">Sesión 4 · Herencia ligada al cromosoma X</p><ul><li>Usan el mismo cuadro de Punnett, ahora con los cromosomas X y Y, para entender por qué la hemofilia afecta más a los hombres.</li><li>Resuelven el Expediente 3 y empiezan a descifrar el patrón de herencia del caso de Mateo.</li></ul></div>
-    <div class="step"><h3 style="display:flex;align-items:center;gap:8px"><span class="pk-ico" style="width:28px;height:28px;flex:0 0 28px;background:var(--gold)"><svg><use href="#i-people"/></svg></span>Expediente 4 · El árbol genealógico</h3><p class="goal">Sesión 5 · Leer un pedigrí</p><ul><li>Leen el árbol genealógico de la familia Osorio-Rincón y descubren quién transmitió el alelo de la hemofilia.</li><li>Resuelven el Expediente 4 e identifican a las mujeres portadoras de la familia.</li></ul></div>
-    <div class="step"><h3 style="display:flex;align-items:center;gap:8px"><span class="pk-ico" style="width:28px;height:28px;flex:0 0 28px;background:var(--brand)"><svg><use href="#i-chart"/></svg></span>Veredicto final</h3><p class="goal">Sesión 6 · Cierre y evaluación</p><ul><li>Con todo lo investigado, responden la pregunta final: ¿qué probabilidad hay de que un futuro hermano o hermana de Mateo nazca también con hemofilia?</li><li>El docente compara los resultados con el diagnóstico inicial y da retroalimentación con una rúbrica.</li></ul></div>
+    <div class="step"><h3 style="display:flex;align-items:center;gap:8px"><span class="pk-ico" style="width:28px;height:28px;flex:0 0 28px;background:var(--gold)"><svg><use href="#i-book"/></svg></span>Bienvenida al caso</h3><p class="goal">Sesión 1 · Inducción, motivación y diagnóstico</p><ul><li>Inducción al aula de Google Classroom y pactos de aula digital: respeto en los foros, plazos de entrega, protección de datos y uso responsable.</li><li>El docente presenta en Classroom el caso de Mateo, un niño de 2 años diagnosticado con hemofilia.</li><li>Los estudiantes entran a la página del caso y leen el expediente inicial ("briefing").</li><li>Responden el pre-test, que muestra qué tanto saben de genética antes de empezar. No cuenta para la nota.</li></ul><div class="tags"><span class="tag">ABP: exploración y problema</span><span class="tag i">Instrumento 1 · Pre-test</span><span class="tag i">Instrumento 3 · Diario de campo</span></div></div>
+    <div class="step"><h3 style="display:flex;align-items:center;gap:8px"><span class="pk-ico" style="width:28px;height:28px;flex:0 0 28px;background:var(--brand)"><svg><use href="#i-book"/></svg></span>Expediente 1 · Vocabulario</h3><p class="goal">Sesión 2 · Gen, alelo, genotipo y fenotipo</p><ul><li>En clase, con una guía y el acompañamiento del docente, trabajan los conceptos básicos de la herencia genética.</li><li>Resuelven el reto del Expediente 1 en la página (mínimo 4 de 5 preguntas) y completan el formulario oficial de Google que revisa el profesor.</li></ul><div class="tags"><span class="tag">ABP: construcción e indagación</span><span class="tag i">Instrumento 5 · Registro en Classroom</span></div></div>
+    <div class="step"><h3 style="display:flex;align-items:center;gap:8px"><span class="pk-ico" style="width:28px;height:28px;flex:0 0 28px;background:var(--gold)"><svg><use href="#i-gear"/></svg></span>Expediente 2 · Las reglas de Mendel</h3><p class="goal">Sesión 3 · El cuadro de Punnett</p><ul><li>Practican el cuadro de Punnett con el ejemplo clásico de Mendel: semillas amarillas y verdes.</li><li>Trabajan en parejas o en grupos pequeños y luego resuelven el Expediente 2.</li></ul><div class="tags"><span class="tag">ABP: aplicación y solución</span><span class="tag i">Instrumento 5 · Registro en Classroom</span></div></div>
+    <div class="step"><h3 style="display:flex;align-items:center;gap:8px"><span class="pk-ico" style="width:28px;height:28px;flex:0 0 28px;background:var(--brand)"><svg><use href="#i-dna"/></svg></span>Expediente 3 · El cromosoma clave</h3><p class="goal">Sesión 4 · Herencia ligada al cromosoma X</p><ul><li>Usan el mismo cuadro de Punnett, ahora con los cromosomas X y Y, para entender por qué la hemofilia afecta más a los hombres.</li><li>Resuelven el Expediente 3 y empiezan a descifrar el patrón de herencia del caso de Mateo.</li></ul><div class="tags"><span class="tag">ABP: construcción e indagación</span><span class="tag i">Instrumento 3 · Diario de campo</span></div></div>
+    <div class="step"><h3 style="display:flex;align-items:center;gap:8px"><span class="pk-ico" style="width:28px;height:28px;flex:0 0 28px;background:var(--gold)"><svg><use href="#i-people"/></svg></span>Expediente 4 · El árbol genealógico</h3><p class="goal">Sesión 5 · Leer un pedigrí</p><ul><li>Leen el árbol genealógico de la familia Osorio-Rincón y descubren quién transmitió el alelo de la hemofilia.</li><li>Resuelven el Expediente 4 e identifican a las mujeres portadoras de la familia.</li></ul><div class="tags"><span class="tag">ABP: aplicación y solución</span><span class="tag i">Instrumento 5 · Registro en Classroom</span></div></div>
+    <div class="step"><h3 style="display:flex;align-items:center;gap:8px"><span class="pk-ico" style="width:28px;height:28px;flex:0 0 28px;background:var(--brand)"><svg><use href="#i-chart"/></svg></span>Veredicto final</h3><p class="goal">Sesión 6 · Cierre, post-test y encuesta</p><ul><li>Con todo lo investigado, responden la pregunta final: ¿qué probabilidad hay de que un futuro hermano o hermana de Mateo nazca también con hemofilia?</li><li>Presentan el post-test y la encuesta de percepción.</li><li>El docente compara los resultados con el pre-test y da retroalimentación con una rúbrica.</li></ul><div class="tags"><span class="tag">ABP: reflexión y evaluación</span><span class="tag i">Instrumento 2 · Post-test</span><span class="tag i">Instrumento 4 · Encuesta</span></div></div>
   </div>
 </section>
 
 <!-- INFOGRAFIA -->
 <section class="view" id="v-infografia">
   <h1 class="page-title">Infografía: propuesta metodológica</h1>
-  <p class="lead">Así se investiga el fortalecimiento del rendimiento académico en Ciencias Naturales: un <b>enfoque mixto</b> (cuantitativo + cualitativo), bajo el modelo de <b>Investigación-Acción Pedagógica (IAP)</b>, con una estrategia de <b>Aprendizaje Basado en Problemas (ABP)</b> mediada por Google Classroom.</p>
+  <p class="lead">Así se investiga el fortalecimiento del rendimiento académico en Ciencias Naturales: un <b>enfoque mixto</b> (cuantitativo + cualitativo), de tipo <b>aplicado con alcance descriptivo</b>, bajo el modelo de <b>Investigación-Acción Pedagógica (IAP)</b>, con una estrategia de <b>Aprendizaje Basado en Problemas (ABP)</b> mediada por Google Classroom.</p>
 
   <div class="meth-stats">
     <div class="card"><div class="stat">Mixto</div><div class="stat-label">Enfoque: cuantitativo + cualitativo</div></div>
     <div class="card"><div class="stat">82</div><div class="stat-label">Estudiantes de grado noveno (población)</div></div>
     <div class="card"><div class="stat">40</div><div class="stat-label">Muestra: grupo intacto 9-1</div></div>
     <div class="card"><div class="stat">5</div><div class="stat-label">Fases del ciclo de investigación-acción</div></div>
+    <div class="card"><div class="stat">5</div><div class="stat-label">Instrumentos de recolección</div></div>
+    <div class="card"><div class="stat">2</div><div class="stat-label">Expertos validan los instrumentos</div></div>
   </div>
 
-  <h2 style="font-size:1.4rem;margin:28px 0 6px">La ruta metodológica: un ciclo de 5 fases</h2>
-  <p class="lead" style="margin-bottom:14px">Toca cada fase para ver su componente cuantitativo, su componente cualitativo y la evidencia que produce.</p>
+  <h2 class="sec-h">La ruta metodológica: un ciclo de 5 fases</h2>
+  <p class="sec-p">Toca una fase en el ciclo o en los botones para ver su componente cuantitativo, su componente cualitativo y la evidencia que produce.</p>
   <div class="phase-nav" id="phase-nav" role="tablist" aria-label="Fases de la investigación">
-    <button type="button" class="phase-btn" data-phase="diag"><span class="pk-ico" style="background:var(--brand)"><svg><use href="#i-search"/></svg></span>1. Diagnóstico</button>
-    <button type="button" class="phase-btn" data-phase="diseno"><span class="pk-ico" style="background:var(--gold)"><svg><use href="#i-gear"/></svg></span>2. Diseño</button>
-    <button type="button" class="phase-btn" data-phase="implem"><span class="pk-ico" style="background:var(--brand)"><svg><use href="#i-laptop"/></svg></span>3. Implementación</button>
-    <button type="button" class="phase-btn" data-phase="evalua"><span class="pk-ico" style="background:var(--gold)"><svg><use href="#i-chart"/></svg></span>4. Evaluación</button>
-    <button type="button" class="phase-btn" data-phase="reflex"><span class="pk-ico" style="background:var(--brand)"><svg><use href="#i-cycle"/></svg></span>5. Reflexión</button>
+    <button type="button" class="phase-btn" data-phase="diag"><span class="pk-ico" style="width:30px;height:30px;flex:0 0 30px;background:var(--brand)"><svg><use href="#i-search"/></svg></span>1. Diagnóstico</button>
+    <button type="button" class="phase-btn" data-phase="diseno"><span class="pk-ico" style="width:30px;height:30px;flex:0 0 30px;background:var(--gold)"><svg><use href="#i-gear"/></svg></span>2. Diseño</button>
+    <button type="button" class="phase-btn" data-phase="implem"><span class="pk-ico" style="width:30px;height:30px;flex:0 0 30px;background:var(--brand)"><svg><use href="#i-people"/></svg></span>3. Implementación</button>
+    <button type="button" class="phase-btn" data-phase="evalua"><span class="pk-ico" style="width:30px;height:30px;flex:0 0 30px;background:var(--gold)"><svg><use href="#i-chart"/></svg></span>4. Evaluación</button>
+    <button type="button" class="phase-btn" data-phase="reflex"><span class="pk-ico" style="width:30px;height:30px;flex:0 0 30px;background:var(--brand)"><svg><use href="#i-cycle"/></svg></span>5. Reflexión</button>
   </div>
-  <div class="phase-panel" id="phase-panel"></div>
+  <div class="cycle-wrap">
+    <svg class="cycle" viewBox="0 0 360 380" role="group" aria-label="Ciclo de la Investigación-Acción Pedagógica en cinco fases"><circle class="c-ring" cx="180" cy="182" r="128"/><path class="c-arrow" d="M-8 -7 L8 0 L-8 7Z" transform="translate(255.2 78.4) rotate(36.0)"/><path class="c-arrow" d="M-8 -7 L8 0 L-8 7Z" transform="translate(301.7 221.6) rotate(108.0)"/><path class="c-arrow" d="M-8 -7 L8 0 L-8 7Z" transform="translate(180.0 310.0) rotate(180.0)"/><path class="c-arrow" d="M-8 -7 L8 0 L-8 7Z" transform="translate(58.3 221.6) rotate(252.0)"/><path class="c-arrow" d="M-8 -7 L8 0 L-8 7Z" transform="translate(104.8 78.4) rotate(324.0)"/><text class="c-mid" x="180" y="186" text-anchor="middle">IAP</text><text class="c-sub" x="180" y="208" text-anchor="middle">Investigación-Acción</text><text class="c-sub" x="180" y="224" text-anchor="middle">Pedagógica</text><g class="cnode" data-phase="diag" role="button" tabindex="0" aria-label="Fase 1: Diagnóstico"><circle cx="180.0" cy="54.0" r="28"/><text x="180.0" y="62.0" text-anchor="middle">1</text><text class="cl" x="180.0" y="104.0" text-anchor="middle">Diagnóstico</text></g><g class="cnode" data-phase="diseno" role="button" tabindex="0" aria-label="Fase 2: Diseño"><circle cx="301.7" cy="142.4" r="28"/><text x="301.7" y="150.4" text-anchor="middle">2</text><text class="cl" x="301.7" y="192.4" text-anchor="middle">Diseño</text></g><g class="cnode" data-phase="implem" role="button" tabindex="0" aria-label="Fase 3: Implementación"><circle cx="255.2" cy="285.6" r="28"/><text x="255.2" y="293.6" text-anchor="middle">3</text><text class="cl" x="255.2" y="335.6" text-anchor="middle">Implementación</text></g><g class="cnode" data-phase="evalua" role="button" tabindex="0" aria-label="Fase 4: Evaluación"><circle cx="104.8" cy="285.6" r="28"/><text x="104.8" y="293.6" text-anchor="middle">4</text><text class="cl" x="104.8" y="335.6" text-anchor="middle">Evaluación</text></g><g class="cnode" data-phase="reflex" role="button" tabindex="0" aria-label="Fase 5: Reflexión"><circle cx="58.3" cy="142.4" r="28"/><text x="58.3" y="150.4" text-anchor="middle">5</text><text class="cl" x="58.3" y="192.4" text-anchor="middle">Reflexión</text></g></svg>
+    <div class="phase-panel" id="phase-panel" aria-live="polite"></div>
+  </div>
 
-  <h2 style="font-size:1.4rem;margin:28px 0 12px">Instrumentos de recolección</h2>
+  <h2 class="sec-h">Instrumentos de recolección</h2>
   <div class="grid2">
-    <div class="card"><h3><span class="pk-ico" style="width:22px;height:22px;flex:0 0 22px;background:var(--brand);display:inline-grid;margin-right:6px;vertical-align:-5px"><svg><use href="#i-list"/></svg></span>Instrumento 1 · Pre-test</h3><p>Prueba de 20 preguntas de selección múltiple sobre herencia genética, en cuatro ejes: conceptos básicos, Mendel y Punnett, herencia ligada al X y árbol genealógico. Mide uso comprensivo, explicación de fenómenos e indagación.</p></div>
-    <div class="card"><h3><span class="pk-ico" style="width:22px;height:22px;flex:0 0 22px;background:var(--gold);display:inline-grid;margin-right:6px;vertical-align:-5px"><svg><use href="#i-chart"/></svg></span>Instrumento 2 · Post-test</h3><p>Prueba gemela del pre-test: cada pregunta evalúa el mismo eje, competencia y dificultad, con otros ejemplos. Se aplica al cierre para medir cuánto aprendió el grupo.</p></div>
-    <div class="card"><h3><span class="pk-ico" style="width:22px;height:22px;flex:0 0 22px;background:var(--brand);display:inline-grid;margin-right:6px;vertical-align:-5px"><svg><use href="#i-book"/></svg></span>Instrumento 3 · Diario de campo</h3><p>Registro narrativo que el docente diligencia después de cada sesión, con una parte descriptiva, una reflexiva y una de ajuste pedagógico.</p></div>
-    <div class="card"><h3><span class="pk-ico" style="width:22px;height:22px;flex:0 0 22px;background:var(--gold);display:inline-grid;margin-right:6px;vertical-align:-5px"><svg><use href="#i-people"/></svg></span>Instrumento 4 · Encuesta de percepción</h3><p>Escala Likert de 5 puntos con 12 afirmaciones (usabilidad del aula virtual, mediación didáctica y ABP, y motivación) más tres preguntas abiertas, aplicada al finalizar la estrategia pedagógica.</p></div>
-    <div class="card"><h3><span class="pk-ico" style="width:22px;height:22px;flex:0 0 22px;background:var(--brand);display:inline-grid;margin-right:6px;vertical-align:-5px"><svg><use href="#i-laptop"/></svg></span>Instrumento 5 · Registro en Classroom</h3><p>Hoja de seguimiento de cada sesión con la nota de cada estudiante en el formulario de cada expediente, las entregas a tiempo y el porcentaje de cumplimiento.</p></div>
+    <div class="card"><h3><span class="pk-ico" style="width:22px;height:22px;flex:0 0 22px;display:inline-grid;margin-right:6px;vertical-align:-5px;background:var(--brand)"><svg><use href="#i-list"/></svg></span>Instrumento 1 · Pre-test</h3><p>Prueba de 20 preguntas de selección múltiple sobre herencia genética, en cuatro ejes de cinco preguntas: conceptos básicos, Mendel y Punnett, herencia ligada al X y árbol genealógico. Mide uso comprensivo, explicación de fenómenos e indagación.</p></div>
+    <div class="card"><h3><span class="pk-ico" style="width:22px;height:22px;flex:0 0 22px;display:inline-grid;margin-right:6px;vertical-align:-5px;background:var(--gold)"><svg><use href="#i-chart"/></svg></span>Instrumento 2 · Post-test</h3><p>Prueba gemela del pre-test: cada pregunta evalúa el mismo eje, competencia y dificultad, con otros contextos para evitar la memorización. Se aplica al cierre para medir cuánto aprendió el grupo.</p></div>
+    <div class="card"><h3><span class="pk-ico" style="width:22px;height:22px;flex:0 0 22px;display:inline-grid;margin-right:6px;vertical-align:-5px;background:var(--brand)"><svg><use href="#i-book"/></svg></span>Instrumento 3 · Diario de campo</h3><p>Registro narrativo que el docente diligencia después de cada sesión, con una sección descriptiva, una reflexiva y una de proyección o ajuste.</p></div>
+    <div class="card"><h3><span class="pk-ico" style="width:22px;height:22px;flex:0 0 22px;display:inline-grid;margin-right:6px;vertical-align:-5px;background:var(--gold)"><svg><use href="#i-people"/></svg></span>Instrumento 4 · Encuesta de percepción</h3><p>Escala Likert de 5 puntos con 12 afirmaciones (usabilidad e interacción en el aula virtual, motivación hacia las ciencias, y mediación didáctica y ABP) más tres preguntas abiertas, aplicada al finalizar la estrategia.</p></div>
+    <div class="card"><h3><span class="pk-ico" style="width:22px;height:22px;flex:0 0 22px;display:inline-grid;margin-right:6px;vertical-align:-5px;background:var(--brand)"><svg><use href="#i-laptop"/></svg></span>Instrumento 5 · Registro en Classroom</h3><p>Matriz de seguimiento de cada sesión con la nota de cada estudiante en el formulario de cada expediente, las entregas a tiempo y el porcentaje de cumplimiento.</p></div>
+    <div class="card"><h3><span class="pk-ico" style="width:22px;height:22px;flex:0 0 22px;display:inline-grid;margin-right:6px;vertical-align:-5px;background:var(--gold)"><svg><use href="#i-balance"/></svg></span>Validación por expertos</h3><p>Dos expertos con posgrado y más de cinco años de experiencia revisan cada ítem según suficiencia, claridad, coherencia y pertinencia. Sus sugerencias se incorporan antes de aplicar los instrumentos.</p></div>
   </div>
 
-  <h2 style="font-size:1.4rem;margin:28px 0 12px">Cómo se analizan los datos</h2>
+  <h2 class="sec-h">Variables y categorías de análisis</h2>
   <div class="grid2">
-    <div class="card"><h3>Datos cuantitativos</h3><ul><li>Promedio del grupo en el pre-test y en el post-test.</li><li>Cuántos estudiantes hay en cada nivel: bajo, básico, alto y superior.</li><li>Factor g de Hake: de lo que le faltaba aprender al grupo, cuánto aprendió.</li><li>Seguimiento de entregas y notas en Classroom.</li><li>Todo se calcula en Google Sheets.</li></ul></div>
-    <div class="card"><h3>Datos cualitativos</h3><ul><li>Análisis de contenido categorial y temático.</li><li>Codificación abierta y axial del diario de campo y la encuesta.</li><li>Categorías: uso del aula virtual; mediación didáctica y ABP; motivación hacia las Ciencias Naturales.</li><li>Se organiza en una matriz de categorías en hoja de cálculo.</li></ul></div>
+    <div class="card"><h3>Variable independiente</h3><p>La estrategia pedagógica mediada por Google Classroom: la unidad didáctica de herencia genética, documentada con el registro de seguimiento y el diario de campo.</p></div>
+    <div class="card"><h3>Variable dependiente</h3><p>El rendimiento académico en Ciencias Naturales: nota de 1,0 a 5,0, niveles de desempeño y factor g de Hake entre el pre-test y el post-test.</p></div>
+  </div>
+  <div class="tri" style="margin-top:14px">
+    <div class="card"><h3>Categoría 1</h3><p>Usabilidad e interacción en el aula virtual: navegación, claridad de las instrucciones, entregas y comunicación.</p></div>
+    <div class="card"><h3>Categoría 2</h3><p>Motivación y actitud hacia el aprendizaje científico: interés, compromiso y participación.</p></div>
+    <div class="card"><h3>Categoría 3</h3><p>Mediación didáctica y ABP: problemas del entorno, trabajo colaborativo, indagación y retroalimentación.</p></div>
   </div>
 
-  <h2 style="font-size:1.4rem;margin:28px 0 12px">Triangulación: tres miradas que se cruzan</h2>
+  <h2 class="sec-h">Cómo se analizan los datos</h2>
+  <div class="grid2">
+    <div class="card"><h3>Datos cuantitativos</h3><ul><li>Media, mediana, desviación estándar, mínimo y máximo del pre-test y del post-test.</li><li>Cuántos estudiantes hay en cada nivel: bajo, básico, alto y superior.</li><li>Factor g de Hake: de lo que le faltaba aprender al grupo, cuánto aprendió.</li><li>Escala Likert: media y porcentaje de respuestas 4 y 5 por ítem y por dimensión.</li><li>Notas y entregas del registro en Classroom, por sesión.</li><li>Todo se calcula en Google Sheets o LibreOffice Calc.</li></ul></div>
+    <div class="card"><h3>Datos cualitativos</h3><ul><li>Análisis de contenido categorial y temático.</li><li>Organización del corpus: fichas del diario de campo y respuestas abiertas de la encuesta.</li><li>Codificación abierta y axial.</li><li>Agrupación en las tres categorías de análisis.</li><li>Interpretación narrativa a la luz de la teoría.</li></ul></div>
+  </div>
+
+  <h2 class="sec-h">Triangulación: tres miradas que se cruzan</h2>
+  <figure class="tri-fig"><svg viewBox="0 0 520 300" role="img" aria-label="Triángulo con las tres miradas de la triangulación: cuantitativa, cualitativa y teórico-conceptual">
+<path d="M260 52 L78 236 L442 236Z" fill="var(--tint)" stroke="var(--gold)" stroke-width="4" stroke-linejoin="round" stroke-dasharray="10 8"/>
+<circle cx="260" cy="170" r="60" fill="var(--sun)"/><text x="260" y="166" text-anchor="middle" class="v" style="fill:#14231b">Hallazgos</text><text x="260" y="184" text-anchor="middle" class="vs" style="fill:#14231b">por variable</text><text x="260" y="199" text-anchor="middle" class="vs" style="fill:#14231b">y categoría</text>
+<circle cx="260" cy="52" r="26" fill="var(--brand)"/><path d="M248 60 v-10 M256 60 v-16 M264 60 v-8 M272 60 v-20" stroke="var(--brand-ink)" stroke-width="4" stroke-linecap="round"/>
+<text x="260" y="18" text-anchor="middle" class="v">Cuantitativa</text>
+<circle cx="78" cy="236" r="26" fill="var(--gold)"/><path d="M66 228 h24 M66 236 h24 M66 244 h16" stroke="var(--brand-ink)" stroke-width="4" stroke-linecap="round"/>
+<text x="78" y="286" text-anchor="middle" class="v">Cualitativa</text>
+<circle cx="442" cy="236" r="26" fill="var(--coral)"/><path d="M430 226 q12 -6 24 0 v22 q-12 -6 -24 0z" fill="none" stroke="var(--brand-ink)" stroke-width="3.5"/>
+<text x="442" y="286" text-anchor="middle" class="v">Teórico-conceptual</text>
+</svg></figure>
   <div class="tri">
-    <div class="card"><h3><span class="pk-ico" style="width:22px;height:22px;flex:0 0 22px;background:var(--brand);display:inline-grid;margin-right:6px;vertical-align:-5px"><svg><use href="#i-chart"/></svg></span>Cuantitativa</h3><p>Pre-test, post-test, registro en Classroom y escala Likert: muestran <i>cuánto</i> cambió el rendimiento y la percepción del grupo.</p></div>
-    <div class="card"><h3><span class="pk-ico" style="width:22px;height:22px;flex:0 0 22px;background:var(--gold);display:inline-grid;margin-right:6px;vertical-align:-5px"><svg><use href="#i-book"/></svg></span>Cualitativa</h3><p>Diario de campo y preguntas abiertas: explican el <i>por qué</i> y el <i>cómo</i> de esos resultados.</p></div>
-    <div class="card"><h3><span class="pk-ico" style="width:22px;height:22px;flex:0 0 22px;background:#9c3327;display:inline-grid;margin-right:6px;vertical-align:-5px"><svg><use href="#i-target"/></svg></span>Teórico-conceptual</h3><p>Aprendizaje significativo, los DBA del MEN y las orientaciones de la UNESCO sobre mediación digital.</p></div>
+    <div class="card"><h3><span class="pk-ico" style="width:22px;height:22px;flex:0 0 22px;display:inline-grid;margin-right:6px;vertical-align:-5px;background:var(--brand)"><svg><use href="#i-chart"/></svg></span>Cuantitativa</h3><p>Pre-test, post-test, registro en Classroom y escala Likert: muestran <i>cuánto</i> cambió el rendimiento y la percepción del grupo.</p></div>
+    <div class="card"><h3><span class="pk-ico" style="width:22px;height:22px;flex:0 0 22px;display:inline-grid;margin-right:6px;vertical-align:-5px;background:var(--gold)"><svg><use href="#i-book"/></svg></span>Cualitativa</h3><p>Diario de campo y preguntas abiertas: explican el <i>por qué</i> y el <i>cómo</i> de esos resultados.</p></div>
+    <div class="card"><h3><span class="pk-ico" style="width:22px;height:22px;flex:0 0 22px;display:inline-grid;margin-right:6px;vertical-align:-5px;background:var(--coral)"><svg><use href="#i-target"/></svg></span>Teórico-conceptual</h3><p>Aprendizaje significativo (Ausubel et al., 1983), teoría sociocultural (Vygotsky, 1978), los DBA del MEN y la UNESCO (2023).</p></div>
+  </div>
+  <p class="sec-p" style="margin-top:12px">Para cada variable y categoría se buscan convergencias, complementariedades y divergencias. Las divergencias no se descartan: ayudan a explicar por qué la estrategia funcionó distinto en algunos estudiantes.</p>
+
+  <h2 class="sec-h">Consideraciones éticas</h2>
+  <div class="ethic">
+    <div class="card"><h3>Riesgo mínimo</h3><p>Las actividades son prácticas habituales de aula (Resolución 8430 de 1993).</p></div>
+    <div class="card"><h3>Autorizaciones</h3><p>Aval de la rectoría, consentimiento de padres o acudientes y asentimiento de cada estudiante.</p></div>
+    <div class="card"><h3>Participación voluntaria</h3><p>No afecta las notas. El pre-test no se califica y la encuesta es anónima.</p></div>
+    <div class="card"><h3>Datos protegidos</h3><p>Códigos en lugar de nombres, resultados agregados y cuentas institucionales (Ley 1581 de 2012).</p></div>
   </div>
 
-  <p class="note" style="margin-top:20px">Pregunta que orienta todo el proceso: ¿de qué manera la implementación de una estrategia pedagógica mediada por Google Classroom fortalece el rendimiento académico en Ciencias Naturales de los estudiantes de grado noveno?</p>
+  <p class="note" style="margin-top:22px">Pregunta que orienta todo el proceso: ¿de qué manera la implementación de una estrategia pedagógica mediada por Google Classroom fortalece el rendimiento académico en Ciencias Naturales de los estudiantes de grado noveno de la Institución Educativa Municipal Misael Pastrana Borrero en Saladoblanco, Huila?</p>
 </section>
 <script>
 (function(){
   var PHASES = {
-    diag:{n:1,title:'Diagnóstico de la práctica',cuanti:['Prueba diagnóstica inicial (Pre-test) alineada a los DBA.','Niveles de desempeño: bajo, básico, alto y superior.','Frecuencias y porcentajes del grupo.'],cuali:['Observación pedagógica participante.','Diario de campo: motivación y dificultades.','Condiciones reales de acceso a recursos digitales.'],evid:'Evidencia: resultados iniciales y línea base del grupo.'},
-    diseno:{n:2,title:'Diseño y planificación de la estrategia',cuanti:['Validación por juicio de expertos del post-test.','Rúbricas de desempeño para las actividades.','Matrices de registro académico.'],cuali:['Matriz del diario de campo pedagógico.','Cuestionario de percepción (preguntas cerradas y abiertas).','Secuencias didácticas basadas en ABP.'],evid:'Evidencia: instrumentos validados y aula de Google Classroom lista.'},
-    implem:{n:3,title:'Implementación y acción pedagógica',cuanti:['Calificaciones de actividades y cuestionarios interactivos.','Avances registrados en las rúbricas de desempeño.','Participación analítica en la plataforma.'],cuali:['Participación, interacción y autonomía estudiantil.','Dificultades de comprensión y colaboración entre pares.','Registro sistemático en el diario de campo.'],evid:'Evidencia: registros de Classroom, productos digitales y diario de campo.'},
-    evalua:{n:4,title:'Evaluación del impacto pedagógico',cuanti:['Prueba de evaluación final (Post-test).','Estadística descriptiva: medias, frecuencias y niveles de desempeño.','Ganancia de aprendizaje con el factor g de Hake.'],cuali:['Encuesta de percepción aplicada al cierre.','Sistematización del diario de campo pedagógico.'],evid:'Evidencia: variaciones observadas y primera triangulación de resultados.'},
+    diag:{n:1,title:'Diagnóstico de la práctica',cuanti:['Pre-test de 20 preguntas alineado con los DBA.','Línea base: niveles bajo, básico, alto y superior.','Promedios, porcentajes y frecuencias del grupo.'],cuali:['Observación participante en las sesiones iniciales.','Diario de campo: motivación, disposición y dificultades.','Condiciones reales de acceso a recursos digitales.'],evid:'Evidencia: línea base del grupo y caracterización para el diseño.'},
+    diseno:{n:2,title:'Diseño y planificación de la estrategia',cuanti:['Validación por dos expertos del pre-test y el post-test.','Rúbricas de desempeño para las actividades digitales.','Matrices de registro académico.'],cuali:['Matriz del diario de campo pedagógico.','Encuesta de percepción con preguntas cerradas y abiertas.','Secuencias ABP organizadas en Google Classroom.'],evid:'Evidencia: instrumentos validados y aula de Google Classroom lista.'},
+    implem:{n:3,title:'Implementación y acción pedagógica',cuanti:['Notas de los formularios de cada expediente.','Entregas a tiempo y porcentaje de cumplimiento (Instrumento 5).','Avances en las rúbricas de desempeño.'],cuali:['Participación, interacción y autonomía estudiantil.','Dificultades de comprensión y colaboración entre pares.','Diario de campo después de cada sesión.'],evid:'Evidencia: registros de Classroom, productos digitales y diario de campo.'},
+    evalua:{n:4,title:'Evaluación del impacto pedagógico',cuanti:['Post-test gemelo del pre-test.','Estadística descriptiva: medias, frecuencias y niveles de desempeño.','Ganancia de aprendizaje con el factor g de Hake.'],cuali:['Encuesta de percepción aplicada al cierre.','Sistematización del diario de campo y de los productos digitales.'],evid:'Evidencia: variaciones observadas en el grupo y triangulación de resultados.'},
     reflex:{n:5,title:'Reflexión y documentación del proceso',cuanti:['Sistematización final de pre-test, post-test y rúbricas.','Consolidación de los registros de cumplimiento en Classroom.'],cuali:['Interpretación de los registros narrativos del diario de campo.','Análisis de las respuestas abiertas de la encuesta.'],evid:'Evidencia: conclusiones y recomendaciones pedagógicas para la institución.'}
   };
-  function esc(s){return s}
   function render(id){
     var p = PHASES[id]; if(!p) return;
     var panel = document.getElementById('phase-panel');
@@ -914,10 +1119,15 @@ tr:last-child td{border-bottom:0}
       '</div>'+
       '<div class="evid">'+p.evid+'</div>';
     document.querySelectorAll('.phase-btn').forEach(function(b){ b.setAttribute('aria-selected', b.getAttribute('data-phase')===id ? 'true':'false'); });
+    document.querySelectorAll('.cnode').forEach(function(g){ g.classList.toggle('on', g.getAttribute('data-phase')===id); g.setAttribute('aria-pressed', g.getAttribute('data-phase')===id ? 'true':'false'); });
   }
   document.addEventListener('click', function(e){
-    var b = e.target.closest('.phase-btn');
+    var b = e.target.closest('.phase-btn, .cnode');
     if(b){ render(b.getAttribute('data-phase')); }
+  });
+  document.addEventListener('keydown', function(e){
+    var g = e.target.closest && e.target.closest('.cnode');
+    if(g && (e.key==='Enter' || e.key===' ')){ e.preventDefault(); render(g.getAttribute('data-phase')); }
   });
   if(document.getElementById('phase-panel')) render('diag');
 })();
@@ -926,43 +1136,108 @@ tr:last-child td{border-bottom:0}
 <!-- DISENO INSTRUCCIONAL -->
 <section class="view" id="v-disenoinst">
   <h1 class="page-title">Diseño instruccional</h1>
-  <p class="lead">El recurso digital se diseñó bajo el <b>Aprendizaje Basado en Problemas (ABP)</b>, mediado por Google Classroom como Entorno Virtual de Aprendizaje (EVA). No es un repositorio de documentos: cada secuencia parte de una situación problema real del contexto de Saladoblanco y lleva al estudiante a investigar, analizar y proponer soluciones.</p>
+  <p class="lead">El recurso digital es una secuencia didáctica diseñada bajo el <b>Aprendizaje Basado en Problemas (ABP)</b> y alojada en Google Classroom como Entorno Virtual de Aprendizaje (EVA). Classroom no es un repositorio de documentos: cada secuencia parte de una situación problema del contexto de Saladoblanco y lleva al estudiante a investigar, analizar y proponer soluciones.</p>
+  <figure class="scene" aria-label="Un aula virtual organizada por secuencias, un engranaje y piezas de rompecabezas"><svg viewBox="0 0 960 280" role="img" aria-label="Un aula virtual organizada por secuencias, un engranaje y piezas de rompecabezas" focusable="false" preserveAspectRatio="xMidYMid meet"><rect width="960" height="280" fill="var(--sc-sky)"/><circle cx="860" cy="58" r="30" fill="var(--sun)" opacity=".85" class="tw"/><path d="M0 220 C 140 170 260 200 380 185 S 620 150 760 190 S 900 175 960 185 V280 H0Z" fill="var(--sc-hill2)"/><path d="M0 245 C 160 215 300 240 460 228 S 760 205 960 232 V280 H0Z" fill="var(--sc-hill)"/>
+<g class="fl"><rect x="300" y="52" width="360" height="190" rx="16" fill="var(--sc-dev)"/>
+<rect x="316" y="68" width="328" height="158" rx="8" fill="var(--paper)"/>
+<rect x="316" y="68" width="328" height="34" rx="8" fill="var(--brand)"/>
+<text x="334" y="91" class="sv-t sv-sm sv-inv">Ciencias Naturales 9-1</text>
+<g><rect x="332" y="114" width="296" height="30" rx="8" fill="var(--tint)"/><circle cx="350" cy="129" r="9" fill="var(--sun)"/><rect x="366" y="124" width="150" height="10" rx="5" fill="var(--line)"/></g>
+<g><rect x="332" y="150" width="296" height="30" rx="8" fill="var(--tint)"/><circle cx="350" cy="165" r="9" fill="var(--coral)"/><rect x="366" y="160" width="190" height="10" rx="5" fill="var(--line)"/></g>
+<g><rect x="332" y="186" width="296" height="30" rx="8" fill="var(--tint)"/><circle cx="350" cy="201" r="9" fill="var(--sky)"/><rect x="366" y="196" width="120" height="10" rx="5" fill="var(--line)"/></g>
+<rect x="270" y="242" width="420" height="14" rx="7" fill="var(--sc-dev)"/></g>
+<g class="spin-slow" style="transform-origin:170px 120px"><circle cx="170" cy="120" r="36" fill="none" stroke="var(--gold)" stroke-width="16" stroke-dasharray="14 10"/><circle cx="170" cy="120" r="22" fill="var(--gold)"/></g>
+<circle cx="170" cy="120" r="9" fill="var(--sc-sky)"/>
+<g class="fl2"><path d="M760 80 h40 a12 12 0 1 1 24 0 h40 v40 a12 12 0 1 0 0 24 v40 h-104z" fill="var(--coral)"/>
+<path d="M760 184 h104 v40 h-104z" fill="var(--sky)"/></g>
+<g class="tw2" transform="translate(250 210) scale(0.9)"><path d="M0 -10 L3 -3 L10 0 L3 3 L0 10 L-3 3 L-10 0 L-3 -3Z" fill="var(--sun)"/></g><g class="tw" transform="translate(700 40) scale(1)"><path d="M0 -10 L3 -3 L10 0 L3 3 L0 10 L-3 3 L-10 0 L-3 -3Z" fill="var(--sun)"/></g><g class="fl2"><path transform="translate(110 210) rotate(-20)" d="M0 0 C 10 -14 26 -14 34 0 C 26 14 10 14 0 0Z" fill="var(--leaf2)"/></g></svg><figcaption class="scene-tag">Parada 3 · Diseño instruccional</figcaption></figure>
 
-  <h2 style="font-size:1.4rem;margin:28px 0 12px">Los 4 momentos de cada secuencia</h2>
+  <h2 class="sec-h">Los 4 momentos de cada secuencia</h2>
   <div class="flow">
-    <div class="step"><h3 style="display:flex;align-items:center;gap:8px"><span class="pk-ico" style="width:28px;height:28px;flex:0 0 28px;background:var(--gold)"><svg><use href="#i-search"/></svg></span>Exploración</h3><p class="goal">Saberes previos y problema</p><ul><li>Dilemas, preguntas o fenómenos cercanos a la vida de los estudiantes.</li><li>Activan conocimientos previos y la formulación de hipótesis.</li></ul></div>
-    <div class="step"><h3 style="display:flex;align-items:center;gap:8px"><span class="pk-ico" style="width:28px;height:28px;flex:0 0 28px;background:var(--brand)"><svg><use href="#i-dna"/></svg></span>Construcción</h3><p class="goal">Conocimiento e indagación</p><ul><li>Lecturas científicas, infografías y simulaciones.</li><li>Explicaciones orientadoras del docente.</li></ul></div>
-    <div class="step"><h3 style="display:flex;align-items:center;gap:8px"><span class="pk-ico" style="width:28px;height:28px;flex:0 0 28px;background:var(--gold)"><svg><use href="#i-flask"/></svg></span>Aplicación</h3><p class="goal">Práctica y solución</p><ul><li>Búsqueda colaborativa de alternativas en equipo.</li><li>Análisis de datos y elaboración de productos digitales.</li></ul></div>
+    <div class="step"><h3 style="display:flex;align-items:center;gap:8px"><span class="pk-ico" style="width:28px;height:28px;flex:0 0 28px;background:var(--gold)"><svg><use href="#i-search"/></svg></span>Exploración</h3><p class="goal">Saberes previos y problema</p><ul><li>Dilemas, preguntas o fenómenos cercanos a la vida de los estudiantes.</li><li>Primer contacto con el tema en Classroom antes de la clase, como en el aula invertida (Bergmann y Sams, 2012).</li><li>Activan conocimientos previos y formulan hipótesis.</li></ul></div>
+    <div class="step"><h3 style="display:flex;align-items:center;gap:8px"><span class="pk-ico" style="width:28px;height:28px;flex:0 0 28px;background:var(--brand)"><svg><use href="#i-dna"/></svg></span>Construcción</h3><p class="goal">Conocimiento e indagación</p><ul><li>Lecturas científicas, infografías, simulaciones como PhET y presentaciones.</li><li>Explicaciones orientadoras del docente.</li></ul></div>
+    <div class="step"><h3 style="display:flex;align-items:center;gap:8px"><span class="pk-ico" style="width:28px;height:28px;flex:0 0 28px;background:var(--gold)"><svg><use href="#i-flask"/></svg></span>Aplicación</h3><p class="goal">Práctica y solución</p><ul><li>Búsqueda colaborativa de alternativas en equipo.</li><li>Análisis de tablas y gráficas, experimentos sencillos y productos digitales.</li></ul></div>
     <div class="step"><h3 style="display:flex;align-items:center;gap:8px"><span class="pk-ico" style="width:28px;height:28px;flex:0 0 28px;background:var(--brand)"><svg><use href="#i-balance"/></svg></span>Reflexión</h3><p class="goal">Evaluación formativa</p><ul><li>Retroalimentación, autoevaluación y coevaluación.</li><li>Verificación de los avances frente al problema planteado.</li></ul></div>
   </div>
 
-  <h2 style="font-size:1.4rem;margin:28px 0 12px">Cómo se construyó el entorno virtual</h2>
+  <h2 class="sec-h">Modelos que orientan el diseño</h2>
+  <div class="card tpack">
+    <svg viewBox="0 0 300 290" role="img" aria-label="Diagrama del modelo TPACK: contenido, pedagogía y tecnología se cruzan en el centro">
+<circle cx="112" cy="110" r="84" fill="var(--brand)" opacity=".28"/><circle cx="188" cy="110" r="84" fill="var(--gold)" opacity=".32"/><circle cx="150" cy="178" r="84" fill="var(--coral)" opacity=".28"/>
+<circle cx="112" cy="110" r="84" fill="none" stroke="var(--brand)" stroke-width="2.5"/><circle cx="188" cy="110" r="84" fill="none" stroke="var(--gold)" stroke-width="2.5"/><circle cx="150" cy="178" r="84" fill="none" stroke="var(--coral)" stroke-width="2.5"/>
+<text class="tl" x="74" y="78" text-anchor="middle">CK</text><text class="ts" x="74" y="96" text-anchor="middle">Contenido</text>
+<text class="tl" x="228" y="78" text-anchor="middle">PK</text><text class="ts" x="228" y="96" text-anchor="middle">Pedagogía</text>
+<text class="tl" x="150" y="232" text-anchor="middle">TK</text><text class="ts" x="150" y="250" text-anchor="middle">Tecnología</text>
+<text class="tl" x="150" y="140" text-anchor="middle">TPACK</text>
+</svg>
+    <div>
+      <h3>TPACK: contenido, pedagogía y tecnología</h3>
+      <p>El docente decide qué enseñar, cómo hacerlo y con qué recursos al cruzar tres saberes: la genética de grado noveno (contenido), el ABP y la evaluación formativa (pedagogía) y el manejo de Google Classroom (tecnología) (Mishra y Koehler, 2006).</p>
+      <h3 style="margin-top:14px">TAM: utilidad y facilidad de uso</h3>
+      <p>La encuesta de percepción recoge si los estudiantes encuentran útil y fácil de usar el aula virtual (Davis, 1989). Una buena valoración de la plataforma no demuestra por sí sola que aprendieron más: eso se mide con el pre-test y el post-test.</p>
+    </div>
+  </div>
+
+  <h2 class="sec-h">Cómo se construye el recurso: modelo ADDIE</h2>
+  <p class="sec-p">El recurso sigue la lógica de análisis, diseño, desarrollo, implementación y evaluación (Branch, 2009). Como en la investigación-acción, la evaluación no espera al final: lo observado en cada sesión puede motivar ajustes.</p>
+  <div class="addie">
+    <div class="a-st"><div class="a-l">A</div><h3>Análisis</h3><p>Resultados del diagnóstico y revisión de la conectividad y los equipos.</p></div>
+    <div class="a-st"><div class="a-l">D</div><h3>Diseño</h3><p>Problemas, objetivos, rutas, apoyos y criterios de evaluación.</p></div>
+    <div class="a-st"><div class="a-l">D</div><h3>Desarrollo</h3><p>Se producen o adaptan los materiales: el caso, los formularios y las guías.</p></div>
+    <div class="a-st"><div class="a-l">I</div><h3>Implementación</h3><p>Los materiales entran al curso de Classroom y se registran observaciones.</p></div>
+    <div class="a-st"><div class="a-l">E</div><h3>Evaluación</h3><p>Calidad técnica y didáctica del recurso y resultados de la intervención.</p></div>
+  </div>
+
+  <h2 class="sec-h">Fases de la estrategia en el aula</h2>
   <div class="tbl"><table>
     <thead><tr><th>Fase</th><th>Qué se hace</th></tr></thead>
     <tbody>
       <tr><td><b>1. Diagnóstico y caracterización</b></td><td>Se aplica el pre-test para fijar la línea base y reconocer las brechas conceptuales que orientan el diseño de las actividades.</td></tr>
-      <tr><td><b>2. Diseño y organización del EVA</b></td><td>Se crea el aula en Google Classroom por módulos ABP, con títulos claros e instrucciones precisas; inducción al aula y pactos de convivencia digital.</td></tr>
-      <tr><td><b>3. Implementación (acción pedagógica)</b></td><td>Se desarrollan las secuencias ABP en el aula física y virtual, combinando indagación, análisis y elaboración de productos.</td></tr>
-      <tr><td><b>4. Acompañamiento y monitoreo</b></td><td>El docente retroalimenta de forma continua, refuerza dudas frecuentes y ajusta la estrategia según el ritmo real del grupo.</td></tr>
-      <tr><td><b>5. Evaluación y triangulación</b></td><td>Se aplica el post-test y la encuesta de percepción, y se cruzan los resultados con el diario de campo para valorar el impacto.</td></tr>
+      <tr><td><b>2. Diseño y organización del EVA</b></td><td>Se crea el aula en Google Classroom por módulos ABP, con títulos claros e instrucciones precisas. Incluye una jornada de inducción y los pactos de aula digital.</td></tr>
+      <tr><td><b>3. Implementación (acción pedagógica)</b></td><td>Se desarrollan las secuencias ABP en el aula física y virtual, en sus cuatro momentos.</td></tr>
+      <tr><td><b>4. Acompañamiento y monitoreo</b></td><td>Transversal a la implementación: el docente retroalimenta, publica refuerzos, ofrece asesorías y diligencia el diario de campo después de cada sesión.</td></tr>
+      <tr><td><b>5. Evaluación, reflexión y triangulación</b></td><td>Se aplican el post-test y la encuesta de percepción, y se cruzan los resultados con el diario de campo para valorar el impacto.</td></tr>
     </tbody></table></div>
 
-  <h2 style="font-size:1.4rem;margin:28px 0 12px">Principios que guiaron el diseño</h2>
+  <h2 class="sec-h">Qué hace Google Classroom en la propuesta</h2>
   <div class="grid2">
-    <div class="card"><h3>Alineación curricular</h3><p>Cada secuencia responde a los Derechos Básicos de Aprendizaje (DBA) de Ciencias Naturales de grado noveno (MEN, 2016).</p></div>
-    <div class="card"><h3>Mediación pedagógica real</h3><p>Classroom organiza, retroalimenta y da seguimiento: no es solo un lugar para dejar archivos.</p></div>
-    <div class="card"><h3>Evaluación formativa</h3><p>Rúbricas claras y retroalimentación oportuna, antes que calificaciones aisladas al final.</p></div>
-    <div class="card"><h3>Flexibilidad</h3><p>Los tiempos y actividades se ajustan a la conectividad y al ritmo real de los estudiantes de Saladoblanco.</p></div>
+    <div class="card"><h3>Organiza</h3><p>Ordena en secuencia los módulos de Ciencias Naturales.</p></div>
+    <div class="card"><h3>Distribuye y recoge</h3><p>Publica tareas y evaluaciones, y recibe las entregas.</p></div>
+    <div class="card"><h3>Enlaza recursos</h3><p>Simuladores como PhET, videos, documentos PDF y la página del caso.</p></div>
+    <div class="card"><h3>Califica y retroalimenta</h3><p>Rúbricas integradas, registro de calificaciones y comentarios. La calificación automática se limita a los formularios de Google Forms.</p></div>
+  </div>
+
+  <h2 class="sec-h">Principios que guiaron el diseño</h2>
+  <div class="grid2">
+    <div class="card"><h3>Alineación curricular</h3><p>Cada secuencia responde a los Estándares Básicos de Competencias (MEN, 2004) y a los Derechos Básicos de Aprendizaje de Ciencias Naturales de grado noveno (MEN, 2016).</p></div>
+    <div class="card"><h3>Mediación pedagógica real</h3><p>Classroom organiza, retroalimenta y da seguimiento. El centro es el aprendizaje del estudiante, no la herramienta.</p></div>
+    <div class="card"><h3>Evaluación formativa</h3><p>Rúbricas claras y retroalimentación sobre la tarea, el proceso y la autorregulación, antes que calificaciones aisladas al final.</p></div>
+    <div class="card"><h3>Flexibilidad y conectividad</h3><p>Materiales livianos, plazos flexibles y uso de los espacios con internet de la institución, sin suponer conexión permanente en casa.</p></div>
+    <div class="card"><h3>Accesibilidad</h3><p>Principios del Diseño Universal para el Aprendizaje (Alba Pastor, 2018): información en varios formatos y distintas formas de expresión.</p></div>
+    <div class="card"><h3>Privacidad</h3><p>Cuentas institucionales y tratamiento de datos de menores según la Ley 1581 de 2012, con autorización de los acudientes.</p></div>
   </div>
 </section>
 
 <!-- PRODUCTO FINAL -->
 <section class="view" id="v-producto">
   <h1 class="page-title">Producto final</h1>
-  <p class="lead">El producto es una estrategia pedagógica mediada por Google Classroom para fortalecer el rendimiento en Ciencias Naturales de grado noveno.</p>
+  <p class="lead">El producto es una estrategia pedagógica mediada por Google Classroom para fortalecer el rendimiento en Ciencias Naturales de grado noveno: la unidad de herencia genética "El Misterio Clínico", sus evaluaciones y los instrumentos de la investigación.</p>
+  <figure class="scene" aria-label="Una caja abierta de la que salen el curso, los instrumentos y un sello de logro"><svg viewBox="0 0 960 280" role="img" aria-label="Una caja abierta de la que salen el curso, los instrumentos y un sello de logro" focusable="false" preserveAspectRatio="xMidYMid meet"><rect width="960" height="280" fill="var(--sc-sky)"/><circle cx="860" cy="58" r="30" fill="var(--sun)" opacity=".85" class="tw"/><path d="M0 220 C 140 170 260 200 380 185 S 620 150 760 190 S 900 175 960 185 V280 H0Z" fill="var(--sc-hill2)"/><path d="M0 245 C 160 215 300 240 460 228 S 760 205 960 232 V280 H0Z" fill="var(--sc-hill)"/>
+<g><path d="M380 150 L480 120 L580 150 L580 240 L480 262 L380 240Z" fill="var(--gold)"/>
+<path d="M480 150 L580 150 L580 240 L480 262Z" fill="var(--gold-text)" opacity=".55"/>
+<path d="M380 150 L480 176 L580 150" fill="none" stroke="var(--paper)" stroke-width="3" opacity=".6"/></g>
+<g class="fl"><rect x="320" y="40" width="110" height="74" rx="10" fill="var(--sc-dev)"/><rect x="330" y="50" width="90" height="54" rx="5" fill="var(--brand)" opacity=".45"/>
+<path d="M354 78 l12 12 l24 -24" stroke="var(--paper)" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></g>
+<g class="fl2"><rect x="450" y="20" width="70" height="92" rx="8" fill="var(--paper)"/>
+<rect x="462" y="36" width="46" height="7" rx="3" fill="var(--line)"/><rect x="462" y="52" width="46" height="7" rx="3" fill="var(--line)"/><rect x="462" y="68" width="30" height="7" rx="3" fill="var(--line)"/>
+<circle cx="500" cy="92" r="9" fill="var(--coral)"/></g>
+<g class="fl"><circle cx="600" cy="74" r="32" fill="var(--sun)"/><path d="M600 54 l6 13 l14 2 l-10 10 l2 14 l-12 -7 l-12 7 l2 -14 l-10 -10 l14 -2z" fill="var(--paper)"/>
+<path d="M586 102 l-8 30 l14 -6 l8 12 l6 -32 M614 102 l8 30 l-14 -6 l-8 12 l-6 -32" fill="var(--coral)"/></g>
+<g class="tw" transform="translate(270 120) scale(1.1)"><path d="M0 -10 L3 -3 L10 0 L3 3 L0 10 L-3 3 L-10 0 L-3 -3Z" fill="var(--sun)"/></g><g class="tw2" transform="translate(700 160) scale(0.9)"><path d="M0 -10 L3 -3 L10 0 L3 3 L0 10 L-3 3 L-10 0 L-3 -3Z" fill="var(--sun)"/></g><g class="tw3" transform="translate(440 140) scale(0.6)"><path d="M0 -10 L3 -3 L10 0 L3 3 L0 10 L-3 3 L-10 0 L-3 -3Z" fill="var(--sun)"/></g></svg><figcaption class="scene-tag">Parada 3 · Producto final</figcaption></figure>
   <div class="grid2">
-    <div class="card"><h3>Qué incluye</h3><ul><li>Curso organizado en Google Classroom</li><li>Unidad didáctica con recursos educativos digitales</li><li>Instrumentos de evaluación formativa y rúbricas</li><li>Informe de resultados frente al diagnóstico</li></ul></div>
-    <div class="card"><h3>A quién beneficia</h3><ul><li>Estudiantes de grado noveno de la I.E.M. Misael Pastrana Borrero</li><li>Docentes del área de Ciencias Naturales</li><li>Instituciones con contextos semejantes</li></ul></div>
+    <div class="card"><h3>Qué incluye</h3><ul><li>Curso organizado en Google Classroom por módulos ABP.</li><li>Página interactiva del caso y cinco formularios de Google Forms.</li><li>Pre-test y post-test gemelos, con tabla de especificaciones y clave de respuestas.</li><li>Diario de campo, encuesta de percepción y registro de seguimiento.</li><li>Rúbrica de evaluación formativa.</li><li>Informe de resultados frente al diagnóstico, al cerrar la implementación.</li></ul></div>
+    <div class="card"><h3>A quién beneficia</h3><ul><li>Estudiantes de grado noveno de la I.E.M. Misael Pastrana Borrero.</li><li>Docentes del área de Ciencias Naturales.</li><li>Instituciones rurales con condiciones de conectividad semejantes.</li></ul>
+      <p style="margin-top:14px"><a href="misterio-clinico.html" target="_blank" rel="noopener" class="btn">Abrir El Misterio Clínico →</a></p></div>
   </div>
   <div class="todo" style="margin-top:16px">Enlace al curso de Google Classroom o a la carpeta del producto: por definir.</div>
 </section>
@@ -970,7 +1245,16 @@ tr:last-child td{border-bottom:0}
 <!-- VIDEO -->
 <section class="view" id="v-video">
   <h1 class="page-title">Video tutorial</h1>
-  <p class="lead">Guion de un tutorial breve para que estudiantes y docentes se ubiquen en el curso de Google Classroom.</p>
+  <p class="lead">Guion de un tutorial breve para que estudiantes y docentes se ubiquen en el curso de Google Classroom. Sirve también para la jornada de inducción de la primera sesión.</p>
+  <figure class="scene" aria-label="Una claqueta y un celular reproduciendo el tutorial"><svg viewBox="0 0 960 280" role="img" aria-label="Una claqueta y un celular reproduciendo el tutorial" focusable="false" preserveAspectRatio="xMidYMid meet"><rect width="960" height="280" fill="var(--sc-sky)"/><circle cx="860" cy="58" r="30" fill="var(--sun)" opacity=".85" class="tw"/><path d="M0 220 C 140 170 260 200 380 185 S 620 150 760 190 S 900 175 960 185 V280 H0Z" fill="var(--sc-hill2)"/><path d="M0 245 C 160 215 300 240 460 228 S 760 205 960 232 V280 H0Z" fill="var(--sc-hill)"/>
+<g class="fl"><rect x="180" y="110" width="170" height="110" rx="10" fill="var(--sc-dev)"/>
+<g class="clap" style="transform-origin:180px 110px"><path d="M180 82 H350 V108 H180Z" fill="var(--paper)"/>
+<path d="M200 82 L222 108 M244 82 L266 108 M288 82 L310 108" stroke="var(--sc-dev)" stroke-width="12"/></g>
+<text x="265" y="172" text-anchor="middle" class="sv-t sv-sun">Escena 1</text></g>
+<g class="fl2"><rect x="560" y="50" width="120" height="200" rx="22" fill="var(--sc-dev)"/><rect x="572" y="70" width="96" height="160" rx="10" fill="var(--paper)"/>
+<circle cx="620" cy="150" r="26" fill="var(--sun)"/><path d="M610 136 L638 150 L610 164Z" fill="var(--sc-dev)"/></g>
+<rect x="420" y="232" width="380" height="10" rx="5" fill="var(--paper)" opacity=".7"/><rect x="420" y="232" width="150" height="10" rx="5" fill="var(--coral)" class="grow"/>
+<g class="tw" transform="translate(440 80) scale(1.1)"><path d="M0 -10 L3 -3 L10 0 L3 3 L0 10 L-3 3 L-10 0 L-3 -3Z" fill="var(--sun)"/></g><g class="tw2" transform="translate(800 110) scale(0.8)"><path d="M0 -10 L3 -3 L10 0 L3 3 L0 10 L-3 3 L-10 0 L-3 -3Z" fill="var(--sun)"/></g><g class="fl"><path transform="translate(110 90) rotate(20)" d="M0 0 C 10 -14 26 -14 34 0 C 26 14 10 14 0 0Z" fill="var(--leaf2)"/></g></svg><figcaption class="scene-tag">Parada 3 · Video tutorial</figcaption></figure>
   <div class="video" role="img" aria-label="Espacio reservado para el video tutorial">
     <div><svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30" fill="none" stroke="#fff" stroke-width="3"/><path d="M26 20l20 12-20 12z" fill="#fff"/></svg><p style="margin-top:8px">Video tutorial en producción</p></div>
   </div>
@@ -982,6 +1266,7 @@ tr:last-child td{border-bottom:0}
       <tr><td>3. Recorrido</td><td>Tablón, trabajo de clase, personas y calificaciones.</td><td>60 s</td></tr>
       <tr><td>4. Actividades</td><td>Abrir una tarea, adjuntar evidencia y entregar.</td><td>60 s</td></tr>
       <tr><td>5. Retroalimentación</td><td>Ver comentarios y rúbrica del docente.</td><td>30 s</td></tr>
+      <tr><td>6. Pactos de aula digital</td><td>Respeto en los foros, plazos de entrega, protección de datos y uso responsable.</td><td>30 s</td></tr>
     </tbody></table></div>
   <div class="todo" style="margin-top:16px">Enlace del video (YouTube o Drive): por definir.</div>
 </section>
@@ -989,13 +1274,50 @@ tr:last-child td{border-bottom:0}
 <!-- REFERENCIAS -->
 <section class="view" id="v-referencias">
   <h1 class="page-title">Referencias bibliográficas</h1>
-  <p class="lead">Normas APA, séptima edición.</p>
-  <div class="refs"><p>Abreu Amador, M., &amp; Mejía de la Cruz, W. (2020). Factores que influyen en el bajo rendimiento escolar en la asignatura Ciencias de la Naturaleza, de 2do de secundaria, del Instituto Politécnico Max Henríquez Ureña, en el año escolar 2019-2020 [Trabajo de grado, Universidad Nacional Pedro Henríquez Ureña]. Repositorio Institucional UNPHU. https://repositorio.unphu.edu.do/items/31fed557-f07c-404b-b21a-e9282d60e6e4</p><p>Cabrera Pardo, L. N., Salazar Piñerez, J. T., &amp; Suarez Acevedo, C. M. (2022). Fortalecimiento de las competencias científicas en el área de Ciencias Naturales, mediante la aplicación de una unidad didáctica basada en prácticas de laboratorio, para estudiantes de grado cuarto de la Institución Educativa Juan Cristóbal Martínez del municipio San Juan de Girón-Santander [Trabajo de grado, Corporación Universitaria Minuto de Dios]. Repositorio Institucional UNIMINUTO.</p><p>Coll, C. (2009). Aprender y enseñar con las TIC: expectativas, realidad y potencialidades. En R. Carneiro, J. C. Toscano, y T. Díaz (Coords.), Los desafíos de las TIC para el cambio educativo (pp. 113-126). OEI-Fundación Santillana.</p><p>Cruz Benítez, J. E., &amp; Fernández Díaz, O. R. (2024). Fortalecimiento de la competencia de indagación en el área de Ciencias Naturales de los estudiantes del grado noveno de la Institución Educativa San Andrés Tello mediante un espacio virtual de aprendizaje y el uso de recursos educativos digitales (RED) [Trabajo de grado de maestría, Universidad de Cartagena]. Repositorio Institucional Unicartagena.</p><p>Education Endowment Foundation. (2019). Using Digital Technology to Improve Learning [Uso de la tecnología digital para mejorar el aprendizaje]. EEF Guidance Report.</p><p>Falla Cuéllar, D. F., &amp; Cruz Herrera, L. A. (2020). Actitudes de los estudiantes y propuesta alternativa para la enseñanza-aprendizaje de las Ciencias Naturales en las instituciones educativas de la ciudad de Neiva-Huila. Revista PACA, 10, 83–100. https://doi.org/10.25054/2027257X.2880</p><p>Furman, M. (2021). Enseñar distinto: Guía para innovar en el aula. Siglo XXI Editores.</p><p>Gualguán Luna, G. (s.f.). Causas del bajo rendimiento en las áreas de Ciencias Sociales y Ciencias Naturales [Trabajo de grado, Universidad Católica de Manizales]. Repositorio de la Universidad Católica de Manizales. https://repositorio.ucm.edu.co/server/api/core/bitstreams/8cf5675e-52a9-4a73-b626-8022db3c1168/content</p><p>Instituto Colombiano para la Evaluación de la Educación [ICFES]. (2023). Informe Nacional de Resultados de las Pruebas Saber 11 - 2023. Ministerio de Educación Nacional.</p><p>Instituto Colombiano para la Evaluación de la Educación [ICFES]. (2024). Reporte de resultados Saber 11 por Entidades Territoriales Certificadas. Ministerio de Educación Nacional.</p><p>Leiton Leiton, D. R., Tamayo León, J. A., Ramírez González, E. G., Engracia Carvallo, D. E., &amp; Ramírez González, S. Y. (2024). Estrategia metodológica para el mejoramiento del rendimiento académico en la asignatura de ciencias naturales en los estudiantes de educación básica. Estudios y Perspectivas Revista Científica y Académica, 4(2). https://doi.org/10.61384/r.c.a..v4i2.221</p><p>Melo-Solarte, D. S., &amp; Díaz, P. A. (2018). El aprendizaje significativo y la evaluación formativa a través de Google Classroom. Revista Iberoamericana de Educación, 76(2), 53-70.</p><p>Ministerio de Educación Nacional [MEN]. (2016). Derechos Básicos de Aprendizaje: Ciencias Naturales. Bogotá, Colombia: Panamericana Formas e Impresos S.A.</p><p>Organización de las Naciones Unidas para la Educación, la Ciencia y la Cultura [UNESCO]. (2023). Informe de Seguimiento de la Educación en el Mundo 2023: La tecnología en la educación: ¿Una herramienta en los términos de quién?. París: UNESCO.</p><p>Organización para la Cooperación y el Desarrollo Económicos [OCDE]. (2023). Resultados de PISA 2022 (Volumen I): El estado del aprendizaje y la equidad en la educación. OECD Publishing.</p><p>Pacheco, O. (2023, 20 de febrero). El trabajo práctico como estrategia para el fortalecimiento del aprendizaje de las ciencias naturales en estudiantes de séptimo grado en la Institución Etnoeducativa Makumake [Trabajo de grado, Universidad Mariana]. Repositorio Institucional Unimariana. https://repositorio.umariana.edu.co/items/6ad0cdc8-1a0e-4566-95b6-fb08f02ea4ca</p><p>Quintero-Fierro, Y. K., &amp; Vargas-Zúñiga, K. T. (2023). Refuerzo pedagógico como estrategia para el mejoramiento del aprendizaje en Ciencias Naturales. Revista Electrónica EDUCyT, 14(Número extra), 789–795.</p><p>Quintero Trujillo, Ó. I. (2023). Uso de una estrategia pedagógica basada en la gamificación para el fortalecimiento del aprendizaje de las Ciencias Naturales de los estudiantes del grado noveno de la Institución Educativa San Antonio del Pescado del municipio de Garzón-Huila [Tesis de grado, Universidad Surcolombiana]. Repositorio Institucional USCO.</p><p>Santana Santana, R. B. (2024). Estrategia para mejorar el rendimiento académico en las ciencias de la naturaleza en estudiantes de segundo de secundaria. UCE Ciencia. Revista de Postgrado, 12(2). https://uceciencia.edu.do/index.php/OJS/article/view/371</p><p>Vargas, L. A. C. (2024). Rendimiento académico en el área de Ciencias Naturales en estudiantes de bachillerato. REDHECS: Revista Electrónica de Humanidades, Educación y Comunicación Social, 32(25), 10–24. https://dialnet.unirioja.es/servlet/articulo?codigo=10161601</p><p>Yahya, S. M., &amp; Ayasrah, M. N. (2018). Causes of 8th grade students&#x27; low achievement in TIMSS Study-2015 from science teachers and educational supervisors. Review of European Studies, 10(1), 124–139. https://doi.org/10.5539/res.v10n1p124</p></div>
+  <p class="lead">Normas APA, séptima edición. Lista unificada de los capítulos 1, 2 y 3 del trabajo de grado.</p>
+  <figure class="scene" aria-label="Una biblioteca de libros de colores y una lupa con la palabra APA"><svg viewBox="0 0 960 280" role="img" aria-label="Una biblioteca de libros de colores y una lupa con la palabra APA" focusable="false" preserveAspectRatio="xMidYMid meet"><rect width="960" height="280" fill="var(--sc-sky)"/><circle cx="860" cy="58" r="30" fill="var(--sun)" opacity=".85" class="tw"/><path d="M0 220 C 140 170 260 200 380 185 S 620 150 760 190 S 900 175 960 185 V280 H0Z" fill="var(--sc-hill2)"/><path d="M0 245 C 160 215 300 240 460 228 S 760 205 960 232 V280 H0Z" fill="var(--sc-hill)"/>
+<rect x="250" y="226" width="460" height="14" rx="6" fill="var(--sc-dev)"/>
+<g><rect x="270" y="110" width="34" height="116" rx="4" fill="var(--brand)"/><rect x="306" y="96" width="28" height="130" rx="4" fill="var(--gold)"/>
+<rect x="336" y="124" width="40" height="102" rx="4" fill="var(--coral)"/><rect x="378" y="104" width="30" height="122" rx="4" fill="var(--sky)"/>
+<rect x="410" y="118" width="36" height="108" rx="4" fill="var(--brand)" opacity=".7"/>
+<rect x="452" y="130" width="34" height="96" rx="4" fill="var(--gold)" transform="rotate(14 469 226)"/>
+<rect x="520" y="100" width="30" height="126" rx="4" fill="var(--sky)"/><rect x="552" y="116" width="38" height="110" rx="4" fill="var(--coral)"/>
+<rect x="592" y="96" width="32" height="130" rx="4" fill="var(--brand)"/><rect x="626" y="122" width="36" height="104" rx="4" fill="var(--gold)"/>
+<g fill="var(--paper)" opacity=".75"><rect x="278" y="130" width="18" height="5"/><rect x="312" y="116" width="16" height="5"/><rect x="344" y="144" width="24" height="5"/><rect x="384" y="124" width="18" height="5"/><rect x="526" y="120" width="18" height="5"/><rect x="560" y="136" width="22" height="5"/><rect x="598" y="116" width="20" height="5"/><rect x="632" y="142" width="24" height="5"/></g></g>
+<g class="fl2"><g transform="translate(720 60)"><circle cx="40" cy="40" r="32" fill="var(--paper)" opacity=".6" stroke="var(--sc-dev)" stroke-width="10"/>
+<line x1="62" y1="62" x2="96" y2="96" stroke="var(--sc-dev)" stroke-width="14" stroke-linecap="round"/><text x="40" y="49" text-anchor="middle" class="sv-t">APA</text></g></g>
+<g class="tw" transform="translate(200 80) scale(1.1)"><path d="M0 -10 L3 -3 L10 0 L3 3 L0 10 L-3 3 L-10 0 L-3 -3Z" fill="var(--sun)"/></g><g class="tw2" transform="translate(500 50) scale(0.8)"><path d="M0 -10 L3 -3 L10 0 L3 3 L0 10 L-3 3 L-10 0 L-3 -3Z" fill="var(--sun)"/></g><g class="fl2"><path transform="translate(120 200) rotate(-10)" d="M0 0 C 10 -14 26 -14 34 0 C 26 14 10 14 0 0Z" fill="var(--leaf2)"/></g></svg><figcaption class="scene-tag">Parada 4 · Créditos</figcaption></figure>
+  <div class="ref-tools"><label for="ref-q" class="sr">Buscar en las referencias</label><input id="ref-q" type="search" placeholder="Busca por autor, año o tema (por ejemplo: Classroom, 2023, Vygotsky)" autocomplete="off"><span class="ref-count" id="ref-count">100 referencias</span></div>
+  <div class="refs" id="ref-list"><p>Abreu Amador, M., y Mejía de la Cruz, W. (2020). <i>Factores que influyen en el bajo rendimiento escolar en la asignatura Ciencias de la Naturaleza, de 2do de secundaria, del Instituto Politécnico Max Henríquez Ureña, en el año escolar 2019-2020</i> [Trabajo de grado, Universidad Nacional Pedro Henríquez Ureña]. Repositorio Institucional UNPHU. <a href="https://repositorio.unphu.edu.do/handle/123456789/5901" target="_blank" rel="noopener">https://repositorio.unphu.edu.do/handle/123456789/5901</a></p><p>Aguilar Gavira, S., y Barroso Osuna, J. (2015). La triangulación de datos como estrategia en investigación educativa. <i>Pixel-Bit. Revista de Medios y Educación</i>, (47), 73–88.</p><p>Alba Pastor, C. (2018). Diseño Universal para el Aprendizaje: Un modelo didáctico para proporcionar oportunidades de aprender a todos los estudiantes. <i>Padres y Maestros</i>, (374), 21–27. <a href="https://doi.org/10.14422/pym.i374.y2018.003" target="_blank" rel="noopener">https://doi.org/10.14422/pym.i374.y2018.003</a></p><p>Al-Maroof, R. A. S., y Al-Emran, M. (2018). Students acceptance of Google Classroom: An exploratory study using PLS-SEM approach. <i>International Journal of Emerging Technologies in Learning (iJET), 13</i>(6), 112–123. <a href="https://doi.org/10.3991/ijet.v13i06.8275" target="_blank" rel="noopener">https://doi.org/10.3991/ijet.v13i06.8275</a></p><p>Arias, F. G. (2012). <i>El proyecto de investigación: Introducción a la metodología científica</i> (6.ª ed.). Editorial Episteme.</p><p>Asamblea General de las Naciones Unidas. (1948). <i>Declaración Universal de Derechos Humanos</i> (Resolución 217 A [III]).</p><p>Asamblea General de las Naciones Unidas. (1966). <i>Pacto Internacional de Derechos Económicos, Sociales y Culturales</i> (Resolución 2200 A [XXI]).</p><p>Asamblea General de las Naciones Unidas. (1989). <i>Convención sobre los Derechos del Niño</i> (Resolución 44/25).</p><p>Asamblea General de las Naciones Unidas. (2006). <i>Convención sobre los Derechos de las Personas con Discapacidad</i> (Resolución 61/106).</p><p>Asamblea Nacional Constituyente. (1991). <i>Constitución Política de Colombia</i>. Gaceta Constitucional n.º 116.</p><p>Ausubel, D. P. (1963). <i>The psychology of meaningful verbal learning</i>. Grune &amp; Stratton.</p><p>Ausubel, D. P., Novak, J. D., y Hanesian, H. (1983). <i>Psicología educativa: Un punto de vista cognoscitivo</i> (2.ª ed.). Trillas.</p><p>Barrows, H. S. (1986). A taxonomy of problem-based learning methods. <i>Medical Education, 20</i>(6), 481–486.</p><p>Barrows, H. S. (1996). Problem-based learning in medicine and beyond: A brief overview. <i>New Directions for Teaching and Learning, 1996</i>(68), 3–12.</p><p>Bergmann, J., y Sams, A. (2012). <i>Flip your classroom: Reach every student in every class every day</i>. International Society for Technology in Education.</p><p>Black, P., y Wiliam, D. (2009). Developing the theory of formative assessment. <i>Educational Assessment, Evaluation and Accountability, 21</i>(1), 5–31. <a href="https://doi.org/10.1007/s11092-008-9068-5" target="_blank" rel="noopener">https://doi.org/10.1007/s11092-008-9068-5</a></p><p>Bonwell, C. C., y Eison, J. A. (1991). <i>Active learning: Creating excitement in the classroom</i> (ASHE-ERIC Higher Education Report n.º 1). The George Washington University, School of Education and Human Development.</p><p>Branch, R. M. (2009). <i>Instructional design: The ADDIE approach</i>. Springer. <a href="https://doi.org/10.1007/978-0-387-09506-6" target="_blank" rel="noopener">https://doi.org/10.1007/978-0-387-09506-6</a></p><p>Cabrera Pardo, L. N., Salazar Piñerez, J. T., y Suarez Acevedo, C. M. (2022). <i>Fortalecimiento de las competencias científicas en el área de Ciencias Naturales, mediante la aplicación de una unidad didáctica basada en prácticas de laboratorio, para estudiantes de grado cuarto de la Institución Educativa Juan Cristóbal Martínez del municipio San Juan de Girón-Santander</i> [Trabajo de grado, Corporación Universitaria Minuto de Dios]. Repositorio Institucional UNIMINUTO.</p><p>Causil Vargas, L. A. (2024). Rendimiento académico en el área de Ciencias Naturales en estudiantes de bachillerato. <i>REDHECS: Revista Electrónica de Humanidades, Educación y Comunicación Social, 32</i>(25), 10–24. <a href="https://dialnet.unirioja.es/servlet/articulo?codigo=10161601" target="_blank" rel="noopener">https://dialnet.unirioja.es/servlet/articulo?codigo=10161601</a></p><p>Cobo Romaní, J. C. (2009). El concepto de tecnologías de la información. Benchmarking sobre las definiciones de las TIC en la sociedad del conocimiento. <i>Zer: Revista de Estudios de Comunicación, 14</i>(27), 295–318. <a href="https://doi.org/10.1387/zer.2636" target="_blank" rel="noopener">https://doi.org/10.1387/zer.2636</a></p><p>Coll, C. (2004). Psicología de la educación y prácticas educativas mediadas por las tecnologías de la información y la comunicación: Una mirada constructivista. <i>Sinéctica</i>, (25). <a href="https://sinectica.iteso.mx/index.php/SINECTICA/article/view/277" target="_blank" rel="noopener">https://sinectica.iteso.mx/index.php/SINECTICA/article/view/277</a></p><p>Coll, C. (2009). Aprender y enseñar con las TIC: Expectativas, realidad y potencialidades. En R. Carneiro, J. C. Toscano, y T. Díaz (Coords.), <i>Los desafíos de las TIC para el cambio educativo</i> (pp. 113–126). OEI; Fundación Santillana.</p><p>Comité de los Derechos del Niño. (2021). <i>Observación general núm. 25 (2021) relativa a los derechos de los niños en relación con el entorno digital</i> (CRC/C/GC/25). Naciones Unidas.</p><p>Congreso de la República de Colombia. (1994, 8 de febrero). <i>Ley 115 de 1994, por la cual se expide la Ley General de Educación</i>.</p><p>Congreso de la República de Colombia. (2009, 30 de julio). <i>Ley 1341 de 2009, por la cual se definen principios y conceptos sobre la sociedad de la información y la organización de las Tecnologías de la Información y las Comunicaciones –TIC–, se crea la Agencia Nacional de Espectro y se dictan otras disposiciones</i>.</p><p>Congreso de la República de Colombia. (2012, 17 de octubre). <i>Ley Estatutaria 1581 de 2012, por la cual se dictan disposiciones generales para la protección de datos personales</i>.</p><p>Congreso de la República de Colombia. (2019, 25 de julio). <i>Ley 1978 de 2019, por la cual se moderniza el sector de las Tecnologías de la Información y las Comunicaciones (TIC), se distribuyen competencias, se crea un regulador único y se dictan otras disposiciones</i>.</p><p>Costa, A., Moreira, D., Casanova, J., Azevedo, Â., Gonçalves, A., Oliveira, Í., Azevedo, R., y Dias, P. C. (2024). Determinants of academic achievement from the middle to secondary school education: A systematic review. <i>Social Psychology of Education, 27</i>(6), 3533–3572. <a href="https://doi.org/10.1007/s11218-024-09941-z" target="_blank" rel="noopener">https://doi.org/10.1007/s11218-024-09941-z</a></p><p>Creswell, J. W., y Creswell, J. D. (2018). <i>Research design: Qualitative, quantitative, and mixed methods approaches</i> (5th ed.). SAGE Publications.</p><p>Creswell, J. W., y Plano Clark, V. L. (2018). <i>Designing and conducting mixed methods research</i> (3rd ed.). SAGE Publications.</p><p>Cruz Benítez, J. E., y Fernández Díaz, O. R. (2024). <i>Fortalecimiento de la competencia de indagación en el área de Ciencias Naturales de los estudiantes del grado noveno de la Institución Educativa San Andrés Tello mediante un espacio virtual de aprendizaje y el uso de recursos educativos digitales (RED)</i> [Tesis de maestría, Universidad de Cartagena]. Repositorio Institucional Universidad de Cartagena.</p><p>Dah, N. M., Noor, M. S. A. M., Kamarudin, M. Z., y Azziz, S. S. S. A. (2024). The impacts of open inquiry on students' learning in science: A systematic literature review. <i>Educational Research Review, 43</i>, Artículo 100601. <a href="https://doi.org/10.1016/j.edurev.2024.100601" target="_blank" rel="noopener">https://doi.org/10.1016/j.edurev.2024.100601</a></p><p>Davis, F. D. (1989). Perceived usefulness, perceived ease of use, and user acceptance of information technology. <i>MIS Quarterly, 13</i>(3), 319–340. <a href="https://doi.org/10.2307/249008" target="_blank" rel="noopener">https://doi.org/10.2307/249008</a></p><p>Departamento Nacional de Planeación. (2020). <i>Documento CONPES 3988: Tecnologías para aprender. Política nacional para impulsar la innovación en las prácticas educativas a través de las tecnologías digitales</i>.</p><p>Díaz Barriga, F., y Hernández, G. (2010). <i>Estrategias docentes para un aprendizaje significativo: Una interpretación constructivista</i> (3.ª ed.). McGraw-Hill.</p><p>Education Endowment Foundation. (2019). <i>Using digital technology to improve learning: Guidance report</i>. <a href="https://educationendowmentfoundation.org.uk/education-evidence/guidance-reports/digital" target="_blank" rel="noopener">https://educationendowmentfoundation.org.uk/education-evidence/guidance-reports/digital</a></p><p>Escobar-Pérez, J., y Cuervo-Martínez, A. (2008). Validez de contenido y juicio de expertos: Una aproximación a su utilización. <i>Avances en Medición, 6</i>, 27–36.</p><p>Falla Cuéllar, D. F., y Cruz Herrera, L. A. (2020). Actitudes de los estudiantes y propuesta alternativa para la enseñanza-aprendizaje de las ciencias naturales en las instituciones educativas de la ciudad de Neiva – Huila. <i>Revista PACA</i>, (10), 83–100. <a href="https://doi.org/10.25054/2027257X.2880" target="_blank" rel="noopener">https://doi.org/10.25054/2027257X.2880</a></p><p>Furman, M. (2021). <i>Enseñar distinto: Guía para innovar sin perderse en el camino</i>. Siglo XXI Editores.</p><p>Galicia Alarcón, L. A., Balderrama Trápaga, J. A., y Edel Navarro, R. (2017). Validez de contenido por juicio de expertos: Propuesta de una herramienta virtual. <i>Apertura, 9</i>(2), 42–53. <a href="https://doi.org/10.18381/Ap.v9n2.993" target="_blank" rel="noopener">https://doi.org/10.18381/Ap.v9n2.993</a></p><p>Gerrish, K., Lathlean, J., y Cormack, D. (Eds.). (2015). <i>The research process in nursing</i> (7th ed.). Wiley-Blackwell.</p><p>Google. (s. f.). <i>Ayuda de Classroom</i>. <a href="https://support.google.com/edu/classroom" target="_blank" rel="noopener">https://support.google.com/edu/classroom</a></p><p>Graham, C. R. (2006). Blended learning systems: Definition, current trends, and future directions. En C. J. Bonk y C. R. Graham (Eds.), <i>The handbook of blended learning: Global perspectives, local designs</i> (pp. 3–21). Pfeiffer.</p><p>Gualguán Luna, G. (2013). <i>Causas del bajo rendimiento en las áreas de ciencias sociales, ciencias naturales y matemáticas en 8-2</i> [Trabajo de grado de especialización, Universidad Católica de Manizales]. Repositorio Institucional UCM. <a href="https://repositorio.ucm.edu.co/handle/10839/513" target="_blank" rel="noopener">https://repositorio.ucm.edu.co/handle/10839/513</a></p><p>Hake, R. R. (1998). Interactive-engagement versus traditional methods: A six-thousand-student survey of mechanics test data for introductory physics courses. <i>American Journal of Physics, 66</i>(1), 64–74. <a href="https://doi.org/10.1119/1.18809" target="_blank" rel="noopener">https://doi.org/10.1119/1.18809</a></p><p>Hattie, J., y Timperley, H. (2007). The power of feedback. <i>Review of Educational Research, 77</i>(1), 81–112. <a href="https://doi.org/10.3102/003465430298487" target="_blank" rel="noopener">https://doi.org/10.3102/003465430298487</a></p><p>Hernández-Sampieri, R., y Mendoza Torres, C. P. (2018). <i>Metodología de la investigación: Las rutas cuantitativa, cualitativa y mixta</i>. McGraw-Hill Interamericana Editores.</p><p>Instituto Colombiano para la Evaluación de la Educación. (2024). <i>Informe nacional de resultados del examen Saber 11° 2023</i>. <a href="https://www.icfes.gov.co/wp-content/uploads/2025/04/Informe_Saber11_2023.pdf" target="_blank" rel="noopener">https://www.icfes.gov.co/wp-content/uploads/2025/04/Informe_Saber11_2023.pdf</a></p><p>Instituto Colombiano para la Evaluación de la Educación. (2025). <i>Encuentros regionales: Liderazgos que transforman la educación. Región Centro Sur</i>. <a href="https://www.icfes.gov.co/wp-content/uploads/2025/12/CARTILLA_ERLE_REGION_CENTRO_SUR.pdf" target="_blank" rel="noopener">https://www.icfes.gov.co/wp-content/uploads/2025/12/CARTILLA_ERLE_REGION_CENTRO_SUR.pdf</a></p><p>Koehler, M. J., Mishra, P., y Cain, W. (2013). What is technological pedagogical content knowledge (TPACK)? <i>Journal of Education, 193</i>(3), 13–19. <a href="https://doi.org/10.1177/002205741319300303" target="_blank" rel="noopener">https://doi.org/10.1177/002205741319300303</a></p><p>Latorre, A. (2005). <i>La investigación-acción: Conocer y cambiar la práctica educativa</i> (3.ª ed.). Graó.</p><p>Leiton Leiton, D. R., Engracia Carvallo, D. E., Tamayo León, J. A., Ramírez González, S. Y., y Ramírez González, E. G. (2024). Estrategia metodológica para el mejoramiento del rendimiento académico en la asignatura de ciencias naturales en los estudiantes de educación básica. <i>Estudios y Perspectivas Revista Científica y Académica, 4</i>(2), 273–291. <a href="https://doi.org/10.61384/r.c.a..v4i2.221" target="_blank" rel="noopener">https://doi.org/10.61384/r.c.a..v4i2.221</a></p><p>Li, S., y Wang, W. (2022). Effect of blended learning on student performance in K-12 settings: A meta-analysis. <i>Journal of Computer Assisted Learning, 38</i>(5), 1254–1272. <a href="https://doi.org/10.1111/jcal.12696" target="_blank" rel="noopener">https://doi.org/10.1111/jcal.12696</a></p><p>Liu, C., Zowghi, D., Kearney, M., y Bano, M. (2021). Inquiry-based mobile learning in secondary school science education: A systematic review. <i>Journal of Computer Assisted Learning, 37</i>(1), 1–23. <a href="https://doi.org/10.1111/jcal.12505" target="_blank" rel="noopener">https://doi.org/10.1111/jcal.12505</a></p><p>Mayer, R. E. (2009). <i>Multimedia learning</i> (2.ª ed.). Cambridge University Press.</p><p>Md Sari, N., Khoo, Y. Y., y Zakariya, Z. (2022). Systematic literature review of Google Classroom assisted learning: Effects, strengths and challenges. <i>Journal of Contemporary Social Science and Education Studies, 2</i>(1), 26–42. <a href="https://doi.org/10.5281/zenodo.10277085" target="_blank" rel="noopener">https://doi.org/10.5281/zenodo.10277085</a></p><p>Mertler, C. A. (2024). <i>Action research: Improving schools and empowering educators</i> (7th ed.). SAGE Publications.</p><p>Miles, M. B., Huberman, A. M., y Saldaña, J. (2020). <i>Qualitative data analysis: A methods sourcebook</i> (4th ed.). SAGE Publications.</p><p>Ministerio de Comercio, Industria y Turismo. (2013, 27 de junio). <i>Decreto 1377 de 2013, por el cual se reglamenta parcialmente la Ley 1581 de 2012</i>.</p><p>Ministerio de Educación Nacional. (2004). <i>Estándares básicos de competencias en Ciencias Naturales y Ciencias Sociales</i> (Serie Guías n.º 7).</p><p>Ministerio de Educación Nacional. (2009, 16 de abril). <i>Decreto 1290 de 2009, por el cual se reglamenta la evaluación del aprendizaje y promoción de los estudiantes de los niveles de educación básica y media</i>.</p><p>Ministerio de Educación Nacional. (2015, 26 de mayo). <i>Decreto 1075 de 2015, por medio del cual se expide el Decreto Único Reglamentario del Sector Educación</i>.</p><p>Ministerio de Educación Nacional. (2016). <i>Derechos básicos de aprendizaje: Ciencias naturales</i> (V.1). <a href="https://colombiaaprende.edu.co/recurso-coleccion/derechos-basicos-de-aprendizaje-dba-ciencias-naturales" target="_blank" rel="noopener">https://colombiaaprende.edu.co/recurso-coleccion/derechos-basicos-de-aprendizaje-dba-ciencias-naturales</a></p><p>Ministerio de Educación Nacional. (2017). <i>Plan Nacional Decenal de Educación 2016-2026: El camino hacia la calidad y la equidad</i>.</p><p>Ministerio de Educación Nacional. (2021, 13 de agosto). <i>¿Qué son los recursos educativos digitales y cuáles son sus ventajas?</i> Colombia Aprende. <a href="https://colombiaaprende.edu.co/agenda/actualidad/recursos-educativos-digitales-usos-y-ventajas" target="_blank" rel="noopener">https://colombiaaprende.edu.co/agenda/actualidad/recursos-educativos-digitales-usos-y-ventajas</a></p><p>Ministerio de Salud. (1993, 4 de octubre). <i>Resolución 8430 de 1993, por la cual se establecen las normas científicas, técnicas y administrativas para la investigación en salud</i>.</p><p>Mishra, P., y Koehler, M. J. (2006). Technological pedagogical content knowledge: A framework for teacher knowledge. <i>Teachers College Record, 108</i>(6), 1017–1054. <a href="https://doi.org/10.1111/j.1467-9620.2006.00684.x" target="_blank" rel="noopener">https://doi.org/10.1111/j.1467-9620.2006.00684.x</a></p><p>Moreira, M. A. (2012). ¿Al final, qué es aprendizaje significativo? <i>Qurriculum</i>, (25), 29–56. <a href="http://riull.ull.es/xmlui/handle/915/10652" target="_blank" rel="noopener">http://riull.ull.es/xmlui/handle/915/10652</a></p><p>Naciones Unidas. (2015). <i>Transformar nuestro mundo: La Agenda 2030 para el Desarrollo Sostenible</i> (A/RES/70/1).</p><p>Naciones Unidas. (2022). <i>Cumbre sobre la Transformación de la Educación</i>. <a href="https://www.un.org/en/transforming-education-summit" target="_blank" rel="noopener">https://www.un.org/en/transforming-education-summit</a></p><p>National Research Council. (2012). <i>A framework for K-12 science education: Practices, crosscutting concepts, and core ideas</i>. The National Academies Press. <a href="https://doi.org/10.17226/13165" target="_blank" rel="noopener">https://doi.org/10.17226/13165</a></p><p>Organización para la Cooperación y el Desarrollo Económicos. (2023a). <i>PISA 2022 assessment and analytical framework</i>. OECD Publishing. <a href="https://doi.org/10.1787/dfe0bf9c-en" target="_blank" rel="noopener">https://doi.org/10.1787/dfe0bf9c-en</a></p><p>Organización para la Cooperación y el Desarrollo Económicos. (2023b). <i>PISA 2022 results (Volume I): The state of learning and equity in education</i>. OECD Publishing. <a href="https://doi.org/10.1787/53f23881-en" target="_blank" rel="noopener">https://doi.org/10.1787/53f23881-en</a></p><p>Osborne, J., Simon, S., y Collins, S. (2003). Attitudes towards science: A review of the literature and its implications. <i>International Journal of Science Education, 25</i>(9), 1049–1079. <a href="https://doi.org/10.1080/0950069032000032199" target="_blank" rel="noopener">https://doi.org/10.1080/0950069032000032199</a></p><p>Otzen, T., y Manterola, C. (2017). Técnicas de muestreo sobre una población a estudio. <i>International Journal of Morphology, 35</i>(1), 227–232.</p><p>Pacheco Mindiola, O. (2023). <i>El trabajo práctico como estrategia para el fortalecimiento del aprendizaje de las ciencias naturales en estudiantes de séptimo grado en la Institución Etnoeducativa Makumake</i> [Tesis de maestría, Universidad Mariana]. Repositorio Institucional Universidad Mariana. <a href="https://repositorio.umariana.edu.co/items/6ad0cdc8-1a0e-4566-95b6-fb08f02ea4ca" target="_blank" rel="noopener">https://repositorio.umariana.edu.co/items/6ad0cdc8-1a0e-4566-95b6-fb08f02ea4ca</a></p><p>Pedrosa, I., Suárez-Álvarez, J., y García-Cueto, E. (2013). Evidencias sobre la validez de contenido: Avances teóricos y métodos para su estimación. <i>Acción Psicológica, 10</i>(2), 3–18. <a href="https://doi.org/10.5944/ap.10.2.11820" target="_blank" rel="noopener">https://doi.org/10.5944/ap.10.2.11820</a></p><p>Prasse, D., Webb, M., Deschênes, M., Parent, S., Aeschlimann, F., Goda, Y., Yamada, M., y Raynault, A. (2024). Challenges in promoting self-regulated learning in technology supported learning environments: An umbrella review of systematic reviews and meta-analyses. <i>Technology, Knowledge and Learning, 29</i>, 1809–1830. <a href="https://doi.org/10.1007/s10758-024-09772-z" target="_blank" rel="noopener">https://doi.org/10.1007/s10758-024-09772-z</a></p><p>Prieto Navarro, L. (2006). Aprendizaje activo en el aula universitaria: El caso del aprendizaje basado en problemas. <i>Miscelánea Comillas. Revista de Ciencias Humanas y Sociales, 64</i>(124), 173–196.</p><p>Quintero Trujillo, Ó. I. (2023). <i>Uso de una estrategia pedagógica basada en la gamificación para el fortalecimiento del aprendizaje de las Ciencias Naturales de los estudiantes del grado noveno de la Institución Educativa San Antonio del Pescado del municipio de Garzón-Huila</i> [Trabajo de grado, Universidad Surcolombiana]. Repositorio Institucional USCO.</p><p>Quintero-Fierro, Y. K., y Vargas-Zúñiga, K. T. (2023). Refuerzo pedagógico como estrategia para el mejoramiento del aprendizaje en Ciencias Naturales. <i>Revista Electrónica EDUCyT, 14</i>(Extra), 789–795.</p><p>Reguant-Álvarez, M., y Torrado-Fonseca, M. (2016). El método Delphi. <i>REIRE Revista d'Innovació i Recerca en Educació, 9</i>(1), 87–102. <a href="https://doi.org/10.1344/reire2016.9.1916" target="_blank" rel="noopener">https://doi.org/10.1344/reire2016.9.1916</a></p><p>Ryan, R. M., y Deci, E. L. (2000). Intrinsic and extrinsic motivations: Classic definitions and new directions. <i>Contemporary Educational Psychology, 25</i>(1), 54–67. <a href="https://doi.org/10.1006/ceps.1999.1020" target="_blank" rel="noopener">https://doi.org/10.1006/ceps.1999.1020</a></p><p>Santana Santana, R. B. (2024). Estrategia para mejorar el rendimiento académico en las ciencias de la naturaleza en estudiantes de segundo de secundaria. <i>UCE Ciencia. Revista de Postgrado, 12</i>(2). <a href="https://uceciencia.edu.do/index.php/OJS/article/view/371" target="_blank" rel="noopener">https://uceciencia.edu.do/index.php/OJS/article/view/371</a></p><p>Selwyn, N. (2019). What's the problem with learning analytics? <i>Journal of Learning Analytics, 6</i>(3), 11–19. <a href="https://doi.org/10.18608/jla.2019.63.3" target="_blank" rel="noopener">https://doi.org/10.18608/jla.2019.63.3</a></p><p>Shulman, L. S. (1986). Those who understand: Knowledge growth in teaching. <i>Educational Researcher, 15</i>(2), 4–14. <a href="https://doi.org/10.3102/0013189X015002004" target="_blank" rel="noopener">https://doi.org/10.3102/0013189X015002004</a></p><p>Stringer, E. T., y Ortiz Aragón, A. (2020). <i>Action research</i> (5th ed.). SAGE Publications.</p><p>Taylor, S. J., y Bogdan, R. (1987). <i>Introducción a los métodos cualitativos de investigación: La búsqueda de significados</i>. Paidós.</p><p>Toomla, K., Hooshyar, D., Kikas, E., Malva, L., Malleus-Kotšegarov, E., y Aus, K. (2026). Tracing and supporting self-regulated learning in K-12 digital learning: A systematic review of the last three decades (1990-2024). <i>Educational Research Review, 51</i>, Artículo 100782. <a href="https://doi.org/10.1016/j.edurev.2026.100782" target="_blank" rel="noopener">https://doi.org/10.1016/j.edurev.2026.100782</a></p><p>UNESCO. (2019). <i>Recomendación sobre los Recursos Educativos Abiertos (REA)</i>.</p><p>UNESCO. (2021). <i>Declaración Mundial de RewirEd sobre la Conectividad para la Educación</i>. <a href="https://unesdoc.unesco.org/ark:/48223/pf0000380598" target="_blank" rel="noopener">https://unesdoc.unesco.org/ark:/48223/pf0000380598</a></p><p>UNESCO. (2023). <i>Informe de seguimiento de la educación en el mundo 2023: Tecnología en la educación: ¿Una herramienta en los términos de quién?</i></p><p>Urdanivia Alarcon, D. A., Talavera-Mendoza, F., Rucano Paucar, F. H., Cayani Caceres, K. S., y Machaca Viza, R. (2023). Science and inquiry-based teaching and learning: A systematic review. <i>Frontiers in Education, 8</i>, Artículo 1170487. <a href="https://doi.org/10.3389/feduc.2023.1170487" target="_blank" rel="noopener">https://doi.org/10.3389/feduc.2023.1170487</a></p><p>Vargas Cordero, Z. R. (2009). La investigación aplicada: Una forma de conocer las realidades con evidencia científica. <i>Revista Educación, 33</i>(1), 155–165. <a href="https://doi.org/10.15517/revedu.v33i1.538" target="_blank" rel="noopener">https://doi.org/10.15517/revedu.v33i1.538</a></p><p>Vygotsky, L. S. (1978). <i>Mind in society: The development of higher psychological processes</i>. Harvard University Press.</p><p>Wisniewski, B., Zierer, K., y Hattie, J. (2020). The power of feedback revisited: A meta-analysis of educational feedback research. <i>Frontiers in Psychology, 10</i>, Artículo 3087. <a href="https://doi.org/10.3389/fpsyg.2019.03087" target="_blank" rel="noopener">https://doi.org/10.3389/fpsyg.2019.03087</a></p><p>Yahya, S. M., y Ayasrah, M. N. (2018). Causes of 8th grade students' low achievement in TIMSS study-2015 from science teachers and educational supervisors. <i>Review of European Studies, 10</i>(1), 124–139. <a href="https://doi.org/10.5539/res.v10n1p124" target="_blank" rel="noopener">https://doi.org/10.5539/res.v10n1p124</a></p><p>Yao, Y., Amos, M., Snider, K., y Brown, T. (2024). The impact of formative assessment on K-12 learning: A meta-analysis. <i>Educational Research and Evaluation, 29</i>(7-8), 452–475. <a href="https://doi.org/10.1080/13803611.2024.2363831" target="_blank" rel="noopener">https://doi.org/10.1080/13803611.2024.2363831</a></p><p>Zimmerman, B. J. (2000). Attaining self-regulation: A social cognitive perspective. En M. Boekaerts, P. R. Pintrich, y M. Zeidner (Eds.), <i>Handbook of self-regulation</i> (pp. 13–39). Academic Press.</p></div>
 </section>
+<script>
+(function(){
+  var q = document.getElementById('ref-q'), list = document.getElementById('ref-list'), out = document.getElementById('ref-count');
+  if(!q || !list) return;
+  var items = [].slice.call(list.querySelectorAll('p'));
+  function norm(s){ return s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,''); }
+  var texts = items.map(function(p){ return norm(p.textContent); });
+  q.addEventListener('input', function(){
+    var v = norm(q.value.trim()), n = 0;
+    items.forEach(function(p,i){ var ok = !v || texts[i].indexOf(v) !== -1; p.hidden = !ok; if(ok) n++; });
+    out.textContent = v ? (n + (n===1 ? ' referencia encontrada' : ' referencias encontradas')) : (items.length + ' referencias');
+  });
+})();
+</script>
 
 <!-- AGRADECIMIENTOS -->
 <section class="view" id="v-agradecimientos">
   <h1 class="page-title">Agradecimientos</h1>
+  <figure class="scene" aria-label="La escuela entre montañas y corazones que flotan"><svg viewBox="0 0 960 280" role="img" aria-label="La escuela entre montañas y corazones que flotan" focusable="false" preserveAspectRatio="xMidYMid meet"><rect width="960" height="280" fill="var(--sc-sky)"/><circle cx="860" cy="58" r="30" fill="var(--sun)" opacity=".85" class="tw"/><path d="M0 220 C 140 170 260 200 380 185 S 620 150 760 190 S 900 175 960 185 V280 H0Z" fill="var(--sc-hill2)"/><path d="M0 245 C 160 215 300 240 460 228 S 760 205 960 232 V280 H0Z" fill="var(--sc-hill)"/>
+<path d="M560 230 V140 L640 92 L720 140 V230Z" fill="var(--paper)"/>
+<path d="M548 146 L640 82 L732 146" fill="none" stroke="var(--coral)" stroke-width="12" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="622" y="180" width="36" height="50" rx="4" fill="var(--brand)"/>
+<rect x="580" y="160" width="26" height="24" rx="3" fill="var(--sky)"/><rect x="674" y="160" width="26" height="24" rx="3" fill="var(--sky)"/>
+<circle cx="640" cy="130" r="12" fill="var(--sun)"/>
+<g fill="var(--coral)"><path class="fl" d="M300 110 c-14 -18 -40 -2 -26 18 l26 26 l26 -26 c14 -20 -12 -36 -26 -18z"/>
+<path class="fl2" d="M390 70 c-9 -12 -26 -1 -17 12 l17 17 l17 -17 c9 -13 -8 -24 -17 -12z" opacity=".8"/>
+<path class="fl" d="M430 160 c-7 -9 -20 -1 -13 9 l13 13 l13 -13 c7 -10 -6 -18 -13 -9z" opacity=".7"/></g>
+<g class="tw" transform="translate(200 70) scale(1)"><path d="M0 -10 L3 -3 L10 0 L3 3 L0 10 L-3 3 L-10 0 L-3 -3Z" fill="var(--sun)"/></g><g class="tw2" transform="translate(800 120) scale(0.9)"><path d="M0 -10 L3 -3 L10 0 L3 3 L0 10 L-3 3 L-10 0 L-3 -3Z" fill="var(--sun)"/></g><g class="fl2"><path transform="translate(480 220) rotate(-15)" d="M0 0 C 10 -14 26 -14 34 0 C 26 14 10 14 0 0Z" fill="var(--leaf2)"/></g></svg><figcaption class="scene-tag">Parada 4 · Agradecimientos</figcaption></figure>
   <div class="prose">
     <p>A la Universidad de Cartagena y a la Maestría en Recursos Digitales Aplicados a la Educación por la formación recibida.</p>
     <p>A la docente Zohami Judith Ardila Ramos, tutora de Proyecto de Aula I, por su orientación durante el desarrollo de este portafolio.</p>
@@ -1029,7 +1351,7 @@ tr:last-child td{border-bottom:0}
     <li><button data-go="unidad">3. Diseñando</button>
       <ul><li><button data-go="unidad">Unidad didáctica</button></li><li><button data-go="infografia">Infografía: propuesta metodológica</button></li><li><button data-go="disenoinst">Diseño instruccional</button></li><li><button data-go="producto">Producto final</button></li><li><button data-go="video">Video tutorial</button></li></ul></li>
     <li><button data-go="referencias">4. Créditos</button>
-      <ul><li><button data-go="referencias">Referencias bibliográficas (APA 7)</button></li><li><button data-go="agradecimientos">Agradecimientos</button></li><li><button data-go="licencia">Licenciamiento (Creative Commons)</button></li><li><button data-go="mapa">Mapa de navegación</button></li></ul></li>
+      <ul><li><button data-go="referencias">Referencias bibliográficas (APA 7, con buscador)</button></li><li><button data-go="agradecimientos">Agradecimientos</button></li><li><button data-go="licencia">Licenciamiento (Creative Commons)</button></li><li><button data-go="mapa">Mapa de navegación</button></li></ul></li>
   </ul>
 </section>
 
@@ -1058,7 +1380,7 @@ tr:last-child td{border-bottom:0}
     ],
     2: [
       'En Colombia, el promedio nacional en Ciencias Naturales en Saber 11 fue de 50 puntos sobre 100, y en el Huila el 67 por ciento de los estudiantes evaluados quedó en los niveles uno y dos.',
-      'En la Institución Educativa Municipal Misael Pastrana Borrero, de los 25 estudiantes de grado noveno, 18 tuvieron desempeño básico o bajo en 2024. Eso equivale al 72 por ciento del curso.',
+      'En la Institución Educativa Municipal Misael Pastrana Borrero, en 2024, de los 25 estudiantes del grupo de grado noveno analizado, 18 tuvieron desempeño básico o bajo. Eso equivale al 72 por ciento del grupo.',
       'Además, se observa desinterés por el área y poca participación, relacionados con metodologías tradicionales y con pocos recursos interactivos.',
       'Por eso nos preguntamos: ¿de qué manera una estrategia pedagógica mediada por Google Classroom fortalece el rendimiento académico en Ciencias Naturales de los estudiantes de grado noveno?'
     ]
